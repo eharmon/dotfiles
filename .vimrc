@@ -14,8 +14,10 @@ syntax on
 set background=dark
 colo peaksea
 " Lightly color 80 lines, so we can remember the old days
-set colorcolumn=81
-highlight ColorColumn ctermbg=235
+if exists('+colorcolumn')
+    set colorcolumn=81
+    highlight ColorColumn ctermbg=235
+endif
 " Turn on mouse support
 set mouse=a
 " Always show the cursor position (overridden by powerline)
