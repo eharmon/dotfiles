@@ -84,3 +84,22 @@ augroup END
 
 " Powerline settings
 "let g:Powerline_symbols="unicode"
+
+" Always show a context line with the cursor
+set scrolloff=1
+
+" Cache things to our homedir, not random places
+if isdirectory(expand('~/.cache/vim'))
+  if &directory =~# '^\.,'
+    set directory^=~/.cache/vim/swap//
+  endif
+  if &backupdir =~# '^\.,'
+    set backupdir^=~/.cache/vim/backup//
+  endif
+  if exists('+undodir') && &undodir =~# '^\.\%(,\|$\)'
+    set undodir^=~/.cache/vim/undo//
+  endif
+endif
+if exists('+undofile')
+  set undofile
+endif
