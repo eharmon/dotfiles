@@ -1,0 +1,13 @@
+#!/bin/zsh
+
+echo Installing symlinks
+foreach file (`find $(pwd) -depth 1 -not -name ".*" -not -name init -not -name scripts`);
+	destination=$HOME/.`basename $file`
+	echo $destination
+	if [ ! -e $destination ]; then
+		ln -s $file $destination
+	else
+		echo File already exists at $destination, please move it aside first!
+		exit 1
+	fi
+end
