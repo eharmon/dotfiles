@@ -1,0 +1,21 @@
+# Set options for grml zshrc
+DONTSETRPROMPT=1
+
+# Set options for our own magic
+MULTIPLEXOR="tmux"
+
+# Toggle screen or tmux launching, if the user requested
+if [[ -e ~/.zsh/zshrc.pre.screen && "$MULTIPLEXOR" == "screen" ]]
+then
+    source ~/.zsh/zshrc.pre.screen
+fi
+if [[ -e ~/.zsh/zshrc.pre.tmux && "$MULTIPLEXOR" == "tmux" ]]
+then
+    source ~/.zsh/zshrc.pre.tmux
+fi
+
+# Add a local homebrew install to the path, if it exists
+if [[ -e ~/.homebrew/bin ]]
+then
+    PATH=~/.homebrew/bin:$PATH
+fi

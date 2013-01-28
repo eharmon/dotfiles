@@ -1,0 +1,1 @@
+zsh/modules/grml-etc-core/etc/zsh/zshrc

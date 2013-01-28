@@ -1,0 +1,40 @@
+# Don't spawn a new shell when we login
+NEW_SHELL_ON_LOGIN=0
+
+# Kill XOFF, it is evil.
+stty stop undef
+
+# Screen magic
+# TODO: Should use $SHLLVL instead
+if [ -z "$STY" ]
+then
+        if [[ "$TERM" != screen* ]]
+        then
+                echo "Setting up screen"
+                screen -wipe "login" > /dev/null
+		screen -S "login" -X wall "joining the session from $TTY" > /dev/null
+                if [ $? != 0 ]; then
+                        screen -d -m -U -S "login"
+                        screen -S "login" -X setenv OLD 1
+                elif [ "$NEW_SHELL_ON_LOGIN" != 0 ]; then
+                        screen -S "login" -X eval screen other
+                fi
+	        screen -S "login" -U -x
+		if [[ $? == 0 ]]; then
+                        print "Screen has exited. Logging you out, goodbye."
+		        exit
+		else
+			echo
+			echo "--------------------------------------------------------------------------------"
+			echo
+			print "\e[0;31mWARNING: There was an error interacting with screen (or screen has crashed), starting a standard shell to let you clean up..."
+			echo
+		fi
+        fi
+else
+        screen -S "login" -X select "$WINDOW" > /dev/null
+        screen -S "login" -p "$WINDOW" -X fit > /dev/null
+	if [ -n "$STY" ]; then
+		clear
+	fi
+fi

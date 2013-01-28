@@ -1,0 +1,145 @@
+# Set prompt
+PROMPT='[ %F{34}%(!.%F{red}.)%n@%B%m%b%(!.%f.) ]:%U%~%u%(!.#.$) '
+
+# Set rprompt error string
+RPROMPT='%(?..[ %F{red}%?%f ])'
+
+# Include hostname-specific magic if it exists
+DOMAIN=`hostname | sed -E 's/^(.*\.)(!?.*\..*)$/\2/'`
+if [ -e ~/.zshrc.$DOMAIN ]
+then
+    echo "Setting shell for $DOMAIN domain"
+    source ~/.zshrc.$DOMAIN
+fi
+
+# Case insensitive filenames on OS X
+if [ `uname` == 'Darwin' ]
+then
+    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+fi
+
+# Title command which properly supports screen, overriding grml version
+title_precmd() {
+    # update VCS information
+    (( ${+functions[vcs_info]} )) && vcs_info
+
+    if [[ $TERM == screen* ]] ; then
+        if [[ -n ${vcs_info_msg_1_} ]] ; then
+            ESC_print ${vcs_info_msg_1_}
+        else
+            ESC_print "zsh"
+        fi
+    fi
+    # adjust title of xterm
+    # see http://www.faqs.org/docs/Linux-mini/Xterm-Title.html
+    case $TERM in
+        (xterm*|rxvt*|screen*)
+            set_title ${(%):-"%n@%m: %~"}
+            ;;
+    esac
+}
+
+# title command which properly support screen, overriding grml version
+title_preexec () {
+# set hostname if not running on host with name 'grml'
+    if [[ -n "$HOSTNAME" ]] && [[ "$HOSTNAME" != $(hostname) ]] ; then
+       NAME="@$HOSTNAME"
+    fi
+# get the name of the program currently running and hostname of local machine
+# set screen window title if running in a screen
+    if [[ "$TERM" == screen* ]] ; then
+        # local CMD=${1[(wr)^(*=*|sudo|ssh|-*)]}       # don't use hostname
+        local CMD="${1[(wr)^(*=*|sudo|ssh|-*)]}$NAME" # use hostname
+        ESC_print ${CMD}
+    fi
+# adjust title of xterm
+    [[ ${NOTITLE} -gt 0 ]] && return 0
+    case $TERM in
+        (xterm*|rxvt*|screen*)
+            set_title "${(%):-"%n@%m:"}" "$1"
+            ;;
+    esac
+}
+
+# Install precmd and preexec functions on the stack
+typeset -ga precmd_functions
+typeset -ga preexec_functions
+precmd_functions+='title_precmd'
+preexec_functions+='title_preexec'
+
+# Keep our auth_sock up to date. This works in tandem with a script in .ssh/rc
+# which keeps the symlink updated every time we ssh again.
+hostname=`hostname -s`
+export SSH_AUTH_SOCK=$HOME/.cache/ssh_auth_sock_$hostname
+
+# Quick alias to make an HTTP server wherever we are
+alias tmphttp="python -m SimpleHTTPServer 8000"
+
+# Some bits to support extra features with multiplexors (screen/tmux), if available
+if [[ -e ~/.zsh/zshrc.local.multiplexed ]]
+then
+    source ~/.zsh/zshrc.local.multiplexed
+fi
+
+# Give us 'wget' on machines which only have curl
+if [[ $+commands[wget] -eq 0 && $+commands[curl] -eq 1 ]]
+then
+    alias wget="curl -O -L"
+fi
+
+# Set the lang, which we have to do now for some reason
+export LANG=en_US.UTF-8
+
+# zsh has native support directory substitution, but this gives us even more power
+scd() {
+    if [ -n "$1" ]; then
+        cd `echo $PWD | sed "$1"`
+    else
+        echo "Give me a substitution!"
+    fi
+}
+
+# Blue on black is impossible to see, change ls highlighting colors
+# grml zshrc already does this for GNU userland, but not BSD
+export LSCOLORS="gxfxcxdxbxegedabagacad"
+
+## ZSH syntax highligher
+# Setup plugins to load
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
+# Source syntax highlighting if it exists
+if [ -e ~/.zsh/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
+then
+    source ~/.zsh/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+# Main
+#ZSH_HIGHLIGHT_STYLES[default]:=none
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=124'
+#ZSH_HIGHLIGHT_STYLES[reserved-word]:=fg=yellow
+ZSH_HIGHLIGHT_STYLES[alias]='fg=25'
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=25'
+ZSH_HIGHLIGHT_STYLES[function]='fg=25'
+ZSH_HIGHLIGHT_STYLES[command]='fg=25'
+#ZSH_HIGHLIGHT_STYLES[precommand]:=fg=green,underline
+#ZSH_HIGHLIGHT_STYLES[commandseparator]:=none
+ZSH_HIGHLIGHT_STYLES[hashed-command]='fg=25'
+#ZSH_HIGHLIGHT_STYLES[path]:=underline
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=28'
+ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=25'
+#ZSH_HIGHLIGHT_STYLES[single-hyphen-option]:=none
+#ZSH_HIGHLIGHT_STYLES[double-hyphen-option]:=none
+#ZSH_HIGHLIGHT_STYLES[back-quoted-argument]:=none
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=250'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=250'
+#ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]:=fg=cyan
+#ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]:=fg=cyan
+#ZSH_HIGHLIGHT_STYLES[assign]:=none
+# Brackets
+ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=160,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=28,bold'
+ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=cyan,bold'
+#ZSH_HIGHLIGHT_STYLES[bracket-level-3]:=fg=magenta,bold}
+#ZSH_HIGHLIGHT_STYLES[bracket-level-4]:=fg=yellow,bold}
+ZSH_HIGHLIGHT_STYLES[bracket-level-5]='fg=25,bold'
+#ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]:=standout}
