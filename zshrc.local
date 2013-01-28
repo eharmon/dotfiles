@@ -87,6 +87,12 @@ then
     alias wget="curl -O -L"
 fi
 
+# Make it easier to type weechat
+if [[ $+commands[weechat-curses] -eq 1 ]]
+then
+    alias weechat="weechat-curses"
+fi
+
 # Set the lang, which we have to do now for some reason
 export LANG=en_US.UTF-8
 
