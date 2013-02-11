@@ -4,14 +4,14 @@ NEW_SHELL_ON_LOGIN=0
 # Kill XOFF, it is evil.
 stty stop undef
 
-# First we copy our local copy of tmux into tmp, this prevents NFS interruptions from hanging tmux
-TMUX_BIN=/tmp/tmux-$USER
+# Use var to allow us to move tmux around
+TMUX_BIN=`which tmux`
 
-if [[ ! -e $TMUX_BIN && -e ~/.homebrew/bin/tmux ]]
+# If we're using homebrew on an NFS homedir, cache tmux
+if [[ -e ~/.homebrew/bin/tmux && `mount | grep $(dirname $(echo ~)) | grep nfs` != ''  ]]
 then
-    cp ~/.homebrew/bin/tmux $TMUX_BIN
-else
-    TMUX_BIN=`which tmux`
+    cp ~/.homebrew/bin/tmux $TMUX_BIN 2>/dev/null
+    TMUX_BIN=/tmp/tmux-$USER
 fi
 
 # Make the magic happen if we're not already in tmux
