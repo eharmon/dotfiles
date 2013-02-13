@@ -10,8 +10,8 @@ TMUX_BIN=`which tmux`
 # If we're using homebrew on an NFS homedir, cache tmux
 if [[ -e ~/.homebrew/bin/tmux && `mount | grep $(dirname $(echo ~)) | grep nfs` != ''  ]]
 then
-    cp ~/.homebrew/bin/tmux $TMUX_BIN 2>/dev/null
     TMUX_BIN=/tmp/tmux-$USER
+    cp ~/.homebrew/bin/tmux $TMUX_BIN 2>/dev/null
 fi
 
 # Make the magic happen if we're not already in tmux
