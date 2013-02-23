@@ -1,8 +1,12 @@
+#### Prompt Setup
+
 # Set prompt
 PROMPT='[ %F{34}%(!.%F{red}.)%n@%B%m%b%(!.%f.) ]:%U%~%u%(!.#.$) '
 
 # Set rprompt error string
 RPROMPT='%(?..[ %F{red}%?%f ])'
+
+#### Includes
 
 # Include hostname-specific magic if it exists
 DOMAIN=`hostname | sed -E 's/^(.*\.)(!?.*\..*)$/\2/'`
@@ -12,11 +16,13 @@ then
     source ~/.zshrc.$DOMAIN
 fi
 
-# Case insensitive filenames on OS X
-if [ `uname` == 'Darwin' ]
+# Some bits to support extra features with multiplexors (screen/tmux), if available
+if [[ -e ~/.zsh/zshrc.local.multiplexed ]]
 then
-    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+    source ~/.zsh/zshrc.local.multiplexed
 fi
+
+#### Functions
 
 # Title command which properly supports screen, overriding grml version
 title_precmd() {
@@ -67,19 +73,19 @@ typeset -ga preexec_functions
 precmd_functions+='title_precmd'
 preexec_functions+='title_preexec'
 
-# Keep our auth_sock up to date. This works in tandem with a script in .ssh/rc
-# which keeps the symlink updated every time we ssh again.
-hostname=`hostname -s`
-export SSH_AUTH_SOCK=$HOME/.cache/ssh_auth_sock_$hostname
+# zsh has native support directory substitution, but this gives us even more power
+scd() {
+    if [ -n "$1" ]; then
+        cd `echo $PWD | sed "$1"`
+    else
+        echo "Give me a substitution!"
+    fi
+}
+
+#### Aliases
 
 # Quick alias to make an HTTP server wherever we are
 alias tmphttp="python -m SimpleHTTPServer 8000"
-
-# Some bits to support extra features with multiplexors (screen/tmux), if available
-if [[ -e ~/.zsh/zshrc.local.multiplexed ]]
-then
-    source ~/.zsh/zshrc.local.multiplexed
-fi
 
 # Give us 'wget' on machines which only have curl
 if [[ $+commands[wget] -eq 0 && $+commands[curl] -eq 1 ]]
@@ -93,23 +99,39 @@ then
     alias weechat="weechat-curses"
 fi
 
+# dos2unix if it isn't on the system
+if [[ $+commands[dos2unix] -eq 0 ]]
+then
+    alias dos2unix="perl -pi -e 's/\r\n|\n|\r/\n/g'"
+fi
+
+# And unix2dos
+if [[ $+commands[unix2dos] -eq 0 ]]
+then
+    alias unix2dos="perl -pi -e 's/\r\n|\n|\r/\r\n/g'"
+fi
+
+#### Misc
+
+# Keep our auth_sock up to date. This works in tandem with a script in .ssh/rc
+# which keeps the symlink updated every time we ssh again.
+hostname=`hostname -s`
+export SSH_AUTH_SOCK=$HOME/.cache/ssh_auth_sock_$hostname
+
+if [ `uname` == 'Darwin' ]
+then
+    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+fi
+
 # Set the lang, which we have to do now for some reason
 export LANG=en_US.UTF-8
-
-# zsh has native support directory substitution, but this gives us even more power
-scd() {
-    if [ -n "$1" ]; then
-        cd `echo $PWD | sed "$1"`
-    else
-        echo "Give me a substitution!"
-    fi
-}
 
 # Blue on black is impossible to see, change ls highlighting colors
 # grml zshrc already does this for GNU userland, but not BSD
 export LSCOLORS="gxfxcxdxbxegedabagacad"
 
-## ZSH syntax highligher
+#### Syntax highlighting
+
 # Setup plugins to load
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
