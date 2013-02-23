@@ -17,5 +17,5 @@ fi
 # Add a local homebrew install to the path, if it exists
 if [[ -e ~/.homebrew/bin ]]
 then
-    PATH=~/.homebrew/bin:$PATH
+    PATH=~/.homebrew/bin:~/.homebrew/sbin:$PATH
 fi
