@@ -1,5 +1,8 @@
 #### Prompt Setup
 
+# Shut off prompt themes, we're not ready for them yet
+prompt off
+
 # Set prompt
 PROMPT='[ %F{34}%(!.%F{red}.)%n@%B%m%b%(!.%f.) ]:%U%~%u%(!.#.$) '
 
