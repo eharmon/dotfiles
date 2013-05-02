@@ -4,14 +4,18 @@ DONTSETRPROMPT=1
 # Set options for our own magic
 MULTIPLEXOR="tmux"
 
-# Toggle screen or tmux launching, if the user requested
-if [[ -e ~/.zsh/zshrc.pre.screen && "$MULTIPLEXOR" == "screen" ]]
+# Only multiplex for remote connections
+if [[ ! -z "$SSH_TTY" ]]
 then
-    source ~/.zsh/zshrc.pre.screen
-fi
-if [[ -e ~/.zsh/zshrc.pre.tmux && "$MULTIPLEXOR" == "tmux" ]]
-then
-    source ~/.zsh/zshrc.pre.tmux
+    # Toggle screen or tmux launching, if the user requested
+    if [[ -e ~/.zsh/zshrc.pre.screen && "$MULTIPLEXOR" == "screen" ]]
+    then
+        source ~/.zsh/zshrc.pre.screen
+    fi
+    if [[ -e ~/.zsh/zshrc.pre.tmux && "$MULTIPLEXOR" == "tmux" ]]
+    then
+        source ~/.zsh/zshrc.pre.tmux
+    fi
 fi
 
 # Add a local homebrew install to the path, if it exists
