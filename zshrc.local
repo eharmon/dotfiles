@@ -114,17 +114,29 @@ then
     alias unix2dos="perl -pi -e 's/\r\n|\n|\r/\r\n/g'"
 fi
 
+# Cat plists, binary or otherwise
 if [[ $+commands[plutil] -eq 1 ]]
 then
     alias plcat="plutil -convert xml1 -o -"
 fi
 
+# Faster search with Spotlight
+if [[ $+commands[mdfind] -eq 1 ]]
+then
+    alias search=mdfind -onlyin
+fi
+
 #### Misc
 
 # Keep our auth_sock up to date. This works in tandem with a script in .ssh/rc
-# which keeps the symlink updated every time we ssh again.
+# which keeps the symlink updated every time we ssh again. If its set a symlink
+# for us, let's pick that up
 hostname=`hostname -s`
-export SSH_AUTH_SOCK=$HOME/.cache/ssh_auth_sock_$hostname
+SOCK=$HOME/.cache/ssh_auth_sock_$hostname
+if [ -e $SOCK ]
+then
+    export SSH_AUTH_SOCK=$SOCK
+fi
 
 if [ `uname` == 'Darwin' ]
 then
