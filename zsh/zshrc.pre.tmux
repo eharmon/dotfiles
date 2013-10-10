@@ -29,8 +29,8 @@ then
             $TMUX_BIN lock-server
         fi
         SESSION="$(echo $SSH_CLIENT | cut -d " " -f 1,2)"
-        # We're forcing 256-color support here, not the smartest thing ever
-        $TMUX_BIN -u new-session -s "$SESSION" -t "login"
+        # TODO: Guess color support based on term title
+        $TMUX_BIN -2 -u new-session -s "$SESSION" -t "login"
         # Once we're done, kill the session, just in case the person just detaches
         #$TMUX_BIN kill-session -t "$SESSION"
         if [[ $? == 0 ]]; then
