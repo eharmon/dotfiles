@@ -1,6 +1,3 @@
-# Don't spawn a new shell when we login
-NEW_SHELL_ON_LOGIN=0
-
 # Kill XOFF, it is evil.
 stty stop undef
 
@@ -22,7 +19,7 @@ then
         # Disable broadcast messages
         mesg n
         # Test if the login session exists, if not, create it, if so, lock the other terminals out so screen resizing works/for privacy
-        $TMUX_BIN has-session -t "login" &>/dev/null 
+        $TMUX_BIN has-session -t "login" &>/dev/null
         if [[ $? -ne 0 ]]; then
             $TMUX_BIN -u -2 new-session -d -s "login"
         else
@@ -31,8 +28,6 @@ then
         SESSION="$(echo $SSH_CLIENT | cut -d " " -f 1,2)"
         # TODO: Guess color support based on term title
         $TMUX_BIN -2 -u new-session -s "$SESSION" -t "login"
-        # Once we're done, kill the session, just in case the person just detaches
-        #$TMUX_BIN kill-session -t "$SESSION"
         if [[ $? == 0 ]]; then
             exit
         else
