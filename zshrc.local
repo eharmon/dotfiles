@@ -19,10 +19,10 @@ then
     source ~/.zshrc.$DOMAIN
 fi
 
-# Some bits to support extra features with multiplexors (screen/tmux), if available
-if [[ -e ~/.zsh/zshrc.local.multiplexed ]]
+# Some bits to support extra features with multiplexors (tmux), if available
+if [ ! -z "$TMUX" ]
 then
-    source ~/.zsh/zshrc.local.multiplexed
+    source ~/.zsh/zshrc.local.tmux
 fi
 
 #### Functions
