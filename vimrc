@@ -63,6 +63,9 @@ set wildignore+=*.orig                           " Merge resolution files
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 let g:syntastic_check_on_open=1
+let g:syntastic_check_on_w=0
+let g:syntastic_enable_perl_checker=1
+let g:syntastic_perl_checkers=['perl']
 
 " Sign column settings
 highlight SignColumn ctermbg=235
