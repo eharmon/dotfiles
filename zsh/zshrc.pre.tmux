@@ -25,7 +25,7 @@ then
         else
             $TMUX_BIN lock-server
         fi
-        SESSION="$(echo $SSH_CLIENT | cut -d " " -f 1,2)"
+        SESSION="$(echo $SSH_CLIENT | cut -d " " -f 1,2 | tr '.' '-')"
         # TODO: Guess color support based on term title
         $TMUX_BIN -2 -u new-session -s "$SESSION" -t "login"
         if [[ $? == 0 ]]; then
