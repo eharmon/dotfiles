@@ -85,6 +85,16 @@ scd() {
     fi
 }
 
+# Override the _force_rehash from grml zshrc to not...actually...rehash
+# Rehashing is expensive when you have network directories in your $PATH
+# So we just don't really want to if we're on nfs.
+if is_nfs_homedir
+then
+    _force_rehash() {
+        return 1
+    }
+fi
+
 #### Aliases
 
 # Quick alias to make an HTTP server wherever we are

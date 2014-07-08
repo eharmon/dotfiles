@@ -5,10 +5,13 @@ stty stop undef
 TMUX_BIN=`which tmux`
 
 # If we're using homebrew on an NFS homedir, cache tmux
-if [[ -e ~/.homebrew/bin/tmux && `mount | grep $(dirname $(echo ~)) | grep nfs` != ''  ]]
+if is_nfs_homedir
 then
-    TMUX_BIN=/tmp/tmux-$USER
-    cp ~/.homebrew/bin/tmux $TMUX_BIN 2>/dev/null
+    if [[ -e ~/.homebrew/bin/tmux ]]
+    then
+        TMUX_BIN=/tmp/tmux-$USER
+        cp ~/.homebrew/bin/tmux $TMUX_BIN 2>/dev/null
+    fi
 fi
 
 # Make the magic happen if we're not already in tmux

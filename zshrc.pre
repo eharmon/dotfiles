@@ -1,6 +1,18 @@
 # Set options for grml zshrc
 DONTSETRPROMPT=1
 
+### Functions
+
+# Insanely unportable, but I haven't found a nice way to find this info on OS X yet.
+is_nfs_homedir() {
+    if [[ `mount | grep $(dirname $(echo ~)) | grep nfs` != '' ]]
+    then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # Only multiplex for remote connections
 if [[ ! -z "$SSH_TTY" ]]
 then
