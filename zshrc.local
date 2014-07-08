@@ -153,6 +153,36 @@ export LANG=en_US.UTF-8
 # grml zshrc already does this for GNU userland, but not BSD
 export LSCOLORS="gxfxcxdxbxegedabagacad"
 
+# Setup a hotkey to quickly apply a regex to the current buffer line
+autoload -U read-from-minibuffer
+
+regex-edit () {
+   # REPLY will be filled by read-from-minibuffer
+   local REPLY temp
+   read-from-minibuffer "Regex edit: "
+   if [ -n $REPLY ]; then
+      temp="$(echo $BUFFER | sed ${REPLY})" 2>/dev/null
+      if [ $? = 0 ]; then
+          BUFFER=$temp
+      fi
+   fi
+}
+
+zle -N regex-edit
+bindkey "^[r" regex-edit
+
+# If you're inside tmux, grep for a line in the current window and add it to the buffer
+# This isn't entirely useful as is, but there's probably something nice we can do with this
+read-pane () {
+    local REPLY temp
+    read-from-minibuffer "Regex search: "
+    [[ ! -z $TMUX ]] && temp=$(tmux capture-pane -p | grep $REPLY | head -n 1)
+    BUFFER="$BUFFER$temp"
+}
+
+zle -N read-pane
+bindkey "^[t" read-pane
+
 #### Syntax highlighting
 
 # Setup plugins to load
