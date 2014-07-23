@@ -95,6 +95,16 @@ then
     }
 fi
 
+# Mount a disk image and try to CD into the most logical partition
+if [[ $+commands[hdiutil] -eq 1 ]]
+then
+    hdicd() {
+        output=`hdiutil mount $1`
+        print $output
+        cd `echo $output | tail -n 1 | awk '{print $3}'`
+    }
+fi
+
 #### Aliases
 
 # Quick alias to make an HTTP server wherever we are
