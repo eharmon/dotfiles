@@ -106,3 +106,12 @@ endif
 if exists('+undofile')
   set undofile
 endif
+
+" Set title string to the filename opened
+if ((&term =~ '^screen') && ($VIM_PLEASE_SET_TITLE =~ '^yes$') || has('gui_running'))
+  set t_ts=k
+  set t_fs=\
+  set title
+  autocmd BufEnter * let &titlestring = "vim: " . expand("%:t")
+  let &titleold = fnamemodify(&shell, ":t")
+endif

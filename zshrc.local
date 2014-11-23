@@ -9,6 +9,11 @@ PROMPT='[ %F{34}%(!.%F{red}.)%n@%B%m%b%(!.%f.) ]:%U%~%u%(!.#.$) '
 # Set rprompt error string
 RPROMPT='%(?..[ %F{red}%?%f ])'
 
+#### Vars
+
+# Tell our zshrc to pass -p to the vim options to open multiple files in tabs
+VIM_OPTIONS='-p'
+
 #### Includes
 
 # Include hostname-specific magic if it exists
@@ -43,7 +48,7 @@ title_precmd() {
     # see http://www.faqs.org/docs/Linux-mini/Xterm-Title.html
     case $TERM in
         (xterm*|rxvt*|screen*)
-            set_title ${(%):-"%n@%m: %~"}
+            set_title ${(%):-"%n@%m: [%~]"}
             ;;
     esac
 }
@@ -65,7 +70,7 @@ title_preexec () {
     [[ ${NOTITLE} -gt 0 ]] && return 0
     case $TERM in
         (xterm*|rxvt*|screen*)
-            set_title "${(%):-"%n@%m:"}" "$1"
+            set_title "${(%):-"%n@%m:"}" "[$1]"
             ;;
     esac
 }
