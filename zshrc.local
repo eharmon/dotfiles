@@ -110,6 +110,18 @@ then
     }
 fi
 
+# Copy a file from remote directly into the paste buffer
+if [[ $+commands[pbcopy] -eq 1 ]]
+then
+    rpbcopy() {
+        if [[ -n "$1" && -n "$2" ]]; then
+            ssh $1 "cat $2" | pbcopy
+        else
+            echo "Must specify: pbcopy [user@]host filename"
+        fi
+    }
+fi
+
 #### Aliases
 
 # Quick alias to make an HTTP server wherever we are
@@ -118,7 +130,7 @@ alias tmphttp="python -m SimpleHTTPServer 8000"
 # Give us 'wget' on machines which only have curl
 if [[ $+commands[wget] -eq 0 && $+commands[curl] -eq 1 ]]
 then
-    alias wget="curl -O -L"
+    alias wget="curl -OLRJw \"\n'%{filename_effective}' saved [%{size_download}]\n\""
 fi
 
 # Make it easier to type weechat
