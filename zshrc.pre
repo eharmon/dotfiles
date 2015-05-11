@@ -24,3 +24,7 @@ if [[ -e ~/.homebrew ]]
 then
     PATH=~/.homebrew/bin:~/.homebrew/sbin:$PATH
 fi
+
+# Add some nice ls options
+typeset -ga ls_options
+ls_options=( -F )
