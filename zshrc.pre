@@ -1,17 +1,26 @@
-# Set options for grml zshrc
-DONTSETRPROMPT=1
-
 ### Functions
 
-# Insanely unportable, but I haven't found a nice way to find this info on OS X yet.
 is_nfs_homedir() {
-    if [[ `mount | grep $(dirname $(echo ~)) | grep nfs` != '' ]]
+    df -t nfs ~ > /dev/null 2>&1
+    if [ $? -eq 1 ]
     then
         return 0
     else
         return 1
     fi
 }
+
+#### Set options for grml zshrc
+
+# Don't set rprompt
+DONTSETRPROMPT=1
+# Don't check for mail
+MAILCHECK=0
+# If we're on a homedir, don't restore the dirstack so we don't trigger automounts accidentally
+if is_nfs_homedir
+then
+    zstyle ':grml:chpwd:dirstack' enable false
+fi
 
 # Only multiplex for remote connections
 if [[ ! -z "$SSH_TTY" ]]
@@ -23,6 +32,14 @@ fi
 if [[ -e ~/.homebrew ]]
 then
     PATH=~/.homebrew/bin:~/.homebrew/sbin:$PATH
+fi
+
+# Get the short version of the currently running python
+PYVER=$(python -c "import platform; print '.'.join(platform.python_version().split('.')[:2])")
+
+if [[ -e ~/Library/Python/$PYVER/bin ]]
+then
+    PATH=~/Library/Python/$PYVER/bin:$PATH
 fi
 
 # Add some nice ls options
