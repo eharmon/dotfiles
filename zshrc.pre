@@ -22,12 +22,6 @@ then
     zstyle ':grml:chpwd:dirstack' enable false
 fi
 
-# Only multiplex for remote connections
-if [[ ! -z "$SSH_TTY" ]]
-then
-    source ~/.zsh/zshrc.pre.tmux
-fi
-
 # Add a local homebrew install to the path, if it exists
 if [[ -e ~/.homebrew ]]
 then
@@ -45,3 +39,9 @@ fi
 # Add some nice ls options
 typeset -ga ls_options
 ls_options=( -F )
+
+# Only multiplex for remote connections
+if [[ ! -z "$SSH_TTY" ]]
+then
+    source ~/.zsh/zshrc.pre.tmux
+fi
