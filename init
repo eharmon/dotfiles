@@ -1,13 +1,34 @@
-#!/bin/zsh
+#!/bin/bash
 
-echo Installing symlinks
-foreach file (`find $(pwd) -depth 1 -not -name ".*" -not -name init -not -name scripts`);
-	destination=$HOME/.`basename $file`
-	echo $destination
-	if [ ! -e $destination ]; then
-		ln -s $file $destination
-	else
-		echo File already exists at $destination, please move it aside first!
-		exit 1
-	fi
-end
+echo -n "Calculating install dir..."
+ourdir=$(dirname $BASH_SOURCE)
+if [ $ourdir = '.' ]; then
+    ourdir=$(pwd)
+fi
+rel=$(python -c "import os.path; print os.path.relpath('$ourdir', '$HOME')")
+echo "~/$rel"
+
+echo "Installing symlinks..."
+fail=0
+for source in tmux.conf vim vimrc zsh zshrc zshrc.local zshrc.pre; do
+    if [[ ! -e ~/.$source ]]; then
+        echo -e "\tCreating .$source..."
+        ln -hs $rel/$source $HOME/.$source
+    else
+        if [ $(python -c "import os; print os.readlink('$HOME/.$source')") = "$rel/$source" ]; then
+            echo -e "\t.$source is already correct, skipping."
+        else
+            echo -e "\tFile already exists at .$source, please move it aside first!"
+            fail=1
+        fi
+    fi
+done
+
+echo "Fetching submodules..."
+$(git -C $ourdir submodule update --init)
+
+echo "Done."
+
+if [ $fail -eq 1 ]; then
+    exit 1
+fi
