@@ -3,7 +3,7 @@
 _link () {
     if [[ ! -e $2 ]]; then
         echo -e "\tCreating $2..."
-        ln -hs $1 $2
+        ln -ns $1 $2
     else
         if [[ -L $2 && $(python -c "import os; print os.readlink('$2')") == "$1" ]]; then
             echo -e "\t$2 is already correct, skipping."
