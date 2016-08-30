@@ -1,27 +1,40 @@
 #!/bin/bash
 
+_link () {
+    if [[ ! -e $2 ]]; then
+        echo -e "\tCreating $2..."
+        ln -hs $1 $2
+    else
+        if [[ -L $2 && $(python -c "import os; print os.readlink('$2')") == "$1" ]]; then
+            echo -e "\t$2 is already correct, skipping."
+        else
+            echo -e "\tFile already exists at $2, please move it aside first!"
+            failed=1
+        fi
+    fi
+}
+
+failed=0
+
 echo -n "Calculating install dir..."
 ourdir=$(dirname $BASH_SOURCE)
-if [ $ourdir = '.' ]; then
+if [ $ourdir == '.' ]; then
     ourdir=$(pwd)
 fi
 rel=$(python -c "import os.path; print os.path.relpath('$ourdir', '$HOME')")
 echo "~/$rel"
 
 echo "Installing symlinks..."
-fail=0
+
+# Generic symlinks in ~
 for source in tmux.conf vim vimrc zsh zshrc zshrc.local zshrc.pre; do
-    if [[ ! -e ~/.$source ]]; then
-        echo -e "\tCreating .$source..."
-        ln -hs $rel/$source $HOME/.$source
-    else
-        if [ $(python -c "import os; print os.readlink('$HOME/.$source')") = "$rel/$source" ]; then
-            echo -e "\t.$source is already correct, skipping."
-        else
-            echo -e "\tFile already exists at .$source, please move it aside first!"
-            fail=1
-        fi
-    fi
+    _link $rel/$source $HOME/.$source
+done
+
+# XDG symlinks
+mkdir -p $HOME/.config
+for source in nvim powerline; do
+    _link ../$rel/config/$source $HOME/.config/$source
 done
 
 echo "Fetching submodules..."
@@ -29,6 +42,6 @@ $(git -C $ourdir submodule update --init)
 
 echo "Done."
 
-if [ $fail -eq 1 ]; then
+if [ $failed -eq 1 ]; then
     exit 1
 fi

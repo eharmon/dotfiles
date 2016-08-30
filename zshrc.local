@@ -3,11 +3,24 @@
 # Shut off prompt themes, we're not ready for them yet
 prompt off
 
-# Set prompt
-PROMPT='[ %F{34}%(!.%F{red}.)%n@%B%m%b%(!.%f.) ]:%U%~%u%(!.#.$) '
+# If we've got pip, we can see if we're using powerline
+if [[ $+commands[pip] -eq 1 ]];
+then
+    pip_packages=$(pip show powerline-status | grep Location | sed 's/Location: //')
+    zsh_powerline=$pip_packages/powerline/bindings/zsh/powerline.zsh
+fi
 
-# Set rprompt error string
-RPROMPT='%(?..[ %F{red}%?%f ])'
+
+if [[ ! -z "$zsh_powerline" && -e $zsh_powerline ]];
+then
+    source $zsh_powerline
+else
+# Set prompt
+    PROMPT='[ %F{34}%(!.%F{red}.)%n@%B%m%b%(!.%f.) ]:%U%~%u%(!.#.$) '
+
+    # Set rprompt error string
+    RPROMPT='%(?..[ %F{red}%?%f ])'
+fi
 
 #### Vars
 
@@ -229,6 +242,13 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 if [ -e ~/.zsh/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
 then
     source ~/.zsh/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+# Source fzf if it's installed
+if [ -e ~/.homebrew/opt/fzf ]
+then
+    source ~/.homebrew/opt/fzf/shell/completion.zsh
+    source ~/.homebrew/opt/fzf/shell/key-bindings.zsh
 fi
 
 # Main
