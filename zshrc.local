@@ -176,6 +176,12 @@ then
     alias search=mdfind -onlyin
 fi
 
+# Pretty-print JSON
+if [[ $+commands[plutil] -eq 1 ]]
+then
+    alias ppj="plutil -convert json -r - -o -"
+fi
+
 #### Misc
 
 # Use fancy history locking
