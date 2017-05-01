@@ -13,11 +13,6 @@ syntax on
 " Set the background to dark and turn on peaksea color scheme
 set background=dark
 colo peaksea
-" Lightly color 80 lines, so we can remember the old days
-if exists('+colorcolumn')
-    highlight ColorColumn ctermbg=235
-    set colorcolumn=81
-endif
 " Turn on mouse support
 set mouse=a
 " Always show the cursor position (overridden by powerline)
