@@ -6,7 +6,7 @@ prompt off
 # If we've got pip, we can see if we're using powerline
 if [[ $+commands[pip] -eq 1 ]];
 then
-    pip_packages=$(pip show powerline-status | grep Location | sed 's/Location: //')
+    pip_packages=$(pip show powerline-status | grep Location | sed 's/Location: //') 2>/dev/null
     zsh_powerline=$pip_packages/powerline/bindings/zsh/powerline.zsh
 fi
 
