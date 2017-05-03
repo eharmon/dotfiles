@@ -21,16 +21,21 @@ then
     then
         # Disable broadcast messages
         mesg n
-        # Test if the login session exists, if not, create it, if so, lock the other terminals out so screen resizing works/for privacy
-        $TMUX_BIN has-session -t "login" &>/dev/null
+        # Test if the login session exists, if not, create it and leave it detached so we have a baseline session.
+        # If so, lock the other terminals out so screen resizing works.
+        $TMUX_BIN has-session -t "base" &>/dev/null
         if [[ $? -ne 0 ]]; then
-            $TMUX_BIN new-session -d -s "login"
+            # Create our base session, we'll never actually connect to this but it'll hold our windows open when ssh isn't connected using exit-unattached
+            $TMUX_BIN new-session -d -s "base" -t "ssh" \; set-option exit-unattached off
         else
+            #SESSIONS=$(tmux list-sessions -F "#{session_name}:#{session_group}" | grep ":ssh$" | cut -d':' -f1 | awk '{ print "\""$0"\""}')
+            #foreach session ($SESSIONS)
+            #    $TMUX_BIN lock-client -t "$session"
+            #end
             $TMUX_BIN lock-server
         fi
-        SESSION="$(echo $SSH_CLIENT | cut -d " " -f 1,2 | tr '.' '-')"
-        # TODO: Guess color support based on term title
-        $TMUX_BIN -2 -u new-session -s "$SESSION" -t "login"
+        SESSION="$(echo $SSH_CLIENT | cut -d " " -f 1,2 | tr '.' ',' | tr ':' '#' | tr ' ' '_')"
+        $TMUX_BIN -u new-session -s "ssh from $SESSION" -t "ssh" \; set-option destroy-unattached
         if [[ $? == 0 ]]; then
             exit
         else
