@@ -24,7 +24,7 @@ then
         # Test if the login session exists, if not, create it, if so, lock the other terminals out so screen resizing works/for privacy
         $TMUX_BIN has-session -t "login" &>/dev/null
         if [[ $? -ne 0 ]]; then
-            $TMUX_BIN -u -2 new-session -d -s "login"
+            $TMUX_BIN new-session -d -s "login"
         else
             $TMUX_BIN lock-server
         fi
