@@ -1,7 +1,7 @@
-*ZoomWin.txt*	Zoom into/out-of a window		Jul 09, 2010
+*ZoomWin.txt*	Zoom into/out-of a window		Jun 18, 2012
 Authors: Charles E. Campbell, Jr.			*zoomwin*
          Ron Aaron
-Copyright: (c) 2004-2010 by Charles E. Campbell, Jr.	*zoomwin-copyright*
+Copyright: (c) 2004-2012 by Charles E. Campbell, Jr.	*zoomwin-copyright*
            The VIM LICENSE applies to ZoomWin.vim and ZoomWin.txt
            (see |copyright|) except use "ZoomWin" instead of "Vim"
 	   No warranty, express or implied.  Use At-Your-Own-Risk.
@@ -36,7 +36,6 @@ Copyright: (c) 2004-2010 by Charles E. Campbell, Jr.	*zoomwin-copyright*
    these commands)
 
 ==============================================================================
-
 3. Options						*zoomwin-options*
 
    *g:ZoomWin_funcref* : this variable is used as a function reference
@@ -61,6 +60,12 @@ Copyright: (c) 2004-2010 by Charles E. Campbell, Jr.	*zoomwin-copyright*
 			    endif
 <			 The function, ZWStatline(), is called by ZoomWin()
 			 every time it changes state.
+
+	*g:zoomwin_preserve_taglist*	open and close a taglist window on
+	                              zooms
+
+	*g:zoomwin_preserve_winmanager*	open and close winmanager a window on
+	                              zooms
 			
 
 ==============================================================================
@@ -72,6 +77,8 @@ Copyright: (c) 2004-2010 by Charles E. Campbell, Jr.	*zoomwin-copyright*
 	    Oct 11, 2009   * The state wasn't being passed along to
 			     g:ZoomWin_funcref as intended.  Fixed.
 	    Jul 09, 2010   * Put an exists() test into s:RestoreWinVars()
+	    Jan 18, 2011   * (reported by talek) bypass winfixheight option
+	    Apr 06, 2011   * Saves and restores local options for every window
 	v23 Apr 24, 2008 : * when |'scrollbind'| was activated: when ZoomWin
 			     attempted to restore multiple-windows, the cursor
 			     position was incorrect.  Fixed.
