@@ -115,15 +115,13 @@ endif
 " Airline options
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
+"let g:airline_powerline_fonts = 1
 let g:airline_theme = 'powerlineish'
 let g:airline#extensions#whitespace#enabled = 0
 
-" Signify options
-highlight SignifySignAdd    cterm=bold ctermfg=119 ctermbg=236
-highlight SignifySignDelete cterm=bold ctermfg=167 ctermbg=236
-highlight SignifySignChange cterm=bold ctermfg=227 ctermbg=236
-" Only enable svn support
-let g:signify_vcs_list = [ 'svn' ]
+" Airline related, we don't need to show the mode at the bottom since airline
+" is already doing it for us
+set noshowmode
 
 " GitGutter options
 highlight GitGutterAdd cterm=bold ctermfg=119 ctermbg=236
@@ -146,7 +144,6 @@ if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 endif
-
 
 " Keyboard shortcuts
 let mapleader = ','
