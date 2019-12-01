@@ -26,6 +26,11 @@ fi
 if [[ -e ~/.homebrew ]]
 then
     PATH=~/.homebrew/bin:~/.homebrew/sbin:$PATH
+
+    # Setup completions, grml will call compinit for us
+    if type brew &>/dev/null; then
+        FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+    fi
 fi
 
 # Get the short version of the currently running python
