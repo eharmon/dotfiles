@@ -52,3 +52,9 @@
 [submodule "vim/bundle/ir_black"]
 	path = vim/bundle/ir_black
 	url = https://github.com/twerth/ir_black.git
+[submodule "zsh/modules/zsh-autosuggestions"]
+	path = zsh/modules/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "zsh/modules/zsh-bd"]
+	path = zsh/modules/zsh-bd
+	url = https://github.com/Tarrasch/zsh-bd.git

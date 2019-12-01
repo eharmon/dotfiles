@@ -239,6 +239,17 @@ read-pane () {
 zle -N read-pane
 bindkey "^[t" read-pane
 
+#### Autosuggestions
+
+ZSH_AUTOSUGGEST_USE_ASYNC=1
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+source ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+#### Backdir
+
+source ~/.zsh/modules/zsh-bd/bd.zsh
+
 #### Syntax highlighting
 
 # Setup plugins to load
