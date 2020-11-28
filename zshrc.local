@@ -187,6 +187,7 @@ then
     export SSH_AUTH_SOCK=$SOCK
 fi
 
+# Case-insensitve matching on macOS as it usually has a case-insensitive filesystem
 if [[ `uname` == 'Darwin' ]]
 then
     zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'

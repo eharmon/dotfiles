@@ -16,12 +16,10 @@ then
     fi
 fi
 
-# Get the short version of the currently running python
-PYVER=$(python -c "import platform; print '.'.join(platform.python_version().split('.')[:2])")
-
-if [[ -e ~/Library/Python/$PYVER/bin ]]
+# Add any locally installed python binaries to the path, using the currently running default python
+if [[ $+commands[python] -eq 1 ]]
 then
-    PATH=~/Library/Python/$PYVER/bin:$PATH
+    PATH="`python -m site --user-base`/bin:$PATH"
 fi
 
 # Add some nice ls options
