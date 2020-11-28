@@ -7,7 +7,7 @@ TMUX_BIN=`which tmux`
 # Make the magic happen if we're not already in tmux
 if [ -z "$TMUX" ]
 then
-    if [[ "$TERM" != screen* ]]
+    if [[ "$TERM" != screen* && $+commands[tmux] -eq 1 ]]
     then
         # Disable broadcast messages
         mesg n
