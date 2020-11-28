@@ -4,16 +4,6 @@ stty stop undef
 # Use var to allow us to move tmux around
 TMUX_BIN=`which tmux`
 
-# If we're using homebrew on an NFS homedir, cache tmux
-if is_nfs_homedir
-then
-    if [[ -e ~/.homebrew/bin/tmux ]]
-    then
-        TMUX_BIN=/tmp/tmux-$USER
-        cp ~/.homebrew/bin/tmux $TMUX_BIN 2>/dev/null
-    fi
-fi
-
 # Make the magic happen if we're not already in tmux
 if [ -z "$TMUX" ]
 then

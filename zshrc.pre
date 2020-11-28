@@ -1,26 +1,9 @@
-### Functions
-
-is_nfs_homedir() {
-    df -t nfs ~ > /dev/null 2>&1
-    if [ $? -eq 1 ]
-    then
-        return 0
-    else
-        return 1
-    fi
-}
-
 #### Set options for grml zshrc
 
 # Don't set rprompt
 DONTSETRPROMPT=1
 # Don't check for mail
 MAILCHECK=0
-# If we're on a homedir, don't restore the dirstack so we don't trigger automounts accidentally
-if is_nfs_homedir
-then
-    zstyle ':grml:chpwd:dirstack' enable false
-fi
 
 # Add a local homebrew install to the path, if it exists
 if [[ -e ~/.homebrew ]]
