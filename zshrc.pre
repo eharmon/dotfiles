@@ -16,6 +16,11 @@ then
     fi
 fi
 
+if [[ -e /opt/homebrew/bin/brew ]]
+then
+    eval $(/opt/homebrew/bin/brew shellenv)
+fi
+
 # Add any locally installed python binaries to the path, using the currently running default python
 if [[ $+commands[python] -eq 1 ]]
 then
