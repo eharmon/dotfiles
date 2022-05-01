@@ -5,26 +5,33 @@ DONTSETRPROMPT=1
 # Don't check for mail
 MAILCHECK=0
 
-# Add a local homebrew install to the path, if it exists
-if [[ -e ~/.homebrew ]]
+# Setup both potential homebrew locations
+if [[ -e ~/.homebrew/bin/brew ]]
 then
-    PATH=~/.homebrew/bin:~/.homebrew/sbin:$PATH
-
-    # Setup completions, grml will call compinit for us
-    if type brew &>/dev/null; then
-        FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
-    fi
+    HOMEBREW_PATH=~/.homebrew/bin/brew
 fi
-
 if [[ -e /opt/homebrew/bin/brew ]]
 then
-    eval $(/opt/homebrew/bin/brew shellenv)
+    HOMEBREW_PATH=/opt/homebrew/bin/brew
+fi
+
+# Initialize the paths via homebrew
+if [[ ! -z "$HOMEBREW_PATH" ]]
+then
+    eval $($HOMEBREW_PATH shellenv)
+    # Setup completions, grml will call compinit for us
+    FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
 
 # Add any locally installed python binaries to the path, using the currently running default python
 if [[ $+commands[python] -eq 1 ]]
 then
     PATH="`python -m site --user-base`/bin:$PATH"
+fi
+# If we have explicit python 3, add that in front to prefer it
+if [[ $+commands[python3] -eq 1 ]]
+then
+    PATH="`python3 -m site --user-base`/bin:$PATH"
 fi
 
 # Add some nice ls options
