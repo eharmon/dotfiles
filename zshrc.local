@@ -172,6 +172,14 @@ then
     alias ppj="plutil -convert json -r - -o -"
 fi
 
+# Use neovim
+if [[ $+commands[nvim] -eq 1 ]]
+then
+    function vim {
+        VIM_PLEASE_SET_TITLE='yes' command nvim ${VIM_OPTIONS} "$@"
+    }
+fi
+
 #### Misc
 
 # Use fancy history locking
