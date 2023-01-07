@@ -5,12 +5,13 @@ DONTSETRPROMPT=1
 # Don't check for mail
 MAILCHECK=0
 
+#### PATHS
+
 # Setup both potential homebrew locations
 if [[ -e ~/.homebrew/bin/brew ]]
 then
     HOMEBREW_PATH=~/.homebrew/bin/brew
-fi
-if [[ -e /opt/homebrew/bin/brew ]]
+elif [[ -e /opt/homebrew/bin/brew ]]
 then
     HOMEBREW_PATH=/opt/homebrew/bin/brew
 fi
@@ -34,9 +35,19 @@ then
     PATH="`python3 -m site --user-base`/bin:$PATH"
 fi
 
+# Add local bin at the end, if it exists
+if [[ -d ~/bin ]];
+then
+    PATH=$PATH:~/bin
+fi
+
+#### Basic options we want everywhere
+
 # Add some nice ls options
 typeset -ga ls_options
 ls_options=( -F )
+
+#### Setup multiplexing
 
 # Only multiplex for remote connections
 if [[ ! -z "$SSH_TTY" ]]
