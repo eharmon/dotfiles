@@ -2,20 +2,16 @@
 
 function python_paths {
     # Add any locally installed python binaries to the path, using the currently running default python
-    if [[ $+commands[python] -eq 1 ]]
-    then
+    if (( $+commands[python] )); then
         local PYTHON_BIN=$(python -m site --user-base)/bin
-        if [[ -d $PYTHON_BIN ]];
-        then
+        if [[ -d $PYTHON_BIN ]]; then
             PATH="$PYTHON_BIN:$PATH"
         fi
     fi
     # If we have explicit python 3, add that in front to prefer it
-    if [[ $+commands[python3] -eq 1 ]]
-    then
+    if (( $+commands[python3] )); then
         local PYTHON_BIN=$(python3 -m site --user-base)/bin
-        if [[ -d $PYTHON_BIN ]];
-        then
+        if [[ -d $PYTHON_BIN ]]; then
             PATH="$PYTHON_BIN:$PATH"
         fi
     fi
@@ -31,15 +27,13 @@ prompt off
 
 # If we've got powerline installed in the path, find the bindings
 # TODO: Because we're lazy loading Python paths above, this is broken
-if [[ $+commands[powerline] -eq 1 ]];
-then
+if (( $+commands[powerline] )); then
     # TODO: This is kinda slow
     pip_packages=$(pip show powerline-status | grep Location | sed 's/Location: //') 2>/dev/null
     zsh_powerline=$pip_packages/powerline/bindings/zsh/powerline.zsh
 fi
 
-if [[ ! -z "$zsh_powerline" && -e $zsh_powerline ]];
-then
+if [[ ! -z "$zsh_powerline" && -e $zsh_powerline ]]; then
     source $zsh_powerline
 else
     # Set prompt
@@ -58,15 +52,13 @@ VIM_OPTIONS='-p'
 
 # Include hostname-specific magic if it exists
 local DOMAIN=${HOST#*.}
-if [ -e ~/.zshrc.$DOMAIN ]
-then
+if [[ -e ~/.zshrc.$DOMAIN ]]; then
     echo "Setting shell for $DOMAIN domain"
     source ~/.zshrc.$DOMAIN
 fi
 
 # Some bits to support extra features with multiplexors (tmux), if available
-if [ ! -z "$TMUX" ]
-then
+if [[ ! -z "$TMUX" ]]; then
     source ~/.zsh/zshrc.local.tmux
 fi
 
@@ -124,7 +116,7 @@ preexec_functions+='title_preexec'
 
 # zsh has native support directory substitution, but this gives us even more power
 scd() {
-    if [ -n "$1" ]; then
+    if [[ -n "$1" ]]; then
         cd $(echo $PWD | sed "$1")
     else
         echo "Give me a substitution!"
@@ -132,8 +124,7 @@ scd() {
 }
 
 # Mount a disk image and try to CD into the most logical partition
-if [[ $+commands[hdiutil] -eq 1 ]]
-then
+if (( $+commands[hdiutil] )); then
     hdicd() {
         output=$(hdiutil mount $1)
         print $output
@@ -142,8 +133,7 @@ then
 fi
 
 # Copy a file from remote directly into the paste buffer
-if [[ $+commands[pbcopy] -eq 1 ]]
-then
+if (( $+commands[pbcopy] )); then
     rpbcopy() {
         if [[ -n "$1" && -n "$2" ]]; then
             ssh $1 "cat $2" | pbcopy
@@ -156,56 +146,47 @@ fi
 #### Aliases
 
 # Quick alias to make an HTTP server wherever we are
-if [[ $+commands[python3] -eq 1 ]]
-then
+if (( $+commands[python3] )); then
     alias tmphttp="python3 -m http.server 8000"
 fi
 
 # Give us 'wget' on machines which only have curl
-if [[ $+commands[wget] -eq 0 && $+commands[curl] -eq 1 ]]
-then
+if (( ! $+commands[wget] && $+commands[curl] )); then
     alias wget="curl -OLRJw \"\n'%{filename_effective}' saved [%{size_download}]\n\""
 fi
 
 # Make it easier to type weechat
-if [[ $+commands[weechat-curses] -eq 1 ]]
-then
+if (( $+commands[weechat-curses] )); then
     alias weechat="weechat-curses"
 fi
 
 # dos2unix if it isn't on the system
-if [[ $+commands[dos2unix] -eq 0 ]]
-then
+if (( ! $+commands[dos2unix] )); then
     alias dos2unix="perl -pi -e 's/\r\n|\n|\r/\n/g'"
 fi
 
 # And unix2dos
-if [[ $+commands[unix2dos] -eq 0 ]]
-then
+if (( ! $+commands[unix2dos] )); then
     alias unix2dos="perl -pi -e 's/\r\n|\n|\r/\r\n/g'"
 fi
 
 # Cat plists, binary or otherwise
-if [[ $+commands[plutil] -eq 1 ]]
-then
+if (( $+commands[plutil] )); then
     alias plcat="plutil -convert xml1 -o -"
 fi
 
 # Faster search with Spotlight
-if [[ $+commands[mdfind] -eq 1 ]]
-then
+if (( $+commands[mdfind] )); then
     alias search=mdfind -onlyin
 fi
 
 # Pretty-print JSON
-if [[ $+commands[plutil] -eq 1 ]]
-then
+if (( $+commands[plutil] )); then
     alias ppj="plutil -convert json -r - -o -"
 fi
 
 # Use neovim
-if [[ $+commands[nvim] -eq 1 ]]
-then
+if (( $+commands[nvim] )); then
     function vim {
         VIM_PLEASE_SET_TITLE='yes' command nvim ${VIM_OPTIONS} "$@"
     }
@@ -221,14 +202,12 @@ is-at-least 4.3.7 && setopt HIST_FCNTL_LOCK
 # for us, let's pick that up
 # TODO: Do we even need this anymore?
 SOCK=$HOME/.cache/ssh_auth_sock_$HOST
-if [ -e $SOCK ]
-then
+if [[ -e $SOCK ]]; then
     export SSH_AUTH_SOCK=$SOCK
 fi
 
 # Case-insensitve matching on macOS as it usually has a case-insensitive filesystem
-if [[ $OSTYPE == darwin* ]]
-then
+if [[ $OSTYPE == darwin* ]]; then
     zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 fi
 
@@ -268,12 +247,6 @@ read-pane () {
 
 zle -N read-pane
 bindkey "^[t" read-pane
-
-#### Autosuggestions
-
-ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-
-zsh-defer source ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 #### Backdir
 
@@ -323,11 +296,16 @@ function load_syntax_highlighting {
 
 zsh-defer -a +pr load_syntax_highlighting
 
+#### Autosuggestions
+
+ZSH_AUTOSUGGEST_MANUAL_REBIND=1
+
+zsh-defer source ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 #### fzf for search
 
 # Source fzf if it's installed
-if [ -e $HOMEBREW_PREFIX/opt/fzf ]
-then
+if [[ -e $HOMEBREW_PREFIX/opt/fzf ]]; then
     zsh-defer source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
     zsh-defer source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
 fi

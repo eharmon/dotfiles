@@ -17,17 +17,14 @@ source ~/.zsh/modules/zsh-defer/zsh-defer.plugin.zsh
 function setup_homebrew {
     local BREW_PATH
     # Setup both potential homebrew locations
-    if [[ -e ~/.homebrew/bin/brew ]]
-    then
+    if [[ -e ~/.homebrew/bin/brew ]]; then
         BREW_PATH=~/.homebrew/bin/brew
-    elif [[ -e /opt/homebrew/bin/brew ]]
-    then
+    elif [[ -e /opt/homebrew/bin/brew ]]; then
         BREW_PATH=/opt/homebrew/bin/brew
     fi
 
     # Initialize the paths via homebrew
-    if [[ ! -z "$BREW_PATH" ]]
-    then
+    if [[ ! -z "$BREW_PATH" ]]; then
         eval $($BREW_PATH shellenv)
         # Setup completions, grml will call compinit for us
         FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
@@ -38,8 +35,7 @@ function setup_homebrew {
 setup_homebrew
 
 # Add local bin at the end, if it exists
-if [[ -d ~/bin ]];
-then
+if [[ -d ~/bin ]]; then
     PATH=$PATH:~/bin
 fi
 
@@ -52,8 +48,7 @@ ls_options=( -F )
 #### Setup multiplexing
 
 # Only multiplex for remote connections
-if [[ ! -z "$SSH_TTY" ]]
-then
+if [[ ! -z "$SSH_TTY" ]]; then
     source ~/.zsh/zshrc.pre.tmux
 fi
 
