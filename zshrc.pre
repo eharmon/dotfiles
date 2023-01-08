@@ -29,12 +29,20 @@ unset BREW_PATH
 # Add any locally installed python binaries to the path, using the currently running default python
 if [[ $+commands[python] -eq 1 ]]
 then
-    PATH="`python -m site --user-base`/bin:$PATH"
+    local PYTHON_BIN=$(python -m site --user-base)/bin
+    if [[ -d $PYTHON_BIN ]];
+    then
+        PATH="$PYTHON_BIN:$PATH"
+    fi
 fi
 # If we have explicit python 3, add that in front to prefer it
 if [[ $+commands[python3] -eq 1 ]]
 then
-    PATH="`python3 -m site --user-base`/bin:$PATH"
+    local PYTHON_BIN=$(python3 -m site --user-base)/bin
+    if [[ -d $PYTHON_BIN ]];
+    then
+        PATH="$PYTHON_BIN:$PATH"
+    fi
 fi
 
 # Add local bin at the end, if it exists
