@@ -1,3 +1,29 @@
+#### Paths
+
+function python_paths {
+    # Add any locally installed python binaries to the path, using the currently running default python
+    if [[ $+commands[python] -eq 1 ]]
+    then
+        local PYTHON_BIN=$(python -m site --user-base)/bin
+        if [[ -d $PYTHON_BIN ]];
+        then
+            PATH="$PYTHON_BIN:$PATH"
+        fi
+    fi
+    # If we have explicit python 3, add that in front to prefer it
+    if [[ $+commands[python3] -eq 1 ]]
+    then
+        local PYTHON_BIN=$(python3 -m site --user-base)/bin
+        if [[ -d $PYTHON_BIN ]];
+        then
+            PATH="$PYTHON_BIN:$PATH"
+        fi
+    fi
+}
+
+# Very unlikely to need this immediately, so lazy load it
+zsh-defer -a python_paths
+
 #### Prompt Setup
 
 # Shut off prompt themes, we're not ready for them yet
@@ -98,7 +124,7 @@ preexec_functions+='title_preexec'
 # zsh has native support directory substitution, but this gives us even more power
 scd() {
     if [ -n "$1" ]; then
-        cd `echo $PWD | sed "$1"`
+        cd $(echo $PWD | sed "$1")
     else
         echo "Give me a substitution!"
     fi
@@ -108,9 +134,9 @@ scd() {
 if [[ $+commands[hdiutil] -eq 1 ]]
 then
     hdicd() {
-        output=`hdiutil mount $1`
+        output=$(hdiutil mount $1)
         print $output
-        cd `echo $output | tail -n 1 | awk '{print $3}'`
+        cd $(echo $output | tail -n 1 | awk '{print $3}')
     }
 fi
 
@@ -247,57 +273,62 @@ bindkey "^[t" read-pane
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
-source ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
+zsh-defer source -a +ms ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 #### Backdir
 
-source ~/.zsh/modules/zsh-bd/bd.zsh
+zsh-defer source ~/.zsh/modules/zsh-bd/bd.zsh
 
 #### Syntax highlighting
 
 # Setup plugins to load
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
-# Source syntax highlighting if it exists
-source ~/.zsh/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Define this as a function since we need to modify the settings after it's sourced
+function load_syntax_highlighting {
+    # Source syntax highlighting if it exists
+    source ~/.zsh/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Main
-#ZSH_HIGHLIGHT_STYLES[default]:=none
-ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=124'
-#ZSH_HIGHLIGHT_STYLES[reserved-word]:=fg=yellow
-ZSH_HIGHLIGHT_STYLES[alias]='fg=25'
-ZSH_HIGHLIGHT_STYLES[builtin]='fg=25'
-ZSH_HIGHLIGHT_STYLES[function]='fg=25'
-ZSH_HIGHLIGHT_STYLES[command]='fg=25'
-#ZSH_HIGHLIGHT_STYLES[precommand]:=fg=green,underline
-#ZSH_HIGHLIGHT_STYLES[commandseparator]:=none
-ZSH_HIGHLIGHT_STYLES[hashed-command]='fg=25'
-#ZSH_HIGHLIGHT_STYLES[path]:=underline
-ZSH_HIGHLIGHT_STYLES[globbing]='fg=28'
-ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=25'
-#ZSH_HIGHLIGHT_STYLES[single-hyphen-option]:=none
-#ZSH_HIGHLIGHT_STYLES[double-hyphen-option]:=none
-#ZSH_HIGHLIGHT_STYLES[back-quoted-argument]:=none
-ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=250'
-ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=250'
-#ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]:=fg=cyan
-#ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]:=fg=cyan
-#ZSH_HIGHLIGHT_STYLES[assign]:=none
-# Brackets
-ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=160,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=28,bold'
-ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=cyan,bold'
-#ZSH_HIGHLIGHT_STYLES[bracket-level-3]:=fg=magenta,bold}
-#ZSH_HIGHLIGHT_STYLES[bracket-level-4]:=fg=yellow,bold}
-ZSH_HIGHLIGHT_STYLES[bracket-level-5]='fg=25,bold'
-#ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]:=standout}
+    # Main
+    #ZSH_HIGHLIGHT_STYLES[default]:=none
+    ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=124'
+    #ZSH_HIGHLIGHT_STYLES[reserved-word]:=fg=yellow
+    ZSH_HIGHLIGHT_STYLES[alias]='fg=25'
+    ZSH_HIGHLIGHT_STYLES[builtin]='fg=25'
+    ZSH_HIGHLIGHT_STYLES[function]='fg=25'
+    ZSH_HIGHLIGHT_STYLES[command]='fg=25'
+    #ZSH_HIGHLIGHT_STYLES[precommand]:=fg=green,underline
+    #ZSH_HIGHLIGHT_STYLES[commandseparator]:=none
+    ZSH_HIGHLIGHT_STYLES[hashed-command]='fg=25'
+    #ZSH_HIGHLIGHT_STYLES[path]:=underline
+    ZSH_HIGHLIGHT_STYLES[globbing]='fg=28'
+    ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=25'
+    #ZSH_HIGHLIGHT_STYLES[single-hyphen-option]:=none
+    #ZSH_HIGHLIGHT_STYLES[double-hyphen-option]:=none
+    #ZSH_HIGHLIGHT_STYLES[back-quoted-argument]:=none
+    ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=250'
+    ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=250'
+    #ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]:=fg=cyan
+    #ZSH_HIGHLIGHT_STYLES[back-double-quoted-argument]:=fg=cyan
+    #ZSH_HIGHLIGHT_STYLES[assign]:=none
+    # Brackets
+    ZSH_HIGHLIGHT_STYLES[bracket-error]='fg=160,bold'
+    ZSH_HIGHLIGHT_STYLES[bracket-level-1]='fg=28,bold'
+    ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=cyan,bold'
+    #ZSH_HIGHLIGHT_STYLES[bracket-level-3]:=fg=magenta,bold}
+    #ZSH_HIGHLIGHT_STYLES[bracket-level-4]:=fg=yellow,bold}
+    ZSH_HIGHLIGHT_STYLES[bracket-level-5]='fg=25,bold'
+    #ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]:=standout}
+}
+
+zsh-defer -a +pr load_syntax_highlighting
 
 #### fzf for search
 
 # Source fzf if it's installed
 if [ -e $HOMEBREW_PREFIX/opt/fzf ]
 then
-    source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
-    source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
+    zsh-defer source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
+    zsh-defer source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
 fi
 

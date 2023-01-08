@@ -5,45 +5,34 @@ DONTSETRPROMPT=1
 # Don't check for mail
 MAILCHECK=0
 
-#### PATHS
+#### Enable lazy loading support
 
-# Setup both potential homebrew locations
-if [[ -e ~/.homebrew/bin/brew ]]
-then
-    BREW_PATH=~/.homebrew/bin/brew
-elif [[ -e /opt/homebrew/bin/brew ]]
-then
-    BREW_PATH=/opt/homebrew/bin/brew
-fi
+source ~/.zsh/modules/zsh-defer/zsh-defer.plugin.zsh
 
-# Initialize the paths via homebrew
-if [[ ! -z "$BREW_PATH" ]]
-then
-    eval $($BREW_PATH shellenv)
-    # Setup completions, grml will call compinit for us
-    FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
-fi
+#### Paths
 
-unset BREW_PATH
-
-# Add any locally installed python binaries to the path, using the currently running default python
-if [[ $+commands[python] -eq 1 ]]
-then
-    local PYTHON_BIN=$(python -m site --user-base)/bin
-    if [[ -d $PYTHON_BIN ]];
+function setup_homebrew {
+    local BREW_PATH
+    # Setup both potential homebrew locations
+    if [[ -e ~/.homebrew/bin/brew ]]
     then
-        PATH="$PYTHON_BIN:$PATH"
-    fi
-fi
-# If we have explicit python 3, add that in front to prefer it
-if [[ $+commands[python3] -eq 1 ]]
-then
-    local PYTHON_BIN=$(python3 -m site --user-base)/bin
-    if [[ -d $PYTHON_BIN ]];
+        BREW_PATH=~/.homebrew/bin/brew
+    elif [[ -e /opt/homebrew/bin/brew ]]
     then
-        PATH="$PYTHON_BIN:$PATH"
+        BREW_PATH=/opt/homebrew/bin/brew
     fi
-fi
+
+    # Initialize the paths via homebrew
+    if [[ ! -z "$BREW_PATH" ]]
+    then
+        eval $($BREW_PATH shellenv)
+        # Setup completions, grml will call compinit for us
+        FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
+    fi
+}
+
+# Don't lazy-load because we need some of these tools immediately and it only costs 10ms
+setup_homebrew
 
 # Add local bin at the end, if it exists
 if [[ -d ~/bin ]];
@@ -64,3 +53,4 @@ if [[ ! -z "$SSH_TTY" ]]
 then
     source ~/.zsh/zshrc.pre.tmux
 fi
+
