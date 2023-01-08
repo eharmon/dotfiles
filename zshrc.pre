@@ -4,6 +4,9 @@
 DONTSETRPROMPT=1
 # Don't check for mail
 MAILCHECK=0
+# We have our own function to set the title, so disable the support in grml
+# TODO: This probably breaks dynamic hostname updating in the title
+NOPRECMD=1
 
 #### Enable lazy loading support
 
