@@ -1,5 +1,14 @@
 #### Prompt Setup
 
+function zcompile-many() {
+  local f
+  for f; do zcompile -R -- "$f".zwc "$f"; done
+}
+
+#zcompile-many ~/.zsh/modules/zsh-syntax-highlighting/{zsh-syntax-highlighting.zsh,highlighters/*/*.zsh}
+#zcompile-many ~/.zsh/modules/zsh-autosuggestions/{zsh-autosuggestions.zsh,src/**/*.zsh}
+[[ ~/.zcompdump.zwc -nt ~/.zcompdump ]] || zcompile-many ~/.zcompdump
+
 # Shut off prompt themes, we're not ready for them yet
 prompt off
 
@@ -300,4 +309,9 @@ then
     source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
     source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
 fi
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+source ~/.zsh/modules/powerlevel10k/powerlevel10k.zsh-theme
 
