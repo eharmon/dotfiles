@@ -24,6 +24,22 @@ function python_paths {
 # Very unlikely to need this immediately, so lazy load it
 zsh-defer -a python_paths
 
+#### Caching
+
+function zcompile-many() {
+  local f
+  for f; do zcompile -R -- "$f".zwc "$f"; done
+}
+
+# Update the compiled completion cache if it's out of date
+[[ ~/.zcompdump.zwc -nt ~/.zcompdump ]] || zcompile-many ~/.zcompdump
+
+function compile_stuff {
+    zcompile-many ~/.zshrc
+}
+
+zsh-defer compile_stuff
+
 #### Prompt Setup
 
 # Shut off prompt themes, we're not ready for them yet
