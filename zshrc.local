@@ -30,6 +30,7 @@ zsh-defer -a python_paths
 prompt off
 
 # If we've got powerline installed in the path, find the bindings
+# TODO: Because we're lazy loading Python paths above, this is broken
 if [[ $+commands[powerline] -eq 1 ]];
 then
     # TODO: This is kinda slow
