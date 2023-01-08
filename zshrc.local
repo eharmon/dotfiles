@@ -30,7 +30,7 @@ VIM_OPTIONS='-p'
 #### Includes
 
 # Include hostname-specific magic if it exists
-DOMAIN=${HOST#*.}
+local DOMAIN=${HOST#*.}
 if [ -e ~/.zshrc.$DOMAIN ]
 then
     echo "Setting shell for $DOMAIN domain"
@@ -259,17 +259,7 @@ source ~/.zsh/modules/zsh-bd/bd.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 # Source syntax highlighting if it exists
-if [ -e ~/.zsh/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]
-then
-    source ~/.zsh/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-
-# Source fzf if it's installed
-if [ -e ~/.homebrew/opt/fzf ]
-then
-    source ~/.homebrew/opt/fzf/shell/completion.zsh
-    source ~/.homebrew/opt/fzf/shell/key-bindings.zsh
-fi
+source ~/.zsh/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Main
 #ZSH_HIGHLIGHT_STYLES[default]:=none
@@ -301,3 +291,13 @@ ZSH_HIGHLIGHT_STYLES[bracket-level-2]='fg=cyan,bold'
 #ZSH_HIGHLIGHT_STYLES[bracket-level-4]:=fg=yellow,bold}
 ZSH_HIGHLIGHT_STYLES[bracket-level-5]='fg=25,bold'
 #ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]:=standout}
+
+#### fzf for search
+
+# Source fzf if it's installed
+if [ -e $HOMEBREW_PREFIX/opt/fzf ]
+then
+    source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
+    source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
+fi
+

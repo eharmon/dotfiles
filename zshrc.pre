@@ -10,19 +10,21 @@ MAILCHECK=0
 # Setup both potential homebrew locations
 if [[ -e ~/.homebrew/bin/brew ]]
 then
-    HOMEBREW_PATH=~/.homebrew/bin/brew
+    BREW_PATH=~/.homebrew/bin/brew
 elif [[ -e /opt/homebrew/bin/brew ]]
 then
-    HOMEBREW_PATH=/opt/homebrew/bin/brew
+    BREW_PATH=/opt/homebrew/bin/brew
 fi
 
 # Initialize the paths via homebrew
-if [[ ! -z "$HOMEBREW_PATH" ]]
+if [[ ! -z "$BREW_PATH" ]]
 then
-    eval $($HOMEBREW_PATH shellenv)
+    eval $($BREW_PATH shellenv)
     # Setup completions, grml will call compinit for us
-    FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+    FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
 fi
+
+unset BREW_PATH
 
 # Add any locally installed python binaries to the path, using the currently running default python
 if [[ $+commands[python] -eq 1 ]]
