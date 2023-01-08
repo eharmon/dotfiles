@@ -271,7 +271,6 @@ bindkey "^[t" read-pane
 
 #### Autosuggestions
 
-ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
 zsh-defer source ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
