@@ -273,7 +273,7 @@ bindkey "^[t" read-pane
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
-zsh-defer source -a +ms ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
+zsh-defer source ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 #### Backdir
 
