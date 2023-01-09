@@ -28,7 +28,7 @@ set statusline=%f\ %y%m%r%=%c\,%l/%L\ (%p%%)
 set laststatus=2
 " Highlight current line
 set cursorline
-highlight CursorLine cterm=NONE ctermbg=235 ctermfg=NONE guibg=#262626 guifg=NONE
+highlight CursorLine cterm=NONE ctermbg=235 ctermfg=NONE guibg=#262626 guifg=NONE gui=NONE
 " Show some control chars
 set list
 set listchars=tab:▸·,trail:·
@@ -54,7 +54,7 @@ set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.orig                           " Merge resolution files
 
 " Sign column settings
-highlight SignColumn ctermbg=236
+highlight SignColumn ctermbg=236 guibg=#303030
 
 " Completion
 "set completeopt=longest,menuone,preview
@@ -107,14 +107,20 @@ else
   let g:airline_right_sep = ''
 endif
 
+" TODO: This should probably check for a few more things
+if ((empty($SSH_TTY)))
+  set termguicolors
+  highlight Normal guibg=NONE
+endif
+
 " Airline related, we don't need to show the mode at the bottom since airline
 " is already doing it for us
 set noshowmode
 
 " GitGutter options
-highlight GitGutterAdd cterm=bold ctermfg=119 ctermbg=236
-highlight GitGutterDelete cterm=bold ctermfg=167 ctermbg=236
-highlight GitGutterChange cterm=bold ctermfg=227 ctermbg=236
+highlight GitGutterAdd cterm=bold ctermfg=119 ctermbg=236 guifg=#87ff5f guibg=#303030
+highlight GitGutterDelete cterm=bold ctermfg=167 ctermbg=236 guifg=#df5f5f guibg=#303030
+highlight GitGutterChange cterm=bold ctermfg=227 ctermbg=236 guifg=#ffff5f guibg=#303030
 " Also change the updatetime to make it update 'nearly' realtime
 set updatetime=1500
 
@@ -122,8 +128,8 @@ set updatetime=1500
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 0
-hi IndentGuidesOdd  ctermbg=236
-hi IndentGuidesEven ctermbg=238
+hi IndentGuidesOdd  ctermbg=236 guibg=#303030
+hi IndentGuidesEven ctermbg=238 guibg=#444444
 
 if executable('ag')
   " Use Ag over Grep
@@ -144,3 +150,9 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+
+" neovim-specific enhancements
+if has('nvim')
+  au TextYankPost * silent! lua vim.highlight.on_yank()
+endif
+
