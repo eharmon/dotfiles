@@ -1,31 +1,51 @@
-" Switch off compatible mode
-set nocompatible
+" Neovim already has these defaults, so just configure in vim
+if !has('nvim')
+  " Auto indent
+  set autoindent
+  " Dark background
+  set background=dark
+  " Highlight searches
+  set hlsearch
+  " Search character at a time
+  set incsearch
+  " Always show status
+  set laststatus=2
+  " Turn on mouse support
+  set mouse=nvi
+  " Switch off compatible mode
+  set nocompatible
+  " Always show the cursor position (overridden by powerline)
+  "set ruler
+  " Fast ttys
+  set ttyfast
+  " Wild mode is magical
+  set wildmenu
+
+  " Turn on syntax highlighting
+  syntax on
+
+  " Enable filetype detection plugins with all features
+  filetype plugin indent on
+
+  " Cache things to our homedir, not random places
+  if isdirectory(expand('~/.cache/vim'))
+    set directory=~/.cache/vim/swap//,/tmp
+    set backupdir=~/.cache/vim/backup//,/tmp
+    if has('persistent_undo')
+      set undodir=~/.cache/vim/undo//,/tmp
+      set undofile
+    endif
+  endif
+endif
+
 " No intro message
 set shortmess+=I
-" Fast ttys
-set ttyfast
-filetype plugin indent on
-" Turn on syntax highlighting
-syntax on
-"set t_Co=256
-" Set the background to dark and turn on peaksea color scheme
-set background=dark
+" Use peaksea colors
 colo peaksea
-" Turn on mouse support
-set mouse=a
-" Always show the cursor position (overridden by powerline)
-set ruler
 " Show matching parens
 set showmatch
-" Auto indent
-set autoindent
-" Highlight searches
-set hlsearch
-" Search character at a time
-set incsearch
 " Statusline configuration (overridden by powerline)
-set statusline=%f\ %y%m%r%=%c\,%l/%L\ (%p%%)
-set laststatus=2
+"set statusline=%f\ %y%m%r%=%c\,%l/%L\ (%p%%)
 " Highlight current line
 set cursorline
 highlight CursorLine cterm=NONE ctermbg=235 ctermfg=NONE guibg=#262626 guifg=NONE gui=NONE
@@ -33,10 +53,9 @@ highlight CursorLine cterm=NONE ctermbg=235 ctermfg=NONE guibg=#262626 guifg=NON
 set list
 set listchars=tab:▸·,trail:·
 set showbreak=↪
-" Wild mode is magical
-set wildmenu
+
+" Configure wildmode
 set wildchar=<TAB>
-"set wildmode=list:longest
 
 set wildignore+=.hg,.git,.svn                    " Version control
 set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
@@ -45,12 +64,9 @@ set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
 set wildignore+=*.DS_Store                       " OSX bullshit
-
 set wildignore+=*.luac                           " Lua byte code
-
 set wildignore+=migrations                       " Django migrations
 set wildignore+=*.pyc                            " Python byte code
-
 set wildignore+=*.orig                           " Merge resolution files
 
 " Sign column settings
@@ -73,16 +89,6 @@ augroup END
 
 " Always show a context line with the cursor
 set scrolloff=1
-
-" Cache things to our homedir, not random places
-if isdirectory(expand('~/.cache/vim'))
-  set directory=~/.cache/vim/swap//,/tmp
-  set backupdir=~/.cache/vim/backup//,/tmp
-  if has('persistent_undo')
-    set undodir=~/.cache/vim/undo//,/tmp
-    set undofile
-  endif
-endif
 
 " Set title string to the filename opened
 if ((&term =~ '^screen') && ($VIM_PLEASE_SET_TITLE =~ '^yes$') || has('gui_running'))
@@ -108,6 +114,7 @@ else
 endif
 
 " TODO: This should probably check for a few more things
+" Enable 24-bit color and disable the background color
 if ((empty($SSH_TTY)))
   set termguicolors
   highlight Normal guibg=NONE
