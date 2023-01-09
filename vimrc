@@ -4,10 +4,6 @@ set nocompatible
 set shortmess+=I
 " Fast ttys
 set ttyfast
-" Turn on pathogen (add to runtime so we can leave it in a bundle and use it
-" as a submodule)
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
 filetype plugin indent on
 " Turn on syntax highlighting
 syntax on
