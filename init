@@ -5,7 +5,7 @@ _link () {
         echo -e "\tCreating $2..."
         ln -ns $1 $2
     else
-        if [[ -L $2 && $(python -c "import os; print os.readlink('$2')") == "$1" ]]; then
+        if [[ -L $2 && $(python3 -c "import os; print(os.readlink('$2'))") == "$1" ]]; then
             echo -e "\t$2 is already correct, skipping."
         else
             echo -e "\tFile already exists at $2, please move it aside first!"
@@ -16,12 +16,12 @@ _link () {
 
 failed=0
 
-echo -n "Calculating install dir..."
+echo -n "Calculating install dir... "
 ourdir=$(dirname $BASH_SOURCE)
 if [ $ourdir == '.' ]; then
     ourdir=$(pwd)
 fi
-rel=$(python -c "import os.path; print os.path.relpath('$ourdir', '$HOME')")
+rel=$(python3 -c "import os.path; print(os.path.relpath('$ourdir', '$HOME'))")
 echo "~/$rel"
 
 echo "Installing symlinks..."
@@ -33,12 +33,17 @@ done
 
 # XDG symlinks
 mkdir -p $HOME/.config
-for source in nvim powerline; do
+for source in nvim; do
     _link ../$rel/config/$source $HOME/.config/$source
 done
 
 echo "Fetching submodules..."
-$(git -C $ourdir submodule update --init)
+git -C $ourdir submodule update --init
+
+echo "Making cache directories..."
+mkdir -p ~/.cache/vim/backup
+mkdir -p ~/.cache/vim/swap
+mkdir -p ~/.cache/vim/undo
 
 echo "Done."
 
