@@ -317,3 +317,9 @@ if [[ -e $HOMEBREW_PREFIX/opt/fzf ]]; then
     zsh-defer source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
 fi
 
+#### Google Cloud SDK
+
+if [[ -d ~/google-cloud-sdk ]]; then
+    source ~/google-cloud-sdk/path.zsh.inc
+    source ~/google-cloud-sdk/completion.zsh.inc
+fi
