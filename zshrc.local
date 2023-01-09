@@ -50,6 +50,13 @@ function toggleprompt {
 }
 alias tp=toggleprompt
 
+# And if we forget to toggle, this will clean the clipboard of special characters
+if (( $+commands[pbpaste] )); then
+    function pbclean {
+        pbpaste | sed "s/[]//g" | pbcopy
+    }
+fi
+
 #### Vars
 
 # Tell our zshrc to pass -p to the vim options to open multiple files in tabs
