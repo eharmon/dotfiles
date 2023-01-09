@@ -50,25 +50,6 @@ function toggleprompt {
 }
 alias tp=toggleprompt
 
-# TODO: This is all disabled for now in favor of trying our own prompt
-## If we've got powerline installed in the path, find the bindings
-## TODO: Because we're lazy loading Python paths above, this is broken
-#if (( $+commands[powerline] )); then
-#    # TODO: This is kinda slow
-#    pip_packages=$(pip show powerline-status | grep Location | sed 's/Location: //') 2>/dev/null
-#    zsh_powerline=$pip_packages/powerline/bindings/zsh/powerline.zsh
-#fi
-#
-#if [[ ! -z "$zsh_powerline" && -e $zsh_powerline ]]; then
-#    source $zsh_powerline
-#else
-#    # Set prompt
-#    PROMPT='[ %F{34}%(!.%F{red}.)%n@%B%m%b%(!.%f.) ]:%U%~%u%(!.#.$) '
-#
-#    # Set rprompt error string
-#    RPROMPT='%(?..[ %F{red}%?%f ])'
-#fi
-
 #### Vars
 
 # Tell our zshrc to pass -p to the vim options to open multiple files in tabs
