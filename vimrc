@@ -1,5 +1,7 @@
 " Switch off compatible mode
 set nocompatible
+" No intro message
+set shortmess+=I
 " Fast ttys
 set ttyfast
 " Turn on pathogen (add to runtime so we can leave it in a bundle and use it
@@ -113,11 +115,16 @@ if ((&term =~ '^screen') && ($VIM_PLEASE_SET_TITLE =~ '^yes$') || has('gui_runni
 endif
 
 " Airline options
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-"let g:airline_powerline_fonts = 1
 let g:airline_theme = 'powerlineish'
 let g:airline#extensions#whitespace#enabled = 0
+
+" If we're in iTerm2, but outside tmux and ssh, we know we have powerline fonts avail
+if (($LC_TERMINAL == 'iTerm2') && (empty($TMUX)) && (empty($SSH_TTY)))
+  let g:airline_powerline_fonts = 1
+else
+  let g:airline_left_sep = ''
+  let g:airline_right_sep = ''
+endif
 
 " Airline related, we don't need to show the mode at the bottom since airline
 " is already doing it for us
