@@ -57,20 +57,6 @@ set wildignore+=*.pyc                            " Python byte code
 
 set wildignore+=*.orig                           " Merge resolution files
 
-" Syntastic options
-
-" Only used if we're not using powerline/airline
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-
-" Set various options and formatting
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_perl_checker = 1
-let g:syntastic_perl_checkers = ['perl']
-let g:syntastic_stl_format = '%E{ERR (%e) LN %fe}%B{ | }%W{WARN (%w) LN %fw}'
-let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'passive_filetypes': ['perl'] }
-
 " Sign column settings
 highlight SignColumn ctermbg=236
 
@@ -88,9 +74,6 @@ augroup cline
     au InsertEnter * set nocursorline
     au InsertLeave * set cursorline
 augroup END
-
-" Powerline settings
-"let g:Powerline_symbols="unicode"
 
 " Always show a context line with the cursor
 set scrolloff=1
@@ -117,6 +100,7 @@ endif
 " Airline options
 let g:airline_theme = 'powerlineish'
 let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#ale#enabled = 1
 
 " If we're in iTerm2, but outside tmux and ssh, we know we have powerline fonts avail
 if (($LC_TERMINAL == 'iTerm2') && (empty($TMUX)) && (empty($SSH_TTY)))
