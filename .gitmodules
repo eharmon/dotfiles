@@ -52,9 +52,9 @@
 [submodule "zsh/modules/zsh-bd"]
 	path = zsh/modules/zsh-bd
 	url = https://github.com/Tarrasch/zsh-bd.git
-[submodule "vim/bundle/ale"]
-	path = vim/bundle/ale
-	url = https://github.com/dense-analysis/ale.git
 [submodule "zsh/modules/zsh-defer"]
 	path = zsh/modules/zsh-defer
 	url = https://github.com/romkatv/zsh-defer.git
+[submodule "vim/bundle/ale"]
+	path = vim/bundle/ale
+	url = https://github.com/dense-analysis/ale.git
