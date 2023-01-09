@@ -28,7 +28,7 @@ set statusline=%f\ %y%m%r%=%c\,%l/%L\ (%p%%)
 set laststatus=2
 " Highlight current line
 set cursorline
-highlight CursorLine cterm=NONE ctermbg=black guibg=black
+highlight CursorLine cterm=NONE ctermbg=235 ctermfg=NONE guibg=235 guifg=NONE
 " Show some control chars
 set list
 set listchars=tab:▸·,trail:·
