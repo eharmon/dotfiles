@@ -1217,6 +1217,8 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<true/>
 			<key>Normal Font</key>
 			<string>Menlo-Regular 11</string>
+			<key>Only The Default BG Color Uses Transparency</key>
+			<true/>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1266,9 +1268,9 @@ Respond with one or more commands. Do not include any explanation or additional 
 					<key>algorithm</key>
 					<integer>0</integer>
 					<key>auto-rainbow style</key>
-					<integer>3</integer>
+					<integer>0</integer>
 					<key>font</key>
-					<string>.SFNS-Regular 12</string>
+					<string>.AppleSystemUIFont 12</string>
 					<key>remove empty components</key>
 					<false/>
 				</dict>
@@ -1282,7 +1284,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 							<key>knobs</key>
 							<dict>
 								<key>base: compression resistance</key>
-								<integer>1</integer>
+								<real>1</real>
 								<key>base: priority</key>
 								<real>5</real>
 								<key>maxwidth</key>
@@ -1296,13 +1298,13 @@ Respond with one or more commands. Do not include any explanation or additional 
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.63590967655181885</real>
+									<real>0.69999998807907104</real>
 									<key>Color Space</key>
 									<string>P3</string>
 									<key>Green Component</key>
-									<real>0.64143353700637817</real>
+									<real>0.69999998807907104</real>
 									<key>Red Component</key>
-									<real>0.86000317335128784</real>
+									<real>0.69999998807907104</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -1310,9 +1312,9 @@ Respond with one or more commands. Do not include any explanation or additional 
 								<key>algorithm</key>
 								<integer>0</integer>
 								<key>auto-rainbow style</key>
-								<integer>3</integer>
+								<integer>0</integer>
 								<key>font</key>
-								<string>.SFNS-Regular 12</string>
+								<string>.AppleSystemUIFont 12</string>
 								<key>remove empty components</key>
 								<false/>
 							</dict>
@@ -1326,7 +1328,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 							<key>knobs</key>
 							<dict>
 								<key>base: compression resistance</key>
-								<integer>1</integer>
+								<real>1</real>
 								<key>base: priority</key>
 								<real>5</real>
 								<key>maxwidth</key>
@@ -1342,13 +1344,13 @@ Respond with one or more commands. Do not include any explanation or additional 
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.65958404541015625</real>
+									<real>0.69999998807907104</real>
 									<key>Color Space</key>
 									<string>P3</string>
 									<key>Green Component</key>
-									<real>0.89919328689575195</real>
+									<real>0.69999998807907104</real>
 									<key>Red Component</key>
-									<real>0.87963473796844482</real>
+									<real>0.69999998807907104</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -1356,9 +1358,9 @@ Respond with one or more commands. Do not include any explanation or additional 
 								<key>algorithm</key>
 								<integer>0</integer>
 								<key>auto-rainbow style</key>
-								<integer>3</integer>
+								<integer>0</integer>
 								<key>font</key>
-								<string>.SFNS-Regular 12</string>
+								<string>.AppleSystemUIFont 12</string>
 								<key>remove empty components</key>
 								<false/>
 							</dict>
@@ -1396,9 +1398,9 @@ Respond with one or more commands. Do not include any explanation or additional 
 								<key>algorithm</key>
 								<integer>0</integer>
 								<key>auto-rainbow style</key>
-								<integer>3</integer>
+								<integer>0</integer>
 								<key>font</key>
-								<string>.SFNS-Regular 12</string>
+								<string>.AppleSystemUIFont 12</string>
 								<key>remove empty components</key>
 								<false/>
 							</dict>
@@ -1426,13 +1428,13 @@ Respond with one or more commands. Do not include any explanation or additional 
 									<key>Alpha Component</key>
 									<real>1</real>
 									<key>Blue Component</key>
-									<real>0.89110654592514038</real>
+									<real>0.69999998807907104</real>
 									<key>Color Space</key>
 									<string>P3</string>
 									<key>Green Component</key>
-									<real>0.81993871927261353</real>
+									<real>0.69999998807907104</real>
 									<key>Red Component</key>
-									<real>0.67023450136184692</real>
+									<real>0.69999998807907104</real>
 								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
@@ -1440,9 +1442,9 @@ Respond with one or more commands. Do not include any explanation or additional 
 								<key>algorithm</key>
 								<integer>0</integer>
 								<key>auto-rainbow style</key>
-								<integer>3</integer>
+								<integer>0</integer>
 								<key>font</key>
-								<string>.SFNS-Regular 12</string>
+								<string>.AppleSystemUIFont 12</string>
 								<key>remove empty components</key>
 								<false/>
 							</dict>
@@ -1480,9 +1482,9 @@ Respond with one or more commands. Do not include any explanation or additional 
 								<key>algorithm</key>
 								<integer>0</integer>
 								<key>auto-rainbow style</key>
-								<integer>3</integer>
+								<integer>0</integer>
 								<key>font</key>
-								<string>.SFNS-Regular 12</string>
+								<string>.AppleSystemUIFont 12</string>
 								<key>remove empty components</key>
 								<false/>
 							</dict>
@@ -1518,9 +1520,9 @@ Respond with one or more commands. Do not include any explanation or additional 
 								<key>algorithm</key>
 								<integer>0</integer>
 								<key>auto-rainbow style</key>
-								<integer>3</integer>
+								<integer>0</integer>
 								<key>font</key>
-								<string>.SFNS-Regular 12</string>
+								<string>.AppleSystemUIFont 12</string>
 								<key>remove empty components</key>
 								<false/>
 							</dict>
@@ -1615,5 +1617,9 @@ Respond with one or more commands. Do not include any explanation or additional 
 	<false/>
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
+	<key>kCPKSelectionViewPreferredModeKey</key>
+	<integer>0</integer>
+	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
+	<false/>
 </dict>
 </plist>

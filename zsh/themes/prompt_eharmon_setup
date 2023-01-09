@@ -1,0 +1,56 @@
+prompt_eharmon_help () {
+  cat <<EOH
+Parameters: pass 0 to enable powerline fonts, which are enabled by default.
+EOH
+}
+
+prompt_eharmon_setup () {
+ local special=${1:-1}
+
+  # Divider between segments on left prompt
+  local DIVIDER=""
+  # Divider between segments on right prompt
+  local RDIVIDER=" "
+  # Start of right prompt
+  local RSTART=""
+  # Hidden character for start of prompt (shows when copying plaintext)
+  local HIDDEN_START="["
+  # Hidden character for stop of prompt (shows when copying plaintext)
+  local HIDDEN_STOP="]"
+
+  # TODO: Old prompts, for temporary posterity
+  #PS1="%(!.%K{red}.%K{76})%F{0} %F{22}%(!.%F{red}%B.)%n@%B%m%b %K{10}%(!.%F{red}.%F{76}) %f%K{10}%F{22}%~%u%k%F{10}%k%f %(!.#.$) "
+  #PS1="%(!.%K{red}.%K{238})%F{0} %F{254}%(!.%F{red}%B.)%n@%B%m%b %K{242}%(!.%F{red}.%F{238}) %f%F{254}%~ %k%F{242}%k%f%(!.#.$) "
+  #PS1="%(!.%K{red}.%K{238}) %F{254}%(!.%F{red}%B.)%n@%B%m%b %K{242}%(!.%F{red}.%F{238}) %f%F{254}%~ %k%F{242}%k%f%(!.#.$) "
+  #PS2=" "
+  #PS1="%K{76}%F{22} %(!.%F{red}.)%n@%B%m%b%f %K{10}%F{22} %~%u %k%f %(!.#.$) "
+  #PS1="%(!.%K{red}.%K{238}) %F{254}%(!.%F{red}%B.)%n@%B%m%b %K{242}%(!.%F{red}.%F{238}) %f%F{254}%~ %k%F{242} %k%f%(!.#.$) "
+  #PS2="> "
+
+  if (( $special )); then
+    DIVIDER=""
+    RDIVIDER=""
+    RSTART=""
+  fi
+
+  PS1="%(!.%K{red}%F{red}.%K{238}%F{238})$HIDDEN_START%(!.%F{red}%B.%F{254})%n@%B%m%b %K{242}%(!.%F{red}.%F{238})$DIVIDER %F{254}%(5~|%-1~/…/%3~|%4~)%F{242}$HIDDEN_STOP%k%F{242}$DIVIDER%f%(!.#.$) "
+  # TODO: Show suspended jobs
+  #PS1="%(!.%K{red}.%K{238}) %F{254}%(!.%F{red}%B.)%n@%B%m%b %K{242}%(!.%F{red}.%F{238})$DIVIDER %f%F{254}%(5~|%-1~/…/%3~|%4~) %(1j.%K{238}$DIVIDER%K{202}%j.)%k%F{242}$DIVIDER%k%f%(!.#.$) "
+  PS2="   %F{0}%K{238}$DIVIDER %F{254}%(!.%F{red}%B.)%_ %K{242}%F{238}$DIVIDER%k%F{242}$DIVIDER%f "
+
+  RPS1="%(?..%F{red}$RSTART%K{red}$HIDDEN_START$RDIVIDER%B%?%b$RDIVIDER$HIDDEN_STOP%f%k)"
+
+  prompt_opts=(cr subst percent)
+}
+
+prompt_eharmon_preview () {
+  if (( ! $#* )); then
+    prompt_preview_theme eharmon
+    print
+    prompt_preview_theme eharmon 0
+  else
+    prompt_preview_theme eharmon "$@"
+  fi
+}
+
+prompt_eharmon_setup "$@"

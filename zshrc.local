@@ -22,26 +22,52 @@ zsh-defer -a python_paths
 
 #### Prompt Setup
 
-# Shut off prompt themes, we're not ready for them yet
-prompt off
+# Update the path and re-init
+FPATH="$HOME/.zsh/themes:$FPATH"
+promptinit
 
-# If we've got powerline installed in the path, find the bindings
-# TODO: Because we're lazy loading Python paths above, this is broken
-if (( $+commands[powerline] )); then
-    # TODO: This is kinda slow
-    pip_packages=$(pip show powerline-status | grep Location | sed 's/Location: //') 2>/dev/null
-    zsh_powerline=$pip_packages/powerline/bindings/zsh/powerline.zsh
-fi
-
-if [[ ! -z "$zsh_powerline" && -e $zsh_powerline ]]; then
-    source $zsh_powerline
+# If we're in iTerm2, but outside tmux and ssh, we know we have powerline fonts avail
+if [[ $LC_TERMINAL == 'iTerm2' && -z $TMUX && -z $SSH_TTY ]]; then
+    RICH_PROMPT_SUPPORTED=1
 else
-    # Set prompt
-    PROMPT='[ %F{34}%(!.%F{red}.)%n@%B%m%b%(!.%f.) ]:%U%~%u%(!.#.$) '
-
-    # Set rprompt error string
-    RPROMPT='%(?..[ %F{red}%?%f ])'
+    RICH_PROMPT_SUPPORTED=0
 fi
+
+# Export so vim can use this too
+export RICH_PROMPT_SUPPORTED
+
+RICH_PROMPT_ENABLED=$RICH_PROMPT_SUPPORTED
+prompt eharmon $RICH_PROMPT_ENABLED
+
+# This function makes it possible to easily toggle off the powerline fonts for easy copying
+function toggleprompt {
+    if (( $RICH_PROMPT_ENABLED )); then
+        RICH_PROMPT_ENABLED=0
+    else
+        RICH_PROMPT_ENABLED=1
+    fi
+    prompt eharmon $RICH_PROMPT_ENABLED
+}
+alias tp=toggleprompt
+
+# TODO: This is all disabled for now in favor of trying our own prompt
+## If we've got powerline installed in the path, find the bindings
+## TODO: Because we're lazy loading Python paths above, this is broken
+#if (( $+commands[powerline] )); then
+#    # TODO: This is kinda slow
+#    pip_packages=$(pip show powerline-status | grep Location | sed 's/Location: //') 2>/dev/null
+#    zsh_powerline=$pip_packages/powerline/bindings/zsh/powerline.zsh
+#fi
+#
+#if [[ ! -z "$zsh_powerline" && -e $zsh_powerline ]]; then
+#    source $zsh_powerline
+#else
+#    # Set prompt
+#    PROMPT='[ %F{34}%(!.%F{red}.)%n@%B%m%b%(!.%f.) ]:%U%~%u%(!.#.$) '
+#
+#    # Set rprompt error string
+#    RPROMPT='%(?..[ %F{red}%?%f ])'
+#fi
 
 #### Vars
 

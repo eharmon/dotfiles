@@ -99,7 +99,8 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#ale#enabled = 1
 
 " If we're in iTerm2, but outside tmux and ssh, we know we have powerline fonts avail
-if (($LC_TERMINAL == 'iTerm2') && (empty($TMUX)) && (empty($SSH_TTY)))
+" This is being set for us in the shell, but for reference: if (($LC_TERMINAL == 'iTerm2') && (empty($TMUX)) && (empty($SSH_TTY)))
+if (($RICH_PROMPT_SUPPORTED == 1))
   let g:airline_powerline_fonts = 1
 else
   let g:airline_left_sep = ''
