@@ -41,7 +41,7 @@ endif
 " No intro message
 set shortmess+=I
 " Use peaksea colors
-colo peaksea
+colo molokai
 " Show matching parens
 set showmatch
 " Statusline configuration (overridden by powerline)

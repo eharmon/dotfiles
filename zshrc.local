@@ -55,6 +55,11 @@ alias tp=toggleprompt
 # Tell our zshrc to pass -p to the vim options to open multiple files in tabs
 VIM_OPTIONS='-p'
 
+if (( $+commands[nvim] )); then
+    # Use neovim as the man page tool with a custom color scheme -- same as default right now, but overridden in case this changes later
+    export MANPAGER='nvim +"colo molokai" +"highlight Normal guibg=NONE" +Man!'
+fi
+
 #### Includes
 
 # Include hostname-specific magic if it exists
