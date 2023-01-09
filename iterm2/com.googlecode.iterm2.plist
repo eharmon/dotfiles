@@ -2,11 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>AI Prompt</key>
-	<string>You are going to translate a natural language description to a series of commands for the \(shell) shell.
-Here is some information about the environment: \(uname)
-Respond with one or more commands. Do not include any explanation or additional text besides the commands.Request: \(ai.prompt)
-</string>
+	<key>AdjustWindowForFontSizeChange</key>
+	<false/>
 	<key>AlternateMouseScroll</key>
 	<true/>
 	<key>AppleAntiAliasingThreshold</key>
@@ -19,29 +16,19 @@ Respond with one or more commands. Do not include any explanation or additional 
 	<integer>1</integer>
 	<key>AppleWindowTabbingMode</key>
 	<string>manual</string>
-	<key>CheckTestRelease</key>
-	<true/>
 	<key>Default Bookmark Guid</key>
-	<string>0B06A044-FF43-49A4-8813-CC1DD3E60D82</string>
-	<key>DefaultTabBarHeight</key>
-	<real>28</real>
-	<key>DimBackgroundWindows</key>
-	<false/>
-	<key>DimOnlyText</key>
-	<false/>
+	<string>370F0EBF-775D-499C-AB40-5458E555B943</string>
 	<key>EnableDivisionView</key>
-	<false/>
+	<true/>
 	<key>EnableProxyIcon</key>
-	<false/>
-	<key>HTMLTabTitles</key>
 	<false/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
+	<key>HideTab</key>
+	<true/>
 	<key>HideTabNumber</key>
 	<true/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
-	<true/>
-	<key>NeverBlockSystemShutdown</key>
 	<true/>
 	<key>New Bookmarks</key>
 	<array>
@@ -268,9 +255,11 @@ Respond with one or more commands. Do not include any explanation or additional 
 				<real>0.73333334922790527</real>
 			</dict>
 			<key>Guid</key>
-			<string>C1853383-4F1A-4E6D-81A9-9BC1F67FA77B</string>
+			<string>382F6719-D5A5-45B0-96C5-1529B0462C3A</string>
 			<key>Horizontal Spacing</key>
 			<real>1</real>
+			<key>Icon</key>
+			<integer>0</integer>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Jobs to Ignore</key>
@@ -639,25 +628,23 @@ Respond with one or more commands. Do not include any explanation or additional 
 		<dict>
 			<key>ASCII Anti Aliased</key>
 			<true/>
-			<key>ASCII Ligatures</key>
-			<false/>
 			<key>Ambiguous Double Width</key>
 			<false/>
 			<key>Ansi 0 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 				<key>Green Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 				<key>Red Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 			</dict>
 			<key>Ansi 1 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 				<key>Green Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 				<key>Red Component</key>
 				<real>0.73333334922790527</real>
 			</dict>
@@ -666,7 +653,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 				<key>Blue Component</key>
 				<real>0.3333333432674408</real>
 				<key>Green Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Red Component</key>
 				<real>0.3333333432674408</real>
 			</dict>
@@ -675,14 +662,14 @@ Respond with one or more commands. Do not include any explanation or additional 
 				<key>Blue Component</key>
 				<real>0.3333333432674408</real>
 				<key>Green Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Red Component</key>
-				<integer>1</integer>
+				<real>1</real>
 			</dict>
 			<key>Ansi 12 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Green Component</key>
 				<real>0.3333333432674408</real>
 				<key>Red Component</key>
@@ -691,43 +678,43 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<key>Ansi 13 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Green Component</key>
 				<real>0.3333333432674408</real>
 				<key>Red Component</key>
-				<integer>1</integer>
+				<real>1</real>
 			</dict>
 			<key>Ansi 14 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Green Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Red Component</key>
 				<real>0.3333333432674408</real>
 			</dict>
 			<key>Ansi 15 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Green Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Red Component</key>
-				<integer>1</integer>
+				<real>1</real>
 			</dict>
 			<key>Ansi 2 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 				<key>Green Component</key>
 				<real>0.73333334922790527</real>
 				<key>Red Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 			</dict>
 			<key>Ansi 3 Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 				<key>Green Component</key>
 				<real>0.73333334922790527</real>
 				<key>Red Component</key>
@@ -738,16 +725,16 @@ Respond with one or more commands. Do not include any explanation or additional 
 				<key>Blue Component</key>
 				<real>0.73333334922790527</real>
 				<key>Green Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 				<key>Red Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 			</dict>
 			<key>Ansi 5 Color</key>
 			<dict>
 				<key>Blue Component</key>
 				<real>0.73333334922790527</real>
 				<key>Green Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 				<key>Red Component</key>
 				<real>0.73333334922790527</real>
 			</dict>
@@ -758,7 +745,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 				<key>Green Component</key>
 				<real>0.73333334922790527</real>
 				<key>Red Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 			</dict>
 			<key>Ansi 7 Color</key>
 			<dict>
@@ -785,59 +772,46 @@ Respond with one or more commands. Do not include any explanation or additional 
 				<key>Green Component</key>
 				<real>0.3333333432674408</real>
 				<key>Red Component</key>
-				<integer>1</integer>
+				<real>1</real>
 			</dict>
 			<key>BM Growl</key>
 			<true/>
 			<key>Background Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 				<key>Green Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 				<key>Red Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 			</dict>
 			<key>Background Image Location</key>
 			<string></string>
-			<key>Badge Color</key>
-			<dict>
-				<key>Alpha Component</key>
-				<real>0.5</real>
-				<key>Blue Component</key>
-				<integer>0</integer>
-				<key>Color Space</key>
-				<string>sRGB</string>
-				<key>Green Component</key>
-				<real>0.1491314172744751</real>
-				<key>Red Component</key>
-				<integer>1</integer>
-			</dict>
 			<key>Blinking Cursor</key>
 			<false/>
 			<key>Blur</key>
 			<true/>
 			<key>Blur Radius</key>
-			<real>18.149391259517767</real>
+			<real>11.242367940989848</real>
 			<key>Bold Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Green Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Red Component</key>
-				<integer>1</integer>
+				<real>1</real>
 			</dict>
+			<key>Bound Hosts</key>
+			<array/>
 			<key>Character Encoding</key>
 			<integer>4</integer>
 			<key>Close Sessions On End</key>
 			<true/>
 			<key>Columns</key>
-			<integer>150</integer>
+			<integer>100</integer>
 			<key>Command</key>
 			<string></string>
-			<key>Cursor Boost</key>
-			<real>0.0</real>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -847,30 +821,15 @@ Respond with one or more commands. Do not include any explanation or additional 
 				<key>Red Component</key>
 				<real>0.73333334922790527</real>
 			</dict>
-			<key>Cursor Guide Color</key>
-			<dict>
-				<key>Alpha Component</key>
-				<real>0.25</real>
-				<key>Blue Component</key>
-				<integer>1</integer>
-				<key>Color Space</key>
-				<string>sRGB</string>
-				<key>Green Component</key>
-				<real>0.9268307089805603</real>
-				<key>Red Component</key>
-				<real>0.70213186740875244</real>
-			</dict>
 			<key>Cursor Text Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Green Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Red Component</key>
-				<integer>1</integer>
+				<real>1</real>
 			</dict>
-			<key>Cursor Type</key>
-			<integer>2</integer>
 			<key>Custom Command</key>
 			<string>No</string>
 			<key>Custom Directory</key>
@@ -882,7 +841,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<key>Disable Window Resizing</key>
 			<true/>
 			<key>Draw Powerline Glyphs</key>
-			<true/>
+			<false/>
 			<key>Flashing Bell</key>
 			<true/>
 			<key>Foreground Color</key>
@@ -895,7 +854,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 				<real>0.73333334922790527</real>
 			</dict>
 			<key>Guid</key>
-			<string>0B06A044-FF43-49A4-8813-CC1DD3E60D82</string>
+			<string>370F0EBF-775D-499C-AB40-5458E555B943</string>
 			<key>Horizontal Spacing</key>
 			<real>1</real>
 			<key>Icon</key>
@@ -1194,19 +1153,6 @@ Respond with one or more commands. Do not include any explanation or additional 
 					<string>[1;5F</string>
 				</dict>
 			</dict>
-			<key>Link Color</key>
-			<dict>
-				<key>Alpha Component</key>
-				<integer>1</integer>
-				<key>Blue Component</key>
-				<real>0.73423302173614502</real>
-				<key>Color Space</key>
-				<string>sRGB</string>
-				<key>Green Component</key>
-				<real>0.35916060209274292</real>
-				<key>Red Component</key>
-				<integer>0</integer>
-			</dict>
 			<key>Mouse Reporting</key>
 			<true/>
 			<key>Name</key>
@@ -1216,9 +1162,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Menlo-Regular 11</string>
-			<key>Only The Default BG Color Uses Transparency</key>
-			<true/>
+			<string>SFMonoPowerline-Regular 10</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1226,7 +1170,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<key>Right Option Key Sends</key>
 			<integer>0</integer>
 			<key>Rows</key>
-			<integer>41</integer>
+			<integer>40</integer>
 			<key>Screen</key>
 			<integer>-1</integer>
 			<key>Scrollback Lines</key>
@@ -1234,16 +1178,16 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<key>Selected Text Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 				<key>Green Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 				<key>Red Component</key>
-				<integer>0</integer>
+				<real>0.0</real>
 			</dict>
 			<key>Selection Color</key>
 			<dict>
 				<key>Blue Component</key>
-				<integer>1</integer>
+				<real>1</real>
 				<key>Green Component</key>
 				<real>0.8353000283241272</real>
 				<key>Red Component</key>
@@ -1256,11 +1200,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<key>Show Status Bar</key>
 			<true/>
 			<key>Silence Bell</key>
-			<true/>
-			<key>Smart Cursor Color</key>
-			<true/>
-			<key>Space</key>
-			<integer>0</integer>
+			<false/>
 			<key>Status Bar Layout</key>
 			<dict>
 				<key>advanced configuration</key>
@@ -1284,28 +1224,13 @@ Respond with one or more commands. Do not include any explanation or additional 
 							<key>knobs</key>
 							<dict>
 								<key>base: compression resistance</key>
-								<real>1</real>
+								<integer>1</integer>
 								<key>base: priority</key>
 								<real>5</real>
 								<key>maxwidth</key>
 								<real>+infinity</real>
 								<key>minwidth</key>
 								<integer>0</integer>
-								<key>shared font</key>
-								<string></string>
-								<key>shared text color</key>
-								<dict>
-									<key>Alpha Component</key>
-									<real>1</real>
-									<key>Blue Component</key>
-									<real>0.69999998807907104</real>
-									<key>Color Space</key>
-									<string>P3</string>
-									<key>Green Component</key>
-									<real>0.69999998807907104</real>
-									<key>Red Component</key>
-									<real>0.69999998807907104</real>
-								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
 							<dict>
@@ -1328,7 +1253,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 							<key>knobs</key>
 							<dict>
 								<key>base: compression resistance</key>
-								<real>1</real>
+								<integer>1</integer>
 								<key>base: priority</key>
 								<real>5</real>
 								<key>maxwidth</key>
@@ -1337,21 +1262,29 @@ Respond with one or more commands. Do not include any explanation or additional 
 								<integer>0</integer>
 								<key>path</key>
 								<string>path</string>
-								<key>shared font</key>
-								<string></string>
-								<key>shared text color</key>
-								<dict>
-									<key>Alpha Component</key>
-									<real>1</real>
-									<key>Blue Component</key>
-									<real>0.69999998807907104</real>
-									<key>Color Space</key>
-									<string>P3</string>
-									<key>Green Component</key>
-									<real>0.69999998807907104</real>
-									<key>Red Component</key>
-									<real>0.69999998807907104</real>
-								</dict>
+							</dict>
+							<key>layout advanced configuration dictionary value</key>
+							<dict>
+								<key>algorithm</key>
+								<integer>0</integer>
+								<key>auto-rainbow style</key>
+								<integer>0</integer>
+								<key>remove empty components</key>
+								<false/>
+							</dict>
+						</dict>
+					</dict>
+					<dict>
+						<key>class</key>
+						<string>iTermStatusBarCPUUtilizationComponent</string>
+						<key>configuration</key>
+						<dict>
+							<key>knobs</key>
+							<dict>
+								<key>base: compression resistance</key>
+								<integer>1</integer>
+								<key>base: priority</key>
+								<real>5</real>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
 							<dict>
@@ -1368,7 +1301,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 					</dict>
 					<dict>
 						<key>class</key>
-						<string>iTermStatusBarFixedSpacerComponent</string>
+						<string>iTermStatusBarNetworkUtilizationComponent</string>
 						<key>configuration</key>
 						<dict>
 							<key>knobs</key>
@@ -1377,143 +1310,6 @@ Respond with one or more commands. Do not include any explanation or additional 
 								<integer>1</integer>
 								<key>base: priority</key>
 								<real>5</real>
-								<key>iTermStatusBarFixedSpacerComponentWidthKnob</key>
-								<integer>5</integer>
-								<key>shared text color</key>
-								<dict>
-									<key>Alpha Component</key>
-									<real>1</real>
-									<key>Blue Component</key>
-									<real>0.69797295331954956</real>
-									<key>Color Space</key>
-									<string>P3</string>
-									<key>Green Component</key>
-									<real>0.89270001649856567</real>
-									<key>Red Component</key>
-									<real>0.68831330537796021</real>
-								</dict>
-							</dict>
-							<key>layout advanced configuration dictionary value</key>
-							<dict>
-								<key>algorithm</key>
-								<integer>0</integer>
-								<key>auto-rainbow style</key>
-								<integer>0</integer>
-								<key>font</key>
-								<string>.AppleSystemUIFont 12</string>
-								<key>remove empty components</key>
-								<false/>
-							</dict>
-						</dict>
-					</dict>
-					<dict>
-						<key>class</key>
-						<string>iTermStatusBarGitComponent</string>
-						<key>configuration</key>
-						<dict>
-							<key>knobs</key>
-							<dict>
-								<key>base: compression resistance</key>
-								<integer>1</integer>
-								<key>base: priority</key>
-								<real>5</real>
-								<key>iTermStatusBarGitComponentPollingIntervalKey</key>
-								<real>2</real>
-								<key>maxwidth</key>
-								<real>+infinity</real>
-								<key>minwidth</key>
-								<integer>0</integer>
-								<key>shared text color</key>
-								<dict>
-									<key>Alpha Component</key>
-									<real>1</real>
-									<key>Blue Component</key>
-									<real>0.69999998807907104</real>
-									<key>Color Space</key>
-									<string>P3</string>
-									<key>Green Component</key>
-									<real>0.69999998807907104</real>
-									<key>Red Component</key>
-									<real>0.69999998807907104</real>
-								</dict>
-							</dict>
-							<key>layout advanced configuration dictionary value</key>
-							<dict>
-								<key>algorithm</key>
-								<integer>0</integer>
-								<key>auto-rainbow style</key>
-								<integer>0</integer>
-								<key>font</key>
-								<string>.AppleSystemUIFont 12</string>
-								<key>remove empty components</key>
-								<false/>
-							</dict>
-						</dict>
-					</dict>
-					<dict>
-						<key>class</key>
-						<string>iTermStatusBarFixedSpacerComponent</string>
-						<key>configuration</key>
-						<dict>
-							<key>knobs</key>
-							<dict>
-								<key>base: compression resistance</key>
-								<integer>1</integer>
-								<key>base: priority</key>
-								<real>5</real>
-								<key>iTermStatusBarFixedSpacerComponentWidthKnob</key>
-								<integer>5</integer>
-								<key>shared text color</key>
-								<dict>
-									<key>Alpha Component</key>
-									<real>1</real>
-									<key>Blue Component</key>
-									<real>0.88136154413223267</real>
-									<key>Color Space</key>
-									<string>P3</string>
-									<key>Green Component</key>
-									<real>0.63362258672714233</real>
-									<key>Red Component</key>
-									<real>0.71302109956741333</real>
-								</dict>
-							</dict>
-							<key>layout advanced configuration dictionary value</key>
-							<dict>
-								<key>algorithm</key>
-								<integer>0</integer>
-								<key>auto-rainbow style</key>
-								<integer>0</integer>
-								<key>font</key>
-								<string>.AppleSystemUIFont 12</string>
-								<key>remove empty components</key>
-								<false/>
-							</dict>
-						</dict>
-					</dict>
-					<dict>
-						<key>class</key>
-						<string>iTermStatusBarSearchFieldComponent</string>
-						<key>configuration</key>
-						<dict>
-							<key>knobs</key>
-							<dict>
-								<key>base: compression resistance</key>
-								<integer>1</integer>
-								<key>base: priority</key>
-								<real>5</real>
-								<key>shared text color</key>
-								<dict>
-									<key>Alpha Component</key>
-									<real>1</real>
-									<key>Blue Component</key>
-									<real>0.76881879568099976</real>
-									<key>Color Space</key>
-									<string>P3</string>
-									<key>Green Component</key>
-									<real>0.6414305567741394</real>
-									<key>Red Component</key>
-									<real>0.86000508069992065</real>
-								</dict>
 							</dict>
 							<key>layout advanced configuration dictionary value</key>
 							<dict>
@@ -1536,23 +1332,19 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<array/>
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
+			<key>Title Components</key>
+			<integer>1</integer>
 			<key>Transparency</key>
-			<real>0.12129798540609138</real>
+			<real>0.13439681154822336</real>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
 			<true/>
 			<key>Use Bright Bold</key>
 			<true/>
-			<key>Use Cursor Guide</key>
-			<false/>
 			<key>Use Italic Font</key>
 			<true/>
 			<key>Use Non-ASCII Font</key>
-			<false/>
-			<key>Use Tab Color</key>
-			<false/>
-			<key>Use Underline Color</key>
 			<false/>
 			<key>Vertical Spacing</key>
 			<real>1</real>
@@ -1597,26 +1389,20 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<string>kNextWindowPointerAction</string>
 		</dict>
 	</dict>
-	<key>Print In Black And White</key>
-	<true/>
 	<key>SoundForEsc</key>
 	<false/>
-	<key>StretchTabsToFillBar</key>
-	<true/>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>1</integer>
-	<key>TabsHaveCloseButton</key>
-	<true/>
+	<key>ToolbeltTools</key>
+	<array>
+		<string>Jobs</string>
+	</array>
 	<key>UseBorder</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>WindowNumber</key>
 	<false/>
-	<key>disableMetalWhenUnplugged</key>
-	<false/>
-	<key>findMode_iTerm</key>
-	<integer>0</integer>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
