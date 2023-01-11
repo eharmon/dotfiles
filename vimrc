@@ -118,6 +118,7 @@ if ((empty($TMUX)))
   " If we're in neovim and have iTerm2, switch the $TERM entry to support
   " advanced features. We can't just set that in the shell because most
   " systems have no terminfo entry for 'iterm2'.
+  " TODO: Do we really need to do this?
   if (has('nvim') && $LC_TERMINAL == 'iTerm2')
     let $TERM='iterm2'
   endif
