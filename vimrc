@@ -1,4 +1,13 @@
-" Neovim already has these defaults, so just configure in vim
+"""" Neovim
+
+" Highlight when something is yanked
+if has('nvim')
+  au TextYankPost * silent! lua vim.highlight.on_yank()
+endif
+
+"""" Vim
+
+" Configure vim to match neovim defaults that we want everywhere
 if !has('nvim')
   " Auto indent
   set autoindent
@@ -38,17 +47,19 @@ if !has('nvim')
   endif
 endif
 
+"""" UI
+
 " No intro message
 set shortmess+=I
-" Use peaksea colors
-colo molokai
+
 " Show matching parens
 set showmatch
 " Statusline configuration (overridden by powerline)
 "set statusline=%f\ %y%m%r%=%c\,%l/%L\ (%p%%)
+
 " Highlight current line
 set cursorline
-highlight CursorLine cterm=NONE ctermbg=235 ctermfg=NONE guibg=#262626 guifg=NONE gui=NONE
+
 " Show some control chars
 set list
 set listchars=tab:▸·,trail:·
@@ -56,7 +67,6 @@ set showbreak=↪
 
 " Configure wildmode
 set wildchar=<TAB>
-
 set wildignore+=.hg,.git,.svn                    " Version control
 set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
@@ -68,12 +78,6 @@ set wildignore+=*.luac                           " Lua byte code
 set wildignore+=migrations                       " Django migrations
 set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.orig                           " Merge resolution files
-
-" Sign column settings
-highlight SignColumn ctermbg=236 guibg=#303030
-
-" Completion
-"set completeopt=longest,menuone,preview
 
 " Resize splits when the window is resized
 au VimResized * :wincmd =
@@ -90,6 +94,48 @@ augroup END
 " Always show a context line with the cursor
 set scrolloff=1
 
+" Completion
+"set completeopt=longest,menuone,preview
+
+"""" Colors
+
+" Use peaksea colors
+colo molokai
+
+" Customize sign column colors
+highlight SignColumn ctermbg=236 guibg=#303030
+
+" Customize cursor line colors
+highlight CursorLine cterm=NONE ctermbg=235 ctermfg=NONE guibg=#262626 guifg=NONE gui=NONE
+
+" Enable 24-bit color and disable the background color (so transparency works)
+" if we're not in tmux(meaning we won't potentially attach a different terminal
+" later)
+if ((empty($TMUX)))
+  set termguicolors
+  highlight Normal guibg=NONE
+
+  " If we're in neovim and have iTerm2, switch the $TERM entry to support
+  " advanced features. We can't just set that in the shell because most
+  " systems have no terminfo entry for 'iterm2'.
+  if (has('nvim') && $LC_TERMINAL == 'iTerm2')
+    let $TERM='iterm2'
+  endif
+endif
+
+"""" Keyboard
+
+let mapleader = ','
+nnoremap <leader>d :NERDTreeToggle<CR>
+nnoremap <leader>t :TagbarToggle<CR>
+nnoremap <leader>g :GitGutterToggle<CR>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+"""" Titles
+
 " Set title string to the filename opened
 if ((&term =~ '^screen') && ($VIM_PLEASE_SET_TITLE =~ '^yes$') || has('gui_running'))
   set t_ts=k
@@ -99,7 +145,8 @@ if ((&term =~ '^screen') && ($VIM_PLEASE_SET_TITLE =~ '^yes$') || has('gui_runni
   let &titleold = fnamemodify(&shell, ":t")
 endif
 
-" Airline options
+"""" Airline
+
 let g:airline_theme = 'powerlineish'
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#ale#enabled = 1
@@ -113,30 +160,27 @@ else
   let g:airline_right_sep = ''
 endif
 
-" TODO: This should probably check for a few more things
-" Enable 24-bit color and disable the background color
-if ((empty($SSH_TTY)))
-  set termguicolors
-  highlight Normal guibg=NONE
-endif
-
 " Airline related, we don't need to show the mode at the bottom since airline
 " is already doing it for us
 set noshowmode
 
-" GitGutter options
+"""" Gitgutter
+
 highlight GitGutterAdd cterm=bold ctermfg=119 ctermbg=236 guifg=#87ff5f guibg=#303030
 highlight GitGutterDelete cterm=bold ctermfg=167 ctermbg=236 guifg=#df5f5f guibg=#303030
 highlight GitGutterChange cterm=bold ctermfg=227 ctermbg=236 guifg=#ffff5f guibg=#303030
 " Also change the updatetime to make it update 'nearly' realtime
 set updatetime=1500
 
-" vim-indent-guides options
+"""" Vim Indent Guides
+
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 let g:indent_guides_auto_colors = 0
 hi IndentGuidesOdd  ctermbg=236 guibg=#303030
 hi IndentGuidesEven ctermbg=238 guibg=#444444
+
+"""" Silver Searcher
 
 if executable('ag')
   " Use Ag over Grep
@@ -144,22 +188,5 @@ if executable('ag')
 
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-endif
-
-" Keyboard shortcuts
-let mapleader = ','
-nnoremap <leader>d :NERDTreeToggle<CR>
-nnoremap <leader>t :TagbarToggle<CR>
-nnoremap <leader>g :GitGutterToggle<CR>:SignifyToggle<CR>
-nnoremap <leader>s :SyntasticCheck<CR>
-nnoremap <leader>p :CtrlP<CR>
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" neovim-specific enhancements
-if has('nvim')
-  au TextYankPost * silent! lua vim.highlight.on_yank()
 endif
 
