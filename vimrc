@@ -115,11 +115,11 @@ if ((empty($TMUX)))
   set termguicolors
   highlight Normal guibg=NONE
 
-  " If we're in neovim and have iTerm2, switch the $TERM entry to support
-  " advanced features. We can't just set that in the shell because most
-  " systems have no terminfo entry for 'iterm2'. Only do this over ssh
-  " as a local iTerm2 should set $TERMINFO_DIRS which extends xterm-256color
-  " automatically.
+  " If we're in neovim and using iTerm2 over SSH, switch the $TERM entry to
+  " support advanced features. This will cause neovim to use it's internal
+  " terminfo. When using iTerm2 locally (no ssh), it will set $TERMINFO_DIRS
+  " to augment the xterm-256color entry instead, which is cleaner because
+  " it'll be in sync with the latest iTerm2 features running locally.
   if (has('nvim') && !empty($SSH_TTY) && $LC_TERMINAL == 'iTerm2')
     let $TERM='iterm2'
   endif
