@@ -36,6 +36,17 @@ if !has('nvim')
   " Enable filetype detection plugins with all features
   filetype plugin indent on
 
+  " Send cursor shape escape sequences for iTerm2
+  if ($LC_TERMINAL == 'iTerm2')
+    let &t_SI = "\<Esc>]1337;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]1337;CursorShape=0\x7"
+  endif
+  " And for tmux
+  if (!empty($TMUX))
+    let &t_SI = "\<Esc>[6 q"
+    let &t_EI = "\<Esc>[0 q"
+  endif
+
   " Cache things to our homedir, not random places
   if isdirectory(expand('~/.cache/vim'))
     set directory=~/.cache/vim/swap//,/tmp
