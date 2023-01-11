@@ -335,3 +335,13 @@ if [[ -d ~/google-cloud-sdk ]]; then
     source ~/google-cloud-sdk/path.zsh.inc
     source ~/google-cloud-sdk/completion.zsh.inc
 fi
+
+#### iTerm2 Integration
+
+# Load iTerm2 integration directly from iTerm2.app when it's installed in the default location
+# TODO: This means shell integration on remote Linux hosts won't work, but also doesn't require
+# we keep it up-to-date in dotfiles as a tradeoff.
+local ITERM_SHELL_INTEGRATION_LOCATION="/Applications/iTerm.app/Contents/Resources/iterm2_shell_integration.zsh"
+if [[ $LC_TERMINAL == 'iTerm2' && -e $ITERM_SHELL_INTEGRATION_LOCATION ]]; then
+    source $ITERM_SHELL_INTEGRATION_LOCATION
+fi

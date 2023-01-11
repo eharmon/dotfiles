@@ -1265,6 +1265,8 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<false/>
 			<key>Shortcut</key>
 			<string></string>
+			<key>Show Mark Indicators</key>
+			<false/>
 			<key>Show Status Bar</key>
 			<true/>
 			<key>Show Timestamps</key>
@@ -1543,6 +1545,10 @@ Respond with one or more commands. Do not include any explanation or additional 
 	<integer>1</integer>
 	<key>TabsHaveCloseButton</key>
 	<true/>
+	<key>ToolbeltTools</key>
+	<array>
+		<string>Recent Directories</string>
+	</array>
 	<key>UseBorder</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
