@@ -98,30 +98,23 @@ title_precmd() {
     # adjust title of xterm
     # see http://www.faqs.org/docs/Linux-mini/Xterm-Title.html
     case $TERM in
-        (xterm*|rxvt*|screen*)
-            set_title ${(%):-"%n@%m: [%~]"}
+        (xterm*|rxvt*|alacritty|foot|screen*)
+            set_title "${(%):-"%n@%m:" [%~]}"
             ;;
     esac
 }
 
 # Title command which properly support screen, overriding grml version
 title_preexec () {
-    # set hostname if not running on host with name 'grml'
-    # TODO: Why?
-    if [[ -n "$HOSTNAME" ]] && [[ "$HOSTNAME" != "$HOST" ]] ; then
-       NAME="@$HOSTNAME"
-    fi
-    # get the name of the program currently running and hostname of local machine
+    # get the name of the program currently running
     # set screen window title if running in a screen
     if [[ "$TERM" == screen* ]] ; then
-        # local CMD=${1[(wr)^(*=*|sudo|ssh|-*)]}       # don't use hostname
-        local CMD="${1[(wr)^(*=*|sudo|ssh|-*)]}$NAME" # use hostname
+        local CMD=${1[(wr)^(*=*|sudo|ssh|-*)]}
         ESC_print ${CMD}
     fi
-    # adjust title of xterm
-    #[[ ${NOTITLE} -gt 0 ]] && return 0
+    #adjust title of xterm
     case $TERM in
-        (xterm*|rxvt*|screen*)
+        (xterm*|rxvt*|alacritty|foot|screen*)
             set_title "${(%):-"%n@%m:"}" "[$1]"
             ;;
     esac
