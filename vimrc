@@ -47,7 +47,9 @@ if !has('nvim')
     let &t_EI = "\<Esc>[0 q"
   endif
 
-  " Support standard title escapes
+  " Support standard title escapes. In tmux this only works to set the window
+  " name, setting the terminal title would require 't_ts=^[]0;' but would
+  " break the window name, which seems more valuable.
   set t_ts=k
   set t_fs=\
 
