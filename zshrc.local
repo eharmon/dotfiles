@@ -99,7 +99,12 @@ title_precmd() {
     # see http://www.faqs.org/docs/Linux-mini/Xterm-Title.html
     case $TERM in
         (xterm*|rxvt*|alacritty|foot|screen*)
-            set_title "${(%):-"%n@%m:" [%~]}"
+            local prefix
+            if [[ -n $SUDO_USER || -n $SSH_TTY ]]; then
+                prefix="%n@%m: "
+            fi
+
+            set_title "${(%):-"$prefix"[%~]}"
             ;;
     esac
 }
@@ -112,10 +117,15 @@ title_preexec () {
         local CMD=${1[(wr)^(*=*|sudo|ssh|-*)]}
         ESC_print ${CMD}
     fi
-    #adjust title of xterm
+    # adjust title of xterm
     case $TERM in
         (xterm*|rxvt*|alacritty|foot|screen*)
-            set_title "${(%):-"%n@%m:"}" "[$1]"
+            local prefix
+            if [[ -n $SUDO_USER || -n $SSH_TTY ]]; then
+                prefix="%n@%m: "
+            fi
+
+            set_title "${(%):-"$prefix"}[$1]"
             ;;
     esac
 }
