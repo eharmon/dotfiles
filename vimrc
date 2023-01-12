@@ -47,6 +47,10 @@ if !has('nvim')
     let &t_EI = "\<Esc>[0 q"
   endif
 
+  " Support standard title escapes
+  set t_ts=k
+  set t_fs=\
+
   " Cache things to our homedir, not random places
   if isdirectory(expand('~/.cache/vim'))
     set directory=~/.cache/vim/swap//,/tmp
@@ -150,13 +154,9 @@ nnoremap <C-l> <C-w>l
 """" Titles
 
 " Set title string to the filename opened
-if ((&term =~ '^screen') && ($VIM_PLEASE_SET_TITLE =~ '^yes$') || has('gui_running'))
-  set t_ts=k
-  set t_fs=\
-  set title
-  autocmd BufEnter * let &titlestring = "vim: " . expand("%:t")
-  let &titleold = fnamemodify(&shell, ":t")
-endif
+set title
+autocmd BufEnter * let &titlestring = "vim: " . expand("%:t")
+let &titleold = fnamemodify(&shell, ":t")
 
 """" Airline
 

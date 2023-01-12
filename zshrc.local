@@ -101,10 +101,10 @@ title_precmd() {
         (xterm*|rxvt*|alacritty|foot|screen*)
             local prefix
             if [[ -n $SUDO_USER || -n $SSH_TTY ]]; then
-                prefix="%n@%m: "
+                prefix="[%n@%m] "
             fi
 
-            set_title "${(%):-"$prefix"[%~]}"
+            set_title "${(%):-"$prefix"zsh: %(5~|%-1~/…/%3~|%4~)}"
             ;;
     esac
 }
@@ -122,10 +122,10 @@ title_preexec () {
         (xterm*|rxvt*|alacritty|foot|screen*)
             local prefix
             if [[ -n $SUDO_USER || -n $SSH_TTY ]]; then
-                prefix="%n@%m: "
+                prefix="[%n@%m] "
             fi
 
-            set_title "${(%):-"$prefix"}[$1]"
+            set_title "${(%):-"$prefix"}$1"
             ;;
     esac
 }
