@@ -125,12 +125,13 @@ highlight SignColumn ctermbg=236 guibg=#303030
 " Customize cursor line colors
 highlight CursorLine cterm=NONE ctermbg=235 ctermfg=NONE guibg=#262626 guifg=NONE gui=NONE
 
-" Enable 24-bit color and disable the background color (so transparency works)
-" if we're not in tmux(meaning we won't potentially attach a different terminal
-" later)
+" Disable the background color since we always use a dark terminal
+highlight Normal guibg=NONE ctermbg=NONE
+
+" Enable 24-bit color if we're not in tmux(meaning we won't potentially attach a
+" different terminal later)
 if ((empty($TMUX)))
   set termguicolors
-  highlight Normal guibg=NONE
 
   " If we're in neovim and using iTerm2 over SSH, switch the $TERM entry to
   " support advanced features. This will cause neovim to use it's internal
