@@ -71,7 +71,7 @@ fi
 
 # Include hostname-specific magic if it exists
 local DOMAIN=${HOST#*.}
-if [[ -e ~/.zshrc.$DOMAIN ]]; then
+if [[ -e ~/.zshrc.$DOMAIN && $DOMAIN != "local" ]]; then
     echo "Setting shell for $DOMAIN domain"
     source ~/.zshrc.$DOMAIN
 fi
