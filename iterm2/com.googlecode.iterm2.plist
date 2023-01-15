@@ -9,16 +9,8 @@ Respond with one or more commands. Do not include any explanation or additional 
 </string>
 	<key>AlternateMouseScroll</key>
 	<true/>
-	<key>AppleAntiAliasingThreshold</key>
-	<integer>1</integer>
-	<key>ApplePressAndHoldEnabled</key>
-	<false/>
-	<key>AppleScrollAnimationEnabled</key>
-	<integer>0</integer>
-	<key>AppleSmoothFixedFontsSizeThreshold</key>
-	<integer>1</integer>
-	<key>AppleWindowTabbingMode</key>
-	<string>manual</string>
+	<key>AlwaysOpenWindowAtStartup</key>
+	<true/>
 	<key>CheckTestRelease</key>
 	<true/>
 	<key>Default Bookmark Guid</key>
@@ -34,7 +26,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 	<key>EnableProxyIcon</key>
 	<false/>
 	<key>HTMLTabTitles</key>
-	<false/>
+	<true/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideTabNumber</key>
@@ -815,16 +807,18 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<key>Badge Color</key>
 			<dict>
 				<key>Alpha Component</key>
-				<real>0.5</real>
+				<real>0.39215686274509803</real>
 				<key>Blue Component</key>
-				<integer>0</integer>
+				<real>0.88294446468353271</real>
 				<key>Color Space</key>
-				<string>sRGB</string>
+				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.1491314172744751</real>
+				<real>0.16889774799346924</real>
 				<key>Red Component</key>
-				<integer>1</integer>
+				<real>0.14975720643997192</real>
 			</dict>
+			<key>Badge Text</key>
+			<string></string>
 			<key>Blinking Cursor</key>
 			<false/>
 			<key>Blur</key>
@@ -887,6 +881,8 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<string>No</string>
 			<key>Custom Directory</key>
 			<string>No</string>
+			<key>Custom Window Title</key>
+			<string></string>
 			<key>Default Bookmark</key>
 			<string>No</string>
 			<key>Description</key>
@@ -1466,14 +1462,18 @@ Respond with one or more commands. Do not include any explanation or additional 
 					</dict>
 				</array>
 			</dict>
+			<key>Subtitle</key>
+			<string></string>
 			<key>Sync Title</key>
 			<false/>
 			<key>Tags</key>
 			<array/>
 			<key>Terminal Type</key>
 			<string>xterm-256color</string>
+			<key>Title Components</key>
+			<integer>1</integer>
 			<key>Transparency</key>
-			<real>0.12129798540609138</real>
+			<real>0.12</real>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
@@ -1481,6 +1481,8 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<key>Use Bright Bold</key>
 			<true/>
 			<key>Use Cursor Guide</key>
+			<false/>
+			<key>Use Custom Window Title</key>
 			<false/>
 			<key>Use Italic Font</key>
 			<true/>
@@ -1539,6 +1541,8 @@ Respond with one or more commands. Do not include any explanation or additional 
 	<true/>
 	<key>SoundForEsc</key>
 	<false/>
+	<key>StatusBarPosition</key>
+	<integer>0</integer>
 	<key>StretchTabsToFillBar</key>
 	<true/>
 	<key>TabStyleWithAutomaticOption</key>
