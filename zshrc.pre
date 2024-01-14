@@ -1,5 +1,7 @@
 #### Set options for grml zshrc
 
+zmodload zsh/zprof
+
 # Don't set rprompt
 DONTSETRPROMPT=1
 # Don't check for mail
@@ -52,3 +54,71 @@ if [[ ! -z "$SSH_TTY" ]]; then
     source ~/.zsh/zshrc.pre.tmux
 fi
 
+##### Setup color scheme
+
+if [[ -z "$SSH_TTY" ]]; then
+
+    # This will use OSC 4 escapes to configure colors in supported terminals. Only do this locally so
+    # an ssh session doesn't "infect" the host with color changes.
+
+    # Modified version of the Solarized scheme ported by Benjamin Staffin.
+    # https://github.com/benley/solarized-termcolor-osc4/tree/master
+
+    # Note that while many terminals allow custom colors, this method is universal (where supported).
+
+    base03="00/2b/36"
+    base02="07/36/42"
+    base01="58/6e/75"
+    base00="65/7b/83"
+    base0="83/94/96"
+    base1="93/a1/a1"
+    base2="ee/e8/d5"
+    base3="fd/f6/e3"
+    yellow="b5/89/00"
+    orange="cb/4b/16"
+    red="dc/32/2f"
+    magenta="d3/36/82"
+    violet="6c/71/c4"
+    blue="26/8b/d2"
+    cyan="2a/a1/98"
+    green="85/99/00"
+
+    function cset() {
+      ANSI=$1
+      RGB=$2
+      printf "\x1b]4;$ANSI;rgb:${RGB}\a"
+    }
+
+    # I prefer the default colors, so leave this out for now
+    # Black
+    #cset 0 $base02
+    #cset 8 $base03
+
+    # Red
+    cset 1 $red
+    cset 9 $orange
+
+    # Green
+    cset 2 $green
+    cset 10 $base01
+
+    # Yellow
+    cset 3 $yellow
+    cset 11 $base00
+
+    # Blue
+    cset 4 $blue
+    cset 12 $base0
+
+    # Magenta
+    cset 5 $magenta
+    cset 13 $violet
+
+    # Cyan
+    cset 6 $cyan
+    cset 14 $base1
+
+    # White
+    cset 7 $base2
+    cset 15 $base3
+fi
