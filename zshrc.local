@@ -64,7 +64,7 @@ VIM_OPTIONS='-p'
 
 if (( $+commands[nvim] )); then
     # Use neovim as the man page tool with a custom color scheme -- same as default right now, but overridden in case this changes later
-    export MANPAGER='nvim +"colo molokai" +"highlight Normal guibg=NONE" +Man!'
+    export MANPAGER='nvim +"colo molokai" +"highlight Normal guibg=NONE" +"set titlestring=man:\ %t" +Man!'
 fi
 
 #### Includes
@@ -281,7 +281,6 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
 # Define this as a function since we need to modify the settings after it's sourced
 function load_syntax_highlighting {
-    # Source syntax highlighting if it exists
     source ~/.zsh/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
     # Main
