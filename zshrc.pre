@@ -1,7 +1,5 @@
 #### Set options for grml zshrc
 
-zmodload zsh/zprof
-
 # Don't set rprompt
 DONTSETRPROMPT=1
 # Don't check for mail
