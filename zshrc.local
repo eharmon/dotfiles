@@ -329,6 +329,18 @@ zsh-defer source ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
 if [[ -e $HOMEBREW_PREFIX/opt/fzf ]]; then
     zsh-defer source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
     zsh-defer source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
+
+    function keybinds {
+        # Reset the ^r action to GRML style:
+        bindkey -M emacs '^r' history-incremental-pattern-search-backward
+        bindkey -M vicmd '^r' history-incremental-pattern-search-backward
+        bindkey -M viins '^r' history-incremental-pattern-search-backward
+        # And add the fzf style
+        bindkey '^r^f' fzf-history-widget
+    }
+
+    # TODO: Is this technically a race condition or does zsh-defer order?
+    zsh-defer keybinds
 fi
 
 #### Google Cloud SDK
