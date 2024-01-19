@@ -64,6 +64,7 @@ if [[ -z "$SSH_TTY" ]]; then
 
     # Note that while many terminals allow custom colors, this method is universal (where supported).
 
+    # Solarized Colors
     base03="00/2b/36"
     base02="07/36/42"
     base01="58/6e/75"
@@ -80,6 +81,19 @@ if [[ -z "$SSH_TTY" ]]; then
     blue="26/8b/d2"
     cyan="2a/a1/98"
     green="85/99/00"
+
+    # Molokai colors
+    molokai_yellow="e6/db/74"
+    molokai_orange="fd/97/1f"
+    molokai_orange2="ef/59/39"
+    molokai_lightbrown="bc/a3/a3"
+    molokai_red="f9/26/72"
+    molokai_magenta="f9/26/72"
+    molokai_blue="70/70/f0"
+    molokai_violet="ae/81/ff"
+    molokai_cyan="66/d9/ef"
+    molokai_brightcyan="70/f0/f0"
+    molokai_green="a6/e2/2e"
 
     function cset() {
       ANSI=$1
@@ -98,23 +112,23 @@ if [[ -z "$SSH_TTY" ]]; then
 
     # Green
     cset 2 $green
-    cset 10 $base01
+    cset 10 $molokai_green
 
     # Yellow
     cset 3 $yellow
-    cset 11 $base00
+    cset 11 $molokai_yellow
 
     # Blue
     cset 4 $blue
-    cset 12 $base0
+    cset 12 $molokai_blue
 
     # Magenta
     cset 5 $magenta
-    cset 13 $violet
+    cset 13 $molokai_magenta
 
     # Cyan
     cset 6 $cyan
-    cset 14 $base1
+    cset 14 $molokai_cyan
 
     # White
     cset 7 $base2
