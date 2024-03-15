@@ -1,8 +1,8 @@
 """" Determine if we're running on old unix
 
-if has("unix")
-  let s:old_unix = $OLD_UNIX
-else
+if has("unix") && $OLD_UNIX
+  let s:old_unix = 1
+endif
 
 """" Neovim
 
