@@ -1,3 +1,17 @@
+#### Determine if we're running on old Unix
+
+# There's many more, but this is what we use right now
+# TODO: We should match less precisely below
+OLD_UNIX_TYPES=('irix6.5')
+
+export OLD_UNIX=0
+
+if (( $OLD_UNIX_TYPES[(Ie)$OSTYPE] )); then
+    # Set the flag so we can skip expensive loads
+    export OLD_UNIX=1
+
+fi
+
 #### Paths
 
 function python_paths {
@@ -18,7 +32,9 @@ function python_paths {
 }
 
 # Very unlikely to need this immediately, so lazy load it
-zsh-defer -a python_paths
+if (( ! $OLD_UNIX )); then
+    zsh-defer -a python_paths
+fi
 
 #### Prompt Setup
 
@@ -55,6 +71,45 @@ if (( $+commands[pbpaste] )); then
     function pbclean {
         pbpaste | sed "s/[]//g" | pbcopy
     }
+fi
+
+# Add a function and key bind to get the currently selected file in Finder
+if (( $+commands[osascript] )); then
+    alias finderpath="osascript -e 'tell application \"Finder\"
+    if selection is not {}
+        POSIX path of (selection as alias)
+    end if
+    end tell'" # | sed 's/[[:space:]]/\\\ /g'"
+
+    function _finderpath {
+        zle -U "\"$(finderpath)\""
+    }
+    zle -N _finderpath
+    bindkey '\ef' _finderpath
+
+    function fmount {
+        # TODO: Should print the mounted path instead of the weird AppleScript path
+        osascript << EOF
+tell application "Finder"
+    mount volume "$1"
+end tell
+EOF
+    }
+
+    function fopen {
+        fmount $1
+        osascript << EOF
+tell application "Finder"
+    open location ("$1")
+    activate
+end tell
+EOF
+    }
+fi
+
+if (( $+commands[xxd] )); then
+    # TODO: Need to print a warning if we saw non-hex chars, this just does a simple test and outputs nothing
+    alias hex2bin='grep -v "[hjklmnopqrstuvwxyz]" | xxd -r -p - -'
 fi
 
 #### Vars
@@ -214,6 +269,19 @@ if (( $+commands[nvim] )); then
     }
 fi
 
+#### OS Specific
+
+# Case-insensitve matching on macOS as it usually has a case-insensitive filesystem
+if [[ $OSTYPE == darwin* ]]; then
+    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+fi
+
+# Define some useful IRIX commands
+if [[ $OSTYPE == irix* ]]; then
+    alias halt="sudo /etc/shutdown -y -g0 -p"
+    alias reboot="sudo /etc/shutdown -y -g0 -i6"
+fi
+
 #### Misc
 
 # Use fancy history locking
@@ -226,11 +294,6 @@ is-at-least 4.3.7 && setopt HIST_FCNTL_LOCK
 SOCK=$HOME/.cache/ssh_auth_sock_$HOST
 if [[ -e $SOCK ]]; then
     export SSH_AUTH_SOCK=$SOCK
-fi
-
-# Case-insensitve matching on macOS as it usually has a case-insensitive filesystem
-if [[ $OSTYPE == darwin* ]]; then
-    zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 fi
 
 # Set the lang, which we have to do now for some reason
@@ -272,7 +335,9 @@ bindkey "^[t" read-pane
 
 #### Backdir
 
-zsh-defer source ~/.zsh/modules/zsh-bd/bd.zsh
+if (( ! $OLD_UNIX )); then
+    zsh-defer source ~/.zsh/modules/zsh-bd/bd.zsh
+fi
 
 #### Syntax highlighting
 
@@ -315,13 +380,17 @@ function load_syntax_highlighting {
     #ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]:=standout}
 }
 
-zsh-defer -a +pr load_syntax_highlighting
+if (( ! $OLD_UNIX )); then
+    zsh-defer -a +pr load_syntax_highlighting
+fi
 
 #### Autosuggestions
 
 ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 
-zsh-defer source ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
+if (( ! $OLD_UNIX )); then
+    zsh-defer source ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
 
 #### fzf for search
 

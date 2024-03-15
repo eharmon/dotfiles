@@ -1,3 +1,9 @@
+"""" Determine if we're running on old unix
+
+if has("unix")
+  let s:old_unix = $OLD_UNIX
+else
+
 """" Neovim
 
 " Highlight when something is yanked
@@ -31,7 +37,9 @@ if !has('nvim')
   set wildmenu
 
   " Turn on syntax highlighting
-  syntax on
+  if !exists("s:old_unix")
+    syntax on
+  endif
 
   " Enable filetype detection plugins with all features
   filetype plugin indent on
@@ -78,9 +86,11 @@ set showmatch
 set cursorline
 
 " Show some control chars
-set list
-set listchars=tab:▸·,trail:·
-set showbreak=↪
+if !exists("s:old_unix")
+  set list
+  set listchars=tab:▸·,trail:·
+  set showbreak=↪
+endif
 
 " Configure wildmode
 set wildchar=<TAB>
@@ -117,7 +127,7 @@ set scrolloff=1
 """" Colors
 
 " Use peaksea colors
-colo molokai
+silent! colo molokai
 
 " Customize sign column colors
 highlight SignColumn ctermbg=236 guibg=#303030
@@ -128,10 +138,12 @@ highlight CursorLine cterm=NONE ctermbg=235 ctermfg=NONE guibg=#262626 guifg=NON
 " Disable the background color since we always use a dark terminal
 highlight Normal guibg=NONE ctermbg=NONE
 
-" Enable 24-bit color if we're not in tmux(meaning we won't potentially attach a
+" Enable 24-bit color if we're not in tmux (meaning we won't potentially attach a
 " different terminal later)
 if ((empty($TMUX)))
-  set termguicolors
+  if v:version > 800
+    set termguicolors
+  endif
 
   " If we're in neovim and using iTerm2 over SSH, switch the $TERM entry to
   " support advanced features. This will cause neovim to use it's internal
