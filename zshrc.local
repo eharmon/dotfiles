@@ -43,7 +43,7 @@ FPATH="$HOME/.zsh/themes:$FPATH"
 promptinit
 
 # If we're in iTerm2, but outside tmux and ssh, we know we have powerline fonts avail
-if [[ $LC_TERMINAL == 'iTerm2' && -z $TMUX && -z $SSH_TTY ]]; then
+if [[ ($LC_TERMINAL == 'iTerm2' || $TERM_PROGRAM == 'WezTerm') && -z $TMUX && -z $SSH_TTY ]]; then
     RICH_PROMPT_SUPPORTED=1
 else
     RICH_PROMPT_SUPPORTED=0
