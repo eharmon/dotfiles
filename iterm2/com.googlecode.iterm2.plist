@@ -13,6 +13,8 @@ Respond with one or more commands. Do not include any explanation or additional 
 	<true/>
 	<key>CheckTestRelease</key>
 	<true/>
+	<key>ClickToSelectCommand</key>
+	<false/>
 	<key>Default Bookmark Guid</key>
 	<string>0B06A044-FF43-49A4-8813-CC1DD3E60D82</string>
 	<key>DefaultTabBarHeight</key>
@@ -1474,6 +1476,10 @@ Respond with one or more commands. Do not include any explanation or additional 
 			<integer>1</integer>
 			<key>Transparency</key>
 			<real>0.12</real>
+			<key>Unicode Normalization</key>
+			<integer>0</integer>
+			<key>Unicode Version</key>
+			<integer>9</integer>
 			<key>Unlimited Scrollback</key>
 			<false/>
 			<key>Use Bold Font</key>
