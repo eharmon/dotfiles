@@ -12,7 +12,7 @@ Respond with one or more commands. Do not include any explanation or additional 
 	<key>AlwaysOpenWindowAtStartup</key>
 	<true/>
 	<key>CheckTestRelease</key>
-	<true/>
+	<false/>
 	<key>ClickToSelectCommand</key>
 	<false/>
 	<key>Default Bookmark Guid</key>
