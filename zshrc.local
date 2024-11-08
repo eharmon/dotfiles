@@ -257,7 +257,7 @@ if (( $+commands[mdfind] )); then
     alias search=mdfind -onlyin
 fi
 
-# Pretty-print JSON
+# Pretty-print JSON on macOS
 if (( $+commands[plutil] )); then
     alias ppj="plutil -convert json -r - -o -"
 fi
@@ -266,6 +266,14 @@ fi
 if (( $+commands[nvim] )); then
     function vim {
         VIM_PLEASE_SET_TITLE='yes' command nvim ${VIM_OPTIONS} "$@"
+    }
+fi
+
+# Quicklook for files
+if (( $+commands[qlmanage] )); then
+    function ql {
+        echo -n "Launching QuickLook: "
+        qlmanage -p $@ &>/dev/null & disown
     }
 fi
 
