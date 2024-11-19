@@ -73,20 +73,16 @@ if (( $+commands[pbpaste] )); then
     }
 fi
 
-# Add a function and key bind to get the currently selected file in Finder
+# AppleScript and adjacent
 if (( $+commands[osascript] )); then
-    alias finderpath="osascript -e 'tell application \"Finder\"
+    # Find the currently selected path in Finder
+    alias fpath="osascript -e 'tell application \"Finder\"
     if selection is not {}
         POSIX path of (selection as alias)
     end if
     end tell'" # | sed 's/[[:space:]]/\\\ /g'"
 
-    function _finderpath {
-        zle -U "\"$(finderpath)\""
-    }
-    zle -N _finderpath
-    bindkey '\ef' _finderpath
-
+    # Mount a volume via Finder, in the background. Use `open` instead to mount and select in Finder.
     function fmount {
         # TODO: Should print the mounted path instead of the weird AppleScript path
         osascript << EOF
@@ -96,15 +92,24 @@ end tell
 EOF
     }
 
+    # Show a file or folder in Finder
+    alias fshow="open -R"
+
+    # Show a file or folder contents in Finder
     function fopen {
-        fmount $1
-        osascript << EOF
-tell application "Finder"
-    open location ("$1")
-    activate
-end tell
-EOF
+        if [[ -d "$1" ]]; then
+            open $1
+        else
+            open -r $1
+        fi
     }
+
+    # bind opt-f to grab the current Finder path onto the line editor
+    function _finderpath {
+        zle -U "\"$(fpath)\""
+    }
+    zle -N _finderpath
+    bindkey '\ef' _finderpath
 fi
 
 if (( $+commands[xxd] )); then
