@@ -1,6 +1,17 @@
 # Kill XOFF, it is evil.
 stty stop undef
 
+function handle_failure {
+    # Try to get back to relatively sane defaults if we crashed in the middle of something strange
+    stty sane
+    tput cnorm
+    echo
+    echo "--------------------------------------------------------------------------------"
+    echo
+    print "\e[0;31mWARNING: There was an error interacting with tmux (or tmux has crashed), starting a standard shell to let you clean up...";
+    echo
+}
+
 # Make the magic happen if we're not already in tmux
 if [ -z "$TMUX" ]
 then
@@ -24,21 +35,11 @@ then
             if [[ $? == 0 ]]; then
                 exit
             else
-                # Try to get back to relatively sane defaults if we crashed in the middle of something strange
-                stty sane
-                tput cnorm
-                echo
-                echo "--------------------------------------------------------------------------------"
-                echo
-                print "\e[0;31mWARNING: There was an error interacting with tmux (or tmux has crashed), starting a standard shell to let you clean up...";
-                echo
+                handle_failure
             fi
         else
-            echo
-            print "\e[0;31mWARNING: There was an error interacting with tmux (or tmux has crashed), starting a standard shell to let you clean up...";
-            echo
+            handle_failure
         fi
     fi
 fi
-return
 
