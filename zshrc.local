@@ -277,6 +277,13 @@ if (( $+commands[qlmanage] )); then
     }
 fi
 
+# Whisky's CLI
+# TODO: Find the application automatically
+if [[ -e "/Applications/Whisky.app/Contents/Resources/WhiskyCmd" ]];
+then
+    alias whisky="/Applications/Whisky.app/Contents/Resources/WhiskyCmd"
+fi
+
 #### OS Specific
 
 # Case-insensitve matching on macOS as it usually has a case-insensitive filesystem
@@ -432,6 +439,7 @@ fi
 # Load iTerm2 integration directly from iTerm2.app when it's installed in the default location
 # TODO: This means shell integration on remote Linux hosts won't work, but also doesn't require
 # we keep it up-to-date in dotfiles as a tradeoff.
+# TODO: Find the application automatically
 local ITERM_SHELL_INTEGRATION_LOCATION="/Applications/iTerm.app/Contents/Resources/iterm2_shell_integration.zsh"
 if [[ $LC_TERMINAL == 'iTerm2' && -e $ITERM_SHELL_INTEGRATION_LOCATION ]]; then
     source $ITERM_SHELL_INTEGRATION_LOCATION
