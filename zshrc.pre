@@ -8,10 +8,6 @@ MAILCHECK=0
 # TODO: This probably breaks dynamic hostname updating in the title
 NOPRECMD=1
 
-#### Enable lazy loading support
-
-source ~/.zsh/modules/zsh-defer/zsh-defer.plugin.zsh
-
 #### Paths
 
 function setup_homebrew {
@@ -50,6 +46,8 @@ ls_options=( -F )
 # Only multiplex for remote connections
 if [[ ! -z "$SSH_TTY" ]]; then
     source ~/.zsh/zshrc.pre.tmux
+    # If this chooses to start a session and works correctly, it'll never return. Otherwise continue
+    # on to setup the local shell.
 fi
 
 ##### Setup color scheme
