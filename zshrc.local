@@ -121,6 +121,14 @@ if (( $+commands[xxd] )); then
     alias hex2bin='grep -v "[hjklmnopqrstuvwxyz]" | xxd -r -p - -'
 fi
 
+function motd {
+    if [[ -f "/etc/motd" ]]; then
+        cat /etc/motd
+    elif [[ -f "/run/motd.dynamic" ]]; then
+        cat /run/motd.dynamic
+    fi
+}
+
 #### Vars
 
 # Tell our zshrc to pass -p to the vim options to open multiple files in tabs

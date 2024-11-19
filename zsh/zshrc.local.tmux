@@ -3,5 +3,5 @@
 if [[ ! -z "$TMUX" && $(tmux list-windows -t "base" | wc -l | tr -d ' ') == "1" && -e /etc/motd && "$UID" != 0 ]]
 then
 	echo
-	cat /etc/motd
+	motd
 fi
