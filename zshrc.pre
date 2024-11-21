@@ -1,12 +1,16 @@
+#### Enable lazy loading support
+
+source ~/.zsh/modules/zsh-defer/zsh-defer.plugin.zsh
+
 #### Set options for grml zshrc
 
-# Don't set rprompt
-DONTSETRPROMPT=1
-# Don't check for mail
-MAILCHECK=0
 # We have our own function to set the title, so disable the support in grml
 # TODO: This probably breaks dynamic hostname updating in the title
 NOPRECMD=1
+
+# Disable completion security checking. It's not very valuable, and we setup a
+# deferred audit anyway, so we should be able to see any errors.
+zstyle ':grml:completion:compinit' arguments -C
 
 #### Profiling
 
@@ -18,10 +22,6 @@ function enable_profiling {
 
 # Uncomment to enable
 #enable_profiling
-
-#### Enable lazy loading support
-
-source ~/.zsh/modules/zsh-defer/zsh-defer.plugin.zsh
 
 #### Homebrew
 

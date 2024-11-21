@@ -140,6 +140,9 @@ function motd {
 
 #### Vars
 
+# Don't check for mail often
+MAILCHECK=3600
+
 # Tell our zshrc to pass -p to the vim options to open multiple files in tabs
 VIM_OPTIONS='-p'
 
@@ -460,7 +463,14 @@ if [[ $LC_TERMINAL == 'iTerm2' && -e $ITERM_SHELL_INTEGRATION_LOCATION ]]; then
     source $ITERM_SHELL_INTEGRATION_LOCATION
 fi
 
+#### Completion audit
+
+# We skipped this weak security audit earlier, so kick it off deferred
+# TODO: Does the defer cause this to fail to print?
+zsh-defer compaudit
+
 # Print a profile if it was enabled earlier
 if [[ -n "$ZSH_PROFILE" ]]; then
     zprof
 fi
+
