@@ -306,6 +306,11 @@ if (( $+commands[qlmanage] )); then
     }
 fi
 
+# Disable the annoying grml `ag` alias, since we're used to silver searcher
+if (( $+aliases[ag] )); then
+    unalias ag
+fi
+
 # Whisky's CLI
 # TODO: Find the application automatically
 if [[ -e "/Applications/Whisky.app/Contents/Resources/WhiskyCmd" ]];
