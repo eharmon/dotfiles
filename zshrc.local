@@ -1,7 +1,3 @@
-#### Enable lazy loading support
-
-source ~/.zsh/modules/zsh-defer/zsh-defer.plugin.zsh
-
 #### Determine if we're running on old Unix
 
 # There's many more, but this is what we use right now

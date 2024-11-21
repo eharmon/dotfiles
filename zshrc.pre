@@ -19,27 +19,38 @@ function enable_profiling {
 # Uncomment to enable
 #enable_profiling
 
-#### Paths
+#### Enable lazy loading support
 
-function setup_homebrew {
-    local BREW_PATH
-    # Setup both potential homebrew locations
-    if [[ -e ~/.homebrew/bin/brew ]]; then
-        BREW_PATH=~/.homebrew/bin/brew
-    elif [[ -e /opt/homebrew/bin/brew ]]; then
-        BREW_PATH=/opt/homebrew/bin/brew
-    fi
+source ~/.zsh/modules/zsh-defer/zsh-defer.plugin.zsh
 
-    # Initialize the paths via homebrew
-    if [[ ! -z "$BREW_PATH" ]]; then
-        eval $($BREW_PATH shellenv)
-        # Setup completions, grml will call compinit for us
-        FPATH=$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH
-    fi
-}
+#### Homebrew
 
-# Don't lazy-load because we need some of these tools immediately and it only costs 10ms
-setup_homebrew
+# Pre-set $HOMEBREW_PREFIX. This and other settings below will be reset by the `shellenv` parse,
+# but this lets us do some preliminary setup so we can use basic things from homebrew before we
+# have completely loaded.
+if [[ -e /opt/homebrew/bin/brew ]]; then
+    HOMEBREW_PREFIX=/opt/homebrew
+# Fallback for local installs on Intel
+elif [[ -e ~/.homebrew/bin/brew ]]; then
+    HOMEBREW_PREFIX=~/.homebrew
+fi
+
+if [[ ! -z "$HOMEBREW_PREFIX" ]]; then
+
+    function setup_homebrew {
+        eval $($HOMEBREW_PREFIX/bin/brew shellenv)
+        unfunction setup_homebrew
+    }
+
+    # As above, preconfigure part of homebrew so we can use it early.
+    # TODO: This is a little hacky, but it's very fast...tradeoffs.
+    PATH="$HOMEBREW_PREFIX/bin:$PATH"
+    FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH"
+
+    zsh-defer setup_homebrew
+fi
+
+#### Additional paths
 
 # Add local bin at the end, if it exists
 if [[ -d ~/bin ]]; then
