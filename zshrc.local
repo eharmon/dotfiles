@@ -232,7 +232,7 @@ scd() {
 # Mount a disk image and try to CD into the most logical partition
 if (( $+commands[hdiutil] )); then
     hdicd() {
-        output=$(hdiutil mount $1)
+        local output=$(hdiutil mount $1)
         print $output
         cd $(echo $output | tail -n 1 | awk '{print $3}')
     }
@@ -421,9 +421,8 @@ fi
 
 #### Autosuggestions
 
-ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-
 if (( ! $OLD_UNIX )); then
+    ZSH_AUTOSUGGEST_MANUAL_REBIND=1
     zsh-defer source ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 

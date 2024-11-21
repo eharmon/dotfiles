@@ -76,81 +76,88 @@ fi
 
 if [[ -z "$SSH_TTY" ]]; then
 
-    # This will use OSC 4 escapes to configure colors in supported terminals. Only do this locally so
-    # an ssh session doesn't "infect" the host with color changes.
+    # Inside a function so we dont leak all these variables out of scope
+    function setup_colors {
+        # This will use OSC 4 escapes to configure colors in supported terminals. Only do this locally so
+        # an ssh session doesn't "infect" the host with color changes.
 
-    # Modified version of the Solarized scheme ported by Benjamin Staffin.
-    # https://github.com/benley/solarized-termcolor-osc4/tree/master
+        # Modified version of the Solarized scheme ported by Benjamin Staffin.
+        # https://github.com/benley/solarized-termcolor-osc4/tree/master
 
-    # Note that while many terminals allow custom colors, this method is universal (where supported).
+        # Note that while many terminals allow custom colors, this method is universal (where supported).
 
-    # Solarized Colors
-    base03="00/2b/36"
-    base02="07/36/42"
-    base01="58/6e/75"
-    base00="65/7b/83"
-    base0="83/94/96"
-    base1="93/a1/a1"
-    base2="ee/e8/d5"
-    base3="fd/f6/e3"
-    yellow="b5/89/00"
-    orange="cb/4b/16"
-    red="dc/32/2f"
-    magenta="d3/36/82"
-    violet="6c/71/c4"
-    blue="26/8b/d2"
-    cyan="2a/a1/98"
-    green="85/99/00"
+        # Solarized Colors
+        local base03="00/2b/36"
+        local base02="07/36/42"
+        local base01="58/6e/75"
+        local base00="65/7b/83"
+        local base0="83/94/96"
+        local base1="93/a1/a1"
+        local base2="ee/e8/d5"
+        local base3="fd/f6/e3"
+        local yellow="b5/89/00"
+        local orange="cb/4b/16"
+        local red="dc/32/2f"
+        local magenta="d3/36/82"
+        local violet="6c/71/c4"
+        local blue="26/8b/d2"
+        local cyan="2a/a1/98"
+        local green="85/99/00"
 
-    # Molokai colors
-    molokai_yellow="e6/db/74"
-    molokai_orange="fd/97/1f"
-    molokai_orange2="ef/59/39"
-    molokai_lightbrown="bc/a3/a3"
-    molokai_red="f9/26/72"
-    molokai_magenta="f9/26/72"
-    molokai_blue="70/70/f0"
-    molokai_violet="ae/81/ff"
-    molokai_cyan="66/d9/ef"
-    molokai_brightcyan="70/f0/f0"
-    molokai_green="a6/e2/2e"
+        # Molokai colors
+        local molokai_yellow="e6/db/74"
+        local molokai_orange="fd/97/1f"
+        local molokai_orange2="ef/59/39"
+        local molokai_lightbrown="bc/a3/a3"
+        local molokai_red="f9/26/72"
+        local molokai_magenta="f9/26/72"
+        local molokai_blue="70/70/f0"
+        local molokai_violet="ae/81/ff"
+        local molokai_cyan="66/d9/ef"
+        local molokai_brightcyan="70/f0/f0"
+        local molokai_green="a6/e2/2e"
 
-    function cset() {
-      ANSI=$1
-      RGB=$2
-      printf "\x1b]4;$ANSI;rgb:${RGB}\a"
+        function cset() {
+          local ANSI=$1
+          local RGB=$2
+          printf "\x1b]4;$ANSI;rgb:${RGB}\a"
+        }
+
+        # I prefer the default colors, so leave this out for now
+        # Black
+        #cset 0 $base02
+        #cset 8 $base03
+
+        # Red
+        cset 1 $red
+        cset 9 $orange
+
+        # Green
+        cset 2 $green
+        cset 10 $molokai_green
+
+        # Yellow
+        cset 3 $yellow
+        cset 11 $molokai_yellow
+
+        # Blue
+        cset 4 $blue
+        cset 12 $molokai_blue
+
+        # Magenta
+        cset 5 $magenta
+        cset 13 $molokai_magenta
+
+        # Cyan
+        cset 6 $cyan
+        cset 14 $molokai_cyan
+
+        # White
+        cset 7 $base2
+        cset 15 $base3
+
+        unfunction cset
     }
 
-    # I prefer the default colors, so leave this out for now
-    # Black
-    #cset 0 $base02
-    #cset 8 $base03
-
-    # Red
-    cset 1 $red
-    cset 9 $orange
-
-    # Green
-    cset 2 $green
-    cset 10 $molokai_green
-
-    # Yellow
-    cset 3 $yellow
-    cset 11 $molokai_yellow
-
-    # Blue
-    cset 4 $blue
-    cset 12 $molokai_blue
-
-    # Magenta
-    cset 5 $magenta
-    cset 13 $molokai_magenta
-
-    # Cyan
-    cset 6 $cyan
-    cset 14 $molokai_cyan
-
-    # White
-    cset 7 $base2
-    cset 15 $base3
+    setup_colors
 fi
