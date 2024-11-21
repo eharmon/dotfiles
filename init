@@ -16,6 +16,11 @@ _link () {
 
 failed=0
 
+if ! command -v "python3" &> /dev/null; then
+    echo "ERROR: Python 3 must be installed."
+    exit 1
+fi
+
 echo -n "Calculating install dir... "
 ourdir=$(dirname $BASH_SOURCE)
 if [ $ourdir == '.' ]; then
@@ -44,6 +49,11 @@ echo "Making cache directories..."
 mkdir -p ~/.cache/vim/backup
 mkdir -p ~/.cache/vim/swap
 mkdir -p ~/.cache/vim/undo
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
+    echo "Darwin: Disabling login notifications..."
+    touch ~/.hushlogin
+fi
 
 echo "Done."
 
