@@ -431,22 +431,20 @@ fi
 #### fzf for search
 
 # Source fzf if it's installed
-if [[ -e $HOMEBREW_PREFIX/opt/fzf ]]; then
-    zsh-defer source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
-    zsh-defer source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
+function setup_fzf {
+    if [[ -e $HOMEBREW_PREFIX/opt/fzf ]]; then
+        source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
+        source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh
 
-    function keybinds {
         # Reset the ^r action to GRML style:
         bindkey -M emacs '^r' history-incremental-pattern-search-backward
         bindkey -M vicmd '^r' history-incremental-pattern-search-backward
         bindkey -M viins '^r' history-incremental-pattern-search-backward
         # And add the fzf style
         bindkey '^r^f' fzf-history-widget
-    }
-
-    # TODO: Is this technically a race condition or does zsh-defer order?
-    zsh-defer keybinds
-fi
+    fi
+}
+zsh-defer setup_fzf
 
 #### Google Cloud SDK
 
