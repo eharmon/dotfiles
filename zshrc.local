@@ -143,7 +143,7 @@ fi
 
 # Include hostname-specific magic if it exists
 local DOMAIN=${HOST#*.}
-if [[ -e ~/.zshrc.$DOMAIN && $DOMAIN != "local" ]]; then
+if [[ $DOMAIN != "local" && -e ~/.zshrc.$DOMAIN ]]; then
     echo "Setting shell for $DOMAIN domain"
     source ~/.zshrc.$DOMAIN
 fi
@@ -319,15 +319,6 @@ fi
 # Use fancy history locking
 is-at-least 4.3.7 && setopt HIST_FCNTL_LOCK
 
-# Keep our auth_sock up to date. This works in tandem with a script in .ssh/rc
-# which keeps the symlink updated every time we ssh again. If its set a symlink
-# for us, let's pick that up
-# TODO: Do we even need this anymore?
-SOCK=$HOME/.cache/ssh_auth_sock_$HOST
-if [[ -e $SOCK ]]; then
-    export SSH_AUTH_SOCK=$SOCK
-fi
-
 # Set the lang, which we have to do now for some reason
 export LANG=en_US.UTF-8
 
@@ -373,11 +364,11 @@ fi
 
 #### Syntax highlighting
 
-# Setup plugins to load
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
-
 # Define this as a function since we need to modify the settings after it's sourced
 function load_syntax_highlighting {
+    # Setup plugins to load
+    ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+
     source ~/.zsh/modules/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
     # Main
