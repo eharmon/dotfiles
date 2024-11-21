@@ -16,6 +16,19 @@ if (( $OLD_UNIX_TYPES[(Ie)$OSTYPE] )); then
 
 fi
 
+#### Bash completions from homebrew
+
+# TODO: This is nice, but currently this is overriding some zsh completions with worse bash ones
+#if [[ ! -z "$HOMEBREW_PREFIX" ]]; then
+#    # Enable bash completions
+#    autoload -U +X bashcompinit && bashcompinit
+#
+#    #for f in $HOMEBREW_PREFIX/etc/bash_completion.d/* ; do
+#        # There's bash-isms in these completions, so ignore errors if those occur
+#    #    source $f 2>/dev/null
+#    #done
+#fi
+
 #### Paths
 
 function python_paths {
