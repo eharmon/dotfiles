@@ -466,8 +466,7 @@ fi
 #### Completion audit
 
 # We skipped this weak security audit earlier, so kick it off deferred
-# TODO: Does the defer cause this to fail to print?
-zsh-defer compaudit
+zsh-defer +1 +2 compaudit
 
 # Print a profile if it was enabled earlier
 if [[ -n "$ZSH_PROFILE" ]]; then
