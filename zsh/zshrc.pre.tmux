@@ -43,3 +43,5 @@ then
     fi
 fi
 
+unfunction handle_failure
+
