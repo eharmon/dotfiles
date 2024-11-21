@@ -27,7 +27,7 @@ fi
 
 #### Paths
 
-function python_paths {
+function python_paths() {
     # Add any locally installed python binaries to the path, using the currently running default python
     if (( $+commands[python] )); then
         local PYTHON_BIN=$(python -m site --user-base)/bin
@@ -69,7 +69,7 @@ RICH_PROMPT_ENABLED=$RICH_PROMPT_SUPPORTED
 prompt eharmon $RICH_PROMPT_ENABLED
 
 # This function makes it possible to easily toggle off the powerline fonts for easy copying
-function toggleprompt {
+function toggleprompt() {
     if (( $RICH_PROMPT_ENABLED )); then
         RICH_PROMPT_ENABLED=0
     else
@@ -81,7 +81,7 @@ alias tp=toggleprompt
 
 # And if we forget to toggle, this will clean the clipboard of special characters
 if (( $+commands[pbpaste] )); then
-    function pbclean {
+    function pbclean() {
         pbpaste | sed "s/[]//g" | pbcopy
     }
 fi
@@ -96,7 +96,7 @@ if (( $+commands[osascript] )); then
     end tell'" # | sed 's/[[:space:]]/\\\ /g'"
 
     # Mount a volume via Finder, in the background. Use `open` instead to mount and select in Finder.
-    function fmount {
+    function fmount() {
         # TODO: Should print the mounted path instead of the weird AppleScript path
         osascript << EOF
 tell application "Finder"
@@ -109,7 +109,7 @@ EOF
     alias fshow="open -R"
 
     # Show a file or folder contents in Finder
-    function fopen {
+    function fopen() {
         if [[ -d "$1" ]]; then
             open $1
         else
@@ -118,7 +118,7 @@ EOF
     }
 
     # bind opt-f to grab the current Finder path onto the line editor
-    function _finderpath {
+    function _finderpath() {
         zle -U "\"$(fpath)\""
     }
     zle -N _finderpath
@@ -130,7 +130,7 @@ if (( $+commands[xxd] )); then
     alias hex2bin='grep -v "[hjklmnopqrstuvwxyz]" | xxd -r -p - -'
 fi
 
-function motd {
+function motd() {
     if [[ -f "/etc/motd" ]]; then
         cat /etc/motd
     elif [[ -f "/run/motd.dynamic" ]]; then
@@ -194,7 +194,7 @@ title_precmd() {
 }
 
 # Title command which properly support screen, overriding grml version
-title_preexec () {
+function title_preexec() {
     # get the name of the program currently running
     # set screen window title if running in a screen
     if [[ "$TERM" == screen* ]] ; then
@@ -221,7 +221,7 @@ precmd_functions+='title_precmd'
 preexec_functions+='title_preexec'
 
 # zsh has native support directory substitution, but this gives us even more power
-scd() {
+function scd() {
     if [[ -n "$1" ]]; then
         cd $(echo $PWD | sed "$1")
     else
@@ -231,7 +231,7 @@ scd() {
 
 # Mount a disk image and try to CD into the most logical partition
 if (( $+commands[hdiutil] )); then
-    hdicd() {
+    function hdicd() {
         local output=$(hdiutil mount $1)
         print $output
         cd $(echo $output | tail -n 1 | awk '{print $3}')
@@ -240,7 +240,7 @@ fi
 
 # Copy a file from remote directly into the paste buffer
 if (( $+commands[pbcopy] )); then
-    rpbcopy() {
+    function rpbcopy() {
         if [[ -n "$1" && -n "$2" ]]; then
             ssh $1 "cat $2" | pbcopy
         else
@@ -293,14 +293,14 @@ fi
 
 # Use neovim
 if (( $+commands[nvim] )); then
-    function vim {
+    function vim() {
         VIM_PLEASE_SET_TITLE='yes' command nvim ${VIM_OPTIONS} "$@"
     }
 fi
 
 # Quicklook for files
 if (( $+commands[qlmanage] )); then
-    function ql {
+    function ql() {
         echo -n "Launching QuickLook: "
         qlmanage -p $@ &>/dev/null & disown
     }
@@ -341,7 +341,7 @@ export LSCOLORS="gxfxcxdxbxegedabagacad"
 # Setup a hotkey to quickly apply a regex to the current buffer line
 autoload -U read-from-minibuffer
 
-regex-edit () {
+function regex-edit() {
    # REPLY will be filled by read-from-minibuffer
    local REPLY temp
    read-from-minibuffer "Regex edit: "
@@ -358,7 +358,7 @@ bindkey "^[r" regex-edit
 
 # If you're inside tmux, grep for a line in the current window and add it to the buffer
 # This isn't entirely useful as is, but there's probably something nice we can do with this
-read-pane () {
+functino read-pane() {
     local REPLY temp
     read-from-minibuffer "Regex search: "
     [[ ! -z $TMUX ]] && temp=$(tmux capture-pane -p | grep $REPLY | head -n 1)
@@ -377,7 +377,7 @@ fi
 #### Syntax highlighting
 
 # Define this as a function since we need to modify the settings after it's sourced
-function load_syntax_highlighting {
+function load_syntax_highlighting() {
     # Setup plugins to load
     ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
 
@@ -429,7 +429,7 @@ fi
 #### fzf for search
 
 # Source fzf if it's installed
-function setup_fzf {
+function setup_fzf() {
     if [[ -e $HOMEBREW_PREFIX/opt/fzf ]]; then
         source $HOMEBREW_PREFIX/opt/fzf/shell/completion.zsh
         source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.zsh

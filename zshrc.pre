@@ -14,7 +14,7 @@ zstyle ':grml:completion:compinit' arguments -C
 
 #### Profiling
 
-function enable_profiling {
+function enable_profiling() {
     zmodload zsh/zprof
     ZSH_PROFILE=1
     unfunction enable_profiling
@@ -37,7 +37,7 @@ fi
 
 if [[ ! -z "$HOMEBREW_PREFIX" ]]; then
 
-    function setup_homebrew {
+    function setup_homebrew() {
         eval $($HOMEBREW_PREFIX/bin/brew shellenv)
         unfunction setup_homebrew
     }
@@ -74,13 +74,12 @@ fi
 
 ##### Setup color scheme
 
+# This will use OSC 4 escapes to configure colors in supported terminals. Only do this locally so
+# an ssh session doesn't "infect" the host with color changes.
 if [[ -z "$SSH_TTY" ]]; then
 
     # Inside a function so we dont leak all these variables out of scope
-    function setup_colors {
-        # This will use OSC 4 escapes to configure colors in supported terminals. Only do this locally so
-        # an ssh session doesn't "infect" the host with color changes.
-
+    function setup_colors() {
         # Modified version of the Solarized scheme ported by Benjamin Staffin.
         # https://github.com/benley/solarized-termcolor-osc4/tree/master
 
