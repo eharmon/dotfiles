@@ -465,3 +465,8 @@ local ITERM_SHELL_INTEGRATION_LOCATION="/Applications/iTerm.app/Contents/Resourc
 if [[ $LC_TERMINAL == 'iTerm2' && -e $ITERM_SHELL_INTEGRATION_LOCATION ]]; then
     source $ITERM_SHELL_INTEGRATION_LOCATION
 fi
+
+# Print a profile if it was enabled earlier
+if [[ -n "$ZSH_PROFILE" ]]; then
+    zprof
+fi

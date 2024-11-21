@@ -8,6 +8,17 @@ MAILCHECK=0
 # TODO: This probably breaks dynamic hostname updating in the title
 NOPRECMD=1
 
+#### Profiling
+
+function enable_profiling {
+    zmodload zsh/zprof
+    ZSH_PROFILE=1
+    unfunction enable_profiling
+}
+
+# Uncomment to enable
+#enable_profiling
+
 #### Paths
 
 function setup_homebrew {
