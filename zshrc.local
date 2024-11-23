@@ -9,7 +9,6 @@ export OLD_UNIX=0
 if (( $OLD_UNIX_TYPES[(Ie)$OSTYPE] )); then
     # Set the flag so we can skip expensive loads
     export OLD_UNIX=1
-
 fi
 
 #### Bash completions from homebrew
@@ -28,19 +27,19 @@ fi
 #### Paths
 
 function python_paths() {
+    local PYTHON_VER
     # Add any locally installed python binaries to the path, using the currently running default python
     if (( $+commands[python] )); then
-        local PYTHON_BIN=$(python -m site --user-base)/bin
-        if [[ -d $PYTHON_BIN ]]; then
-            PATH="$PYTHON_BIN:$PATH"
-        fi
+        PYTHON_VER=python
     fi
     # If we have explicit python 3, add that in front to prefer it
     if (( $+commands[python3] )); then
-        local PYTHON_BIN=$(python3 -m site --user-base)/bin
-        if [[ -d $PYTHON_BIN ]]; then
-            PATH="$PYTHON_BIN:$PATH"
-        fi
+        PYTHON_VER=python3
+    fi
+
+    local PYTHON_BIN=$(${PYTHON_VER} -m site --user-base)/bin
+    if [[ -d $PYTHON_BIN ]]; then
+        PATH="$PYTHON_BIN:$PATH"
     fi
 }
 
@@ -168,7 +167,7 @@ fi
 #### Functions
 
 # Title command which properly supports screen, overriding grml version
-title_precmd() {
+function title_precmd() {
     # update VCS information
     (( ${+functions[vcs_info]} )) && vcs_info
 
@@ -363,7 +362,7 @@ bindkey "^[r" regex-edit
 
 # If you're inside tmux, grep for a line in the current window and add it to the buffer
 # This isn't entirely useful as is, but there's probably something nice we can do with this
-functino read-pane() {
+function read-pane() {
     local REPLY temp
     read-from-minibuffer "Regex search: "
     [[ ! -z $TMUX ]] && temp=$(tmux capture-pane -p | grep $REPLY | head -n 1)
