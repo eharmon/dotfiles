@@ -1,0 +1,23 @@
+theme = "GitHub Dark"
+font-size = 11.5
+background = black
+background-opacity = 0.88
+background-blur-radius = 18
+foreground = #EEEEEE
+shell-integration-features = no-title
+macos-titlebar-proxy-icon = hidden
+macos-icon = custom-style
+macos-icon-frame = aluminum
+#macos-icon-ghost-color = #32a852
+macos-icon-ghost-color = OliveDrab
+macos-icon-screen-color = black
+window-height = 41
+window-width = 150
+auto-update-channel = tip
+shell-integration-features = no-cursor,no-title
+# TODO: Is this nice, or annoying?
+#cursor-invert-fg-bg = true
+
+# Shader amusement
+#custom-shader = crt4.glsl
+#custom-shader-animation = true

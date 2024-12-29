@@ -38,7 +38,7 @@ done
 
 # XDG symlinks
 mkdir -p $HOME/.config
-for source in nvim; do
+for source in nvim ghostty; do
     _link ../$rel/config/$source $HOME/.config/$source
 done
 
