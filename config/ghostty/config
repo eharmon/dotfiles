@@ -26,6 +26,9 @@ auto-update-channel = tip
 
 shell-integration-features = no-cursor,no-title
 
+# Temporary, until Ghostty sorts out termcap weirdness over ssh
+term = xterm-256color
+
 # Shader amusement
 #custom-shader = crt4.glsl
 #custom-shader-animation = true
