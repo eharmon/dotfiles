@@ -317,6 +317,13 @@ then
     alias whisky="/Applications/Whisky.app/Contents/Resources/WhiskyCmd"
 fi
 
+# If we have sevenzip package installed on macOS, use it over p7zip
+if [[ $OSTYPE == darwin* && $+commands[7zz] == 1 ]]; then
+    alias 7z=7zz
+    alias 7za=7zz
+    alias 7zr=7zz
+fi
+
 #### OS Specific
 
 # Case-insensitve matching on macOS as it usually has a case-insensitive filesystem
