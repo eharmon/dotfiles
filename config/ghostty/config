@@ -2,7 +2,7 @@ theme = "GitHub Dark"
 # Increase contrast
 background = black
 foreground = #EEEEEE
-background-opacity = 0.88
+background-opacity = 0.95
 background-blur-radius = 18
 font-size = 11.5
 # TODO: Is this nice, or annoying?
