@@ -1,0 +1,12 @@
+[init]
+	defaultBranch = main
+[commit]
+	verbose = true
+[diff]
+	algorithm = histogram
+	colorMoved = plain
+	renames = true
+[push]
+	autoSetupRemote = true
+[tag]
+	sort = version:refname
