@@ -324,6 +324,13 @@ if [[ $OSTYPE == darwin* && $+commands[7zz] == 1 ]]; then
     alias 7zr=7zz
 fi
 
+# Insecure ssh connections to allow us to work with old machines when we want
+insecure_options="-oKexAlgorithms=+diffie-hellman-group-exchange-sha1 -oPubkeyAcceptedKeyTypes=+ssh-rsa -oHostKeyAlgorithms=+ssh-rsa"
+alias insecuressh="ssh $insecure_options"
+alias insecurescp="scp $insecure_options"
+alias insecuresftp="sftp $insecure_options"
+unset insecure_options
+
 #### OS Specific
 
 # Case-insensitve matching on macOS as it usually has a case-insensitive filesystem
