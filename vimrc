@@ -70,6 +70,13 @@ if !has('nvim')
       set undofile
     endif
   endif
+
+  " Hack to prevent ALE from throwing a warning when we're using vim with
+  " missing features. Since ALE is being autoloaded, we have no way to prevent
+  " it from loading in specific environments besides setting this internal flag.
+  if !(has('timers') && exists('*job_start') && exists('*ch_close_in'))
+    let g:loaded_ale_dont_use_this_in_other_plugins_please = 1
+  endif
 endif
 
 """" UI
