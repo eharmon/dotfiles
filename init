@@ -21,6 +21,11 @@ if ! command -v "python3" &> /dev/null; then
     exit 1
 fi
 
+if [[ -z "$BASH_SOURCE" ]]; then
+    BASH_SOURCE="$(pwd)/$0"
+    read -p "WARNING: bash is old (<3.0), guessing init location is '$BASH_SOURCE'. Check and press enter to continue. "
+fi
+
 echo -n "Calculating install dir... "
 ourdir=$(dirname $BASH_SOURCE)
 if [ $ourdir == '.' ]; then
