@@ -1,15 +1,6 @@
 #### Determine if we're running on old Unix
 
-# There's many more, but this is what we use right now
-# TODO: We should match less precisely below
-OLD_UNIX_TYPES=('irix6.5')
-
-export OLD_UNIX=0
-
-if (( $OLD_UNIX_TYPES[(Ie)$OSTYPE] )); then
-    # Set the flag so we can skip expensive loads
-    export OLD_UNIX=1
-fi
+source .bashrc.detect_old_unix
 
 #### Bash completions from homebrew
 
@@ -44,7 +35,7 @@ function python_paths() {
 }
 
 # Very unlikely to need this immediately, so lazy load it
-if (( ! $OLD_UNIX )); then
+if (( ! ${+OLD_UNIX} )); then
     zsh-defer -a python_paths
 fi
 
@@ -388,7 +379,7 @@ bindkey "^[t" read-pane
 
 #### Backdir
 
-if (( ! $OLD_UNIX )); then
+if (( ! ${+OLD_UNIX} )); then
     zsh-defer source ~/.zsh/modules/zsh-bd/bd.zsh
 fi
 
@@ -433,13 +424,13 @@ function load_syntax_highlighting() {
     #ZSH_HIGHLIGHT_STYLES[cursor-matchingbracket]:=standout}
 }
 
-if (( ! $OLD_UNIX )); then
+if (( ! ${+OLD_UNIX} )); then
     zsh-defer -a +pr load_syntax_highlighting
 fi
 
 #### Autosuggestions
 
-if (( ! $OLD_UNIX )); then
+if (( ! ${+OLD_UNIX} )); then
     ZSH_AUTOSUGGEST_MANUAL_REBIND=1
     zsh-defer source ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi

@@ -32,7 +32,7 @@ echo "~/$rel"
 echo "Installing symlinks..."
 
 # Generic symlinks in ~
-for source in tmux.conf vim vimrc zsh zshrc zshrc.local zshrc.pre; do
+for source in tmux.conf vim vimrc zsh zshrc zshrc.local zshrc.pre bashrc bashrc.detect_old_unix; do
     _link $rel/$source $HOME/.$source
 done
 

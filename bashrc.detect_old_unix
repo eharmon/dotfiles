@@ -1,0 +1,10 @@
+# There's many more, but this is what we use right now
+# TODO: We should match less precisely below
+OLD_UNIX_TYPES=("darwin8.0" "irix6.5")
+
+for i in ${OLD_UNIX_TYPES[@]}; do
+    if [[ "$i" == "$OSTYPE" ]]; then
+        # Set the flag so we can skip expensive loads
+        export OLD_UNIX=1
+    fi
+done
