@@ -1,6 +1,6 @@
 #### Determine if we're running on old Unix
 
-source .bashrc.detect_old_unix
+source ~/.bashrc.detect_old_unix
 
 #### Bash completions from homebrew
 
