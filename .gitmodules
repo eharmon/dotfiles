@@ -19,9 +19,6 @@
 [submodule "vim/bundle/inkpot"]
 	path = vim/pack/git-plugins/start/inkpot
 	url = https://github.com/ciaranm/inkpot.git
-[submodule "vim/bundle/supertab"]
-	path = vim/pack/git-plugins/start/supertab
-	url = https://github.com/ervandew/supertab.git
 [submodule "vim/bundle/nerdtree"]
 	path = vim/pack/git-plugins/start/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
