@@ -301,6 +301,10 @@ if (( $+aliases[ag] )); then
     unalias ag
 fi
 
+if (( $+commands[lesspipe] )); then
+    eval $(lesspipe)
+fi
+
 # Whisky's CLI
 # TODO: Find the application automatically
 if [[ -e "/Applications/Whisky.app/Contents/Resources/WhiskyCmd" ]];
