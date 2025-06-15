@@ -1,2 +1,2 @@
 #env
-LESS = -R -m -Pm?f%f:[stdin]. ?lt(%l?L/%L.)[%P\\%]:[%p\\%]..?c [hscroll]..\\:
+LESS = -R -m -Pm?f%f:[stdin]. ?lt(%l?L/%L.)?P[%P\\%].:?p[%p\\%]...?c [hscroll]..\\:
