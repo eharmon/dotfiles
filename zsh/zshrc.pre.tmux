@@ -1,6 +1,3 @@
-# Kill XOFF, it is evil.
-stty stop undef
-
 function handle_failure {
     # Try to get back to relatively sane defaults if we crashed in the middle of something strange
     stty sane

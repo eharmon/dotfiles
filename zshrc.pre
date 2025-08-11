@@ -2,6 +2,11 @@
 
 source ~/.zsh/modules/zsh-defer/zsh-defer.plugin.zsh
 
+#### Basic setup
+
+# Kill XOFF, it is evil.
+stty stop undef
+
 #### Set options for grml zshrc
 
 # We have our own function to set the title, so disable the support in grml
