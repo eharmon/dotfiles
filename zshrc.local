@@ -345,11 +345,19 @@ fi
 is-at-least 4.3.7 && setopt HIST_FCNTL_LOCK
 
 # Set the lang, which we have to do now for some reason
-export LANG=en_US.UTF-8
+if [ -z "$LANG" ]; then
+    export LANG=en_US.UTF-8
+fi
 
-# Blue on black is impossible to see, change ls highlighting colors
-# grml zshrc already does this for GNU userland, but not BSD
-export LSCOLORS="gxfxcxdxbxegedabagacad"
+# Setup ls colors on non-GNU systems
+# TODO: BSD too
+if [[ $OSTYPE == darwin* ]]; then
+    # Mostly match current `dircolors` defaults
+    export LSCOLORS="ExgxcxdxCxegedabagacad"
+    # zsh needs GNU-style colors
+    # TODO: These colors match but not perfectly
+    zstyle ':completion:*' list-colors "rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32"
+fi
 
 # Setup a hotkey to quickly apply a regex to the current buffer line
 autoload -U read-from-minibuffer

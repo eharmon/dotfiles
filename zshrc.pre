@@ -15,7 +15,7 @@ NOPRECMD=1
 
 # Only regenerate the completion cache once daily. Confusingly this will either loop once (old file) or never, allowing us to use the cache
 # when the file is < 24 hours old
-for dump in ${HOME}/.zcompdump(N.mh-24); do
+for dump in ${ZDOTDIR:-$HOME}/.zcompdump(N.mh-24); do
     zstyle ':grml:completion:compinit' arguments -C
 done
 
