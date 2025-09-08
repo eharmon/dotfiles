@@ -13,9 +13,11 @@ stty stop undef
 # TODO: This probably breaks dynamic hostname updating in the title
 NOPRECMD=1
 
-# Disable completion security checking. It's not very valuable, and we setup a
-# deferred audit anyway, so we should be able to see any errors.
-zstyle ':grml:completion:compinit' arguments -C
+# Only regenerate the completion cache once daily. Confusingly this will either loop once (old file) or never, allowing us to use the cache
+# when the file is < 24 hours old
+for dump in ${HOME}/.zcompdump(N.mh-24); do
+    zstyle ':grml:completion:compinit' arguments -C
+done
 
 #### Profiling
 
@@ -52,7 +54,7 @@ if [[ ! -z "$HOMEBREW_PREFIX" ]]; then
     PATH="$HOMEBREW_PREFIX/bin:$PATH"
     FPATH="$HOMEBREW_PREFIX/share/zsh/site-functions:$FPATH"
 
-    zsh-defer setup_homebrew
+    # setup_homebrew will be invoked later to complete setup
 fi
 
 #### Additional paths
@@ -72,6 +74,11 @@ ls_options=( -F )
 
 # Only multiplex for remote connections
 if [[ ! -z "$SSH_TTY" ]]; then
+    # Immediately setup homebrew with no defer so we can use any installed versions of tmux, etc
+    if [[ ! -z "$HOMEBREW_PREFIX" ]]; then
+        setup_homebrew
+    fi
+
     source ~/.zsh/zshrc.pre.tmux
     # If this chooses to start a session and works correctly, it'll never return. Otherwise continue
     # on to setup the local shell.
@@ -161,6 +168,7 @@ if [[ -z "$SSH_TTY" ]]; then
         cset 15 $base3
 
         unfunction cset
+        unfunction setup_colors
     }
 
     setup_colors

@@ -36,7 +36,7 @@ function python_paths() {
 
 # Very unlikely to need this immediately, so lazy load it
 if (( ! ${+OLD_UNIX} )); then
-    zsh-defer -a python_paths
+    zsh-defer -a +prz python_paths
 fi
 
 #### Prompt Setup
@@ -381,12 +381,6 @@ function read-pane() {
 zle -N read-pane
 bindkey "^[t" read-pane
 
-#### Backdir
-
-if (( ! ${+OLD_UNIX} )); then
-    zsh-defer source ~/.zsh/modules/zsh-bd/bd.zsh
-fi
-
 #### Syntax highlighting
 
 # Define this as a function since we need to modify the settings after it's sourced
@@ -429,14 +423,14 @@ function load_syntax_highlighting() {
 }
 
 if (( ! ${+OLD_UNIX} )); then
-    zsh-defer -a +pr load_syntax_highlighting
+    zsh-defer -a +12 load_syntax_highlighting
 fi
 
 #### Autosuggestions
 
 if (( ! ${+OLD_UNIX} )); then
     ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-    zsh-defer source ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
+    zsh-defer -a +12pr source ~/.zsh/modules/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 #### fzf for search
@@ -455,7 +449,14 @@ function setup_fzf() {
         bindkey '^r^f' fzf-history-widget
     fi
 }
-zsh-defer setup_fzf
+zsh-defer -a +12 setup_fzf
+
+#### Backdir
+
+if (( ! ${+OLD_UNIX} )); then
+    zsh-defer -a +12 source ~/.zsh/modules/zsh-bd/bd.zsh
+fi
+
 
 #### Google Cloud SDK
 
@@ -475,10 +476,10 @@ if [[ $LC_TERMINAL == 'iTerm2' && -e $ITERM_SHELL_INTEGRATION_LOCATION ]]; then
     source $ITERM_SHELL_INTEGRATION_LOCATION
 fi
 
-#### Completion audit
-
-# We skipped this weak security audit earlier, so kick it off deferred
-zsh-defer +1 +2 compaudit
+#### Finish setting up homebrew
+if [[ ! -z "$HOMEBREW_PREFIX" ]]; then
+    zsh-defer setup_homebrew
+fi
 
 # Print a profile if it was enabled earlier
 if [[ -n "$ZSH_PROFILE" ]]; then
