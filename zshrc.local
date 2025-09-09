@@ -246,7 +246,7 @@ if (( $+commands[python3] )); then
     alias tmphttp="python3 -m http.server 8000"
 fi
 
-# Give us 'wget' on machines which only have curl
+# Give us basic 'wget' on machines which only have curl
 if (( ! $+commands[wget] && $+commands[curl] )); then
     alias wget="curl -OLRJw \"\n'%{filename_effective}' saved [%{size_download}]\n\""
 fi
@@ -312,13 +312,6 @@ then
     alias whisky="/Applications/Whisky.app/Contents/Resources/WhiskyCmd"
 fi
 
-# If we have sevenzip package installed on macOS, use it over p7zip
-if [[ $OSTYPE == darwin* && $+commands[7zz] == 1 ]]; then
-    alias 7z=7zz
-    alias 7za=7zz
-    alias 7zr=7zz
-fi
-
 # Insecure ssh connections to allow us to work with old machines when we want
 insecure_options="-oKexAlgorithms=+diffie-hellman-group-exchange-sha1 -oPubkeyAcceptedKeyTypes=+ssh-rsa -oHostKeyAlgorithms=+ssh-rsa"
 alias insecuressh="ssh $insecure_options"
@@ -328,9 +321,25 @@ unset insecure_options
 
 #### OS Specific
 
-# Case-insensitve matching on macOS as it usually has a case-insensitive filesystem
 if [[ $OSTYPE == darwin* ]]; then
+    # Case-insensitve matching on macOS as it usually has a case-insensitive filesystem
     zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
+    # If we have sevenzip, use it over p7zip
+    if [[ $+commands[7zz] == 1 ]]; then
+        alias 7z=7zz
+        alias 7za=7zz
+        alias 7zr=7zz
+    fi
+
+    # Setup ls colors on non-GNU systems
+    # TODO: BSD too
+    # Mostly match current `dircolors` defaults
+    export LSCOLORS="ExgxcxdxCxegedabagacad"
+    # zsh needs GNU-style colors
+    # TODO: These colors match but not perfectly
+    zstyle ':completion:*' list-colors "rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32"
+
 fi
 
 # Define some useful IRIX commands
@@ -345,18 +354,9 @@ fi
 is-at-least 4.3.7 && setopt HIST_FCNTL_LOCK
 
 # Set the lang, which we have to do now for some reason
+# TODO: Where and why?
 if [ -z "$LANG" ]; then
     export LANG=en_US.UTF-8
-fi
-
-# Setup ls colors on non-GNU systems
-# TODO: BSD too
-if [[ $OSTYPE == darwin* ]]; then
-    # Mostly match current `dircolors` defaults
-    export LSCOLORS="ExgxcxdxCxegedabagacad"
-    # zsh needs GNU-style colors
-    # TODO: These colors match but not perfectly
-    zstyle ':completion:*' list-colors "rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=00:tw=30;42:ow=34;42:st=37;44:ex=01;32"
 fi
 
 # Setup a hotkey to quickly apply a regex to the current buffer line
@@ -465,7 +465,6 @@ if (( ! ${+OLD_UNIX} )); then
     zsh-defer -a +12 source ~/.zsh/modules/zsh-bd/bd.zsh
 fi
 
-
 #### Google Cloud SDK
 
 if [[ -d ~/google-cloud-sdk ]]; then
@@ -485,9 +484,12 @@ if [[ $LC_TERMINAL == 'iTerm2' && -e $ITERM_SHELL_INTEGRATION_LOCATION ]]; then
 fi
 
 #### Finish setting up homebrew
+#
 if [[ ! -z "$HOMEBREW_PREFIX" ]]; then
     zsh-defer setup_homebrew
 fi
+
+#### Profiling
 
 # Print a profile if it was enabled earlier
 if [[ -n "$ZSH_PROFILE" ]]; then
