@@ -30,6 +30,9 @@ then
             SESSION="$(echo $SSH_CLIENT | cut -d " " -f 1,2 | tr '.' ',' | tr ':' '#' | tr ' ' '_')"
             tmux -u new-session -s "ssh from $SESSION" -t "ssh" \; set-option destroy-unattached
             if [[ $? == 0 ]]; then
+                # See if we should suspend on exit
+                # TODO: Wait 30 seconds and run in background
+                $HOME/.tmux-suspend.sh
                 exit
             else
                 handle_failure
