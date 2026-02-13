@@ -42,7 +42,7 @@ for source in tmux.conf vim vimrc zsh zshrc zshrc.local zshrc.pre bashrc bashrc.
 done
 
 # XDG symlinks
-mkdir -p $HOME/.config
+mkdir -p $HOME/.config/dotfiles
 for source in nvim ghostty git; do
     _link ../$rel/config/$source $HOME/.config/$source
 done
