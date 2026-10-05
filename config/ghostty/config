@@ -33,3 +33,25 @@ term = xterm-256color
 # Shader amusement
 #custom-shader = crt4.glsl
 #custom-shader-animation = true
+
+# Replace Powerline private-use glyphs with plain-text equivalents when copying
+clipboard-codepoint-map = U+E0A0=BR
+clipboard-codepoint-map = U+E0A1=LN
+clipboard-codepoint-map = U+E0A2=RO
+clipboard-codepoint-map = U+E0A3=CN
+clipboard-codepoint-map = U+E0B0=>
+clipboard-codepoint-map = U+E0B1=>
+clipboard-codepoint-map = U+E0B2=<
+clipboard-codepoint-map = U+E0B3=<
+clipboard-codepoint-map = U+E0B4=)
+clipboard-codepoint-map = U+E0B5=)
+clipboard-codepoint-map = U+E0B6=(
+clipboard-codepoint-map = U+E0B7=(
+clipboard-codepoint-map = U+E0B8=\
+clipboard-codepoint-map = U+E0B9=\
+clipboard-codepoint-map = U+E0BA=/
+clipboard-codepoint-map = U+E0BB=/
+clipboard-codepoint-map = U+E0BC=/
+clipboard-codepoint-map = U+E0BD=/
+clipboard-codepoint-map = U+E0BE=\
+clipboard-codepoint-map = U+E0BF=\
