@@ -2,8 +2,9 @@ theme = "GitHub Dark"
 # Increase contrast
 background = black
 foreground = #EEEEEE
-background-opacity = 0.88
-background-blur-radius = 18
+background-opacity = 0.8
+#background-blur-radius = 18
+background-blur = macos-glass-regular
 font-size = 11.5
 # TODO: Is this nice, or annoying?
 #cursor-invert-fg-bg = true
@@ -12,27 +13,31 @@ font-size = 11.5
 macos-titlebar-proxy-icon = hidden
 macos-icon = custom-style
 macos-icon-frame = plastic
-#macos-icon-ghost-color = #32a852
 macos-icon-ghost-color = OliveDrab
 macos-icon-screen-color = black
 
 window-height = 41
 window-width = 150
 window-inherit-working-directory = false
+tab-inherit-working-directory = false
+split-inherit-working-directory = true
 window-padding-color = extend
 
 macos-option-as-alt = left
 
 auto-update-channel = tip
 
-shell-integration-features = no-cursor,no-title
-
-# Temporary, until Ghostty sorts out termcap weirdness over ssh
-term = xterm-256color
+shell-integration-features = no-cursor,no-title,ssh-env
 
 # Shader amusement
 #custom-shader = crt4.glsl
 #custom-shader-animation = true
+
+bell-features = border
+window-step-resize = true
+
+# This doesn't seem to work as expected...instead of boosting the minimum contrast this hard clips anything below this to maximum contrast
+#minimum-contrast = 2.3
 
 # Replace Powerline private-use glyphs with plain-text equivalents when copying
 clipboard-codepoint-map = U+E0A0=BR
