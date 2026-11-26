@@ -488,6 +488,9 @@ if [[ $LC_TERMINAL == 'iTerm2' && -e $ITERM_SHELL_INTEGRATION_LOCATION ]]; then
     source $ITERM_SHELL_INTEGRATION_LOCATION
 fi
 
+#### Load any user modules
+foreach autoload (~/.zsh/modules/autoload/**/autoload.sh(N)); source $autoload; end
+
 #### Finish setting up homebrew
 #
 if [[ ! -z "$HOMEBREW_PREFIX" ]]; then
